@@ -1,0 +1,22 @@
+{
+  "short_name": "Wal-ETZ",
+  "name": "Wall-ETZ Money Manager",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/d.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#492a2a",
+  "background_color": "#B2B2B2"
+}
