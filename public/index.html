@@ -26,8 +26,8 @@
           //create our serviceWorker
           navigator.serviceWorker.register('./serviceworker.js')
           //returns a promise
-          .then((reg)=>{console.log('Success', reg.scope)})
-          .catch((err)=>{console.log('Failure', err)})
+          .then((reg)=>{console.log("Service Worker: Registered")})
+          .catch((err)=>{console.log("Service worker Error", err)})
         })
       }
     </script>
