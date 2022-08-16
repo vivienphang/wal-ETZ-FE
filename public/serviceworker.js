@@ -1,5 +1,5 @@
 //name of our cache storage
-const CACHA_NAME = "version-1";
+const CACHA_NAME = "v1";
 //main url when online and when offline
 const urlsToCache = ["index.html", "offline.html"];
 
@@ -20,6 +20,7 @@ self.addEventListener("install", (event) => {
 
 //Listen for requests
 self.addEventListener("fetch", (event) => {
+  if (!(event.request.url.indexOf("http") === 0)) return;
   event.respondWith(
     caches.match(event.request).then(() => {
       return fetch(event.request).catch(() => {
@@ -46,3 +47,8 @@ self.addEventListener("activate", (event) => {
     })
   );
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////Offline site caching////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// version of the current cahching folders
+// to be used when pushing new cahching
