@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, HStack, Box } from "@chakra-ui/react";
 import AccountsCarousel from "../components/AccountsCarousel.tsx";
 
-const MainPage = () => {
+function MainPage() {
   let navigate = useNavigate();
   return (
     <div>
@@ -18,7 +18,7 @@ const MainPage = () => {
       </Button>
       <Button
         onClick={() => {
-          navigate("/Login");
+          navigate("/login");
         }}
       >
         Login
@@ -32,6 +32,6 @@ const MainPage = () => {
       </Button>
     </div>
   );
-};
+}
 
 export default MainPage;

@@ -14,7 +14,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const Signup = () => {
+function Signup() {
   // handle email input error message
   const [input, setInput] = useState("");
 
@@ -51,6 +51,6 @@ const Signup = () => {
       </Container>
     </>
   );
-};
+}
 
 export default Signup;
