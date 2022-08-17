@@ -9,7 +9,7 @@ import {
   Container,
 } from "@chakra-ui/react";
 
-const Navbar = () => {
+function Navbar() {
   return (
     <Container maxW="550px" bg="gray.400" color="white">
       <Flex minWidth="max-content" alignItems="center" gap="2">
@@ -24,6 +24,6 @@ const Navbar = () => {
       </Flex>
     </Container>
   );
-};
+}
 
 export default Navbar;

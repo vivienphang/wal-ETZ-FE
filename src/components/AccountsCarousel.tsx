@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, HStack, Stack, VStack } from "@chakra-ui/react";
 
-const AccountsCarousel = () => {
+function AccountsCarousel() {
   return (
     <Stack direction={["row"]} spacing="24px">
       <Box w="40px" h="40px" bg="yellow.200">
@@ -15,6 +15,6 @@ const AccountsCarousel = () => {
       </Box>
     </Stack>
   );
-};
+}
 
 export default AccountsCarousel;
