@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./components/Login.tsx";
-import MainPage from "./components/MainPage.tsx";
-import Records from "./components/Records.tsx";
-import ErrorPage from "./components/ErrorPage.tsx";
+import Login from "./pages/Login.tsx";
+import MainPage from "./pages/MainPage.tsx";
+import Records from "./pages/Records.tsx";
+import ErrorPage from "./pages/ErrorPage.tsx";
 
 function App() {
   return (
