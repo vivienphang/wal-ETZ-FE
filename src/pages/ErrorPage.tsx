@@ -1,8 +1,9 @@
+/* eslint-disable react/button-has-type */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ErrorPage = () => {
-  let navigate = useNavigate();
+function ErrorPage() {
+  const navigate = useNavigate();
   return (
     <div>
       <h1>This is the error handling page</h1>
@@ -29,6 +30,6 @@ const ErrorPage = () => {
       </button>
     </div>
   );
-};
+}
 
 export default ErrorPage;

@@ -1,10 +1,11 @@
+/* eslint-disable react/function-component-definition */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, HStack, Box } from "@chakra-ui/react";
 import AccountsCarousel from "../components/AccountsCarousel.tsx";
 
 const MainPage = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div>
       <h1>This is the main Page</h1>
@@ -18,17 +19,17 @@ const MainPage = () => {
       </Button>
       <Button
         onClick={() => {
-          navigate("/Login");
+          navigate("/login");
         }}
       >
         Login
       </Button>
       <Button
         onClick={() => {
-          navigate("/records");
+          navigate("/signup");
         }}
       >
-        Records
+        SignUp
       </Button>
     </div>
   );

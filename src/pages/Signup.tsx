@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar.tsx";
-
 import {
   FormControl,
   FormLabel,
@@ -13,8 +11,9 @@ import {
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
+import Navbar from "../components/Navbar.tsx";
 
-const Signup = () => {
+function Signup() {
   // handle email input error message
   const [input, setInput] = useState("");
 
@@ -34,7 +33,7 @@ const Signup = () => {
             <Input type="email" value={input} onChange={handleInputChange} />
             {!isError ? (
               <FormHelperText>
-                Enter the email you'd like to receive the newsletter on.
+                Enter the email you would like to receive the newsletter on.
               </FormHelperText>
             ) : (
               <FormErrorMessage>Email is required.</FormErrorMessage>
@@ -51,6 +50,6 @@ const Signup = () => {
       </Container>
     </>
   );
-};
+}
 
 export default Signup;
