@@ -5,6 +5,7 @@ import Login from "./pages/Login.tsx";
 import MainPage from "./pages/MainPage.tsx";
 import Records from "./pages/Records.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
+import Signup from "./pages/Signup.tsx";
 
 function App() {
   return (
