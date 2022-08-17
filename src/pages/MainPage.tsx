@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { VStack, Box } from "@chakra-ui/react";
+import { Button, HStack, Box } from "@chakra-ui/react";
 import AccountsCarousel from "../components/AccountsCarousel.tsx";
 
 const MainPage = () => {
@@ -9,27 +9,27 @@ const MainPage = () => {
     <div>
       <h1>This is the main Page</h1>
       <AccountsCarousel />
-      <button
+      <Button
         onClick={() => {
           navigate("/");
         }}
       >
         Main Page
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           navigate("/Login");
         }}
       >
         Login
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           navigate("/records");
         }}
       >
         Records
-      </button>
+      </Button>
     </div>
   );
 };
