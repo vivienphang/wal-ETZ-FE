@@ -3,8 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Box } from "@chakra-ui/react";
 import AccountsCarousel from "../components/AccountsCarousel.tsx";
-import Filter from "../components/Filter.tsx";
-import Charts from "../components/Charts.tsx";
+import Charts from "../components/Charts2.tsx";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -13,6 +12,7 @@ const MainPage = () => {
       bg="teal.200"
       w="100vw"
       h="100vh"
+      fontSize=""
       display="flex"
       flexDirection={["column", "row"]}
       justifyContent="space-around"
@@ -43,6 +43,13 @@ const MainPage = () => {
           }}
         >
           SignUp
+        </Button>
+        <Button
+          onClick={() => {
+            navigate("/balanceChart");
+          }}
+        >
+          BalanceChart
         </Button>
       </Box>
     </Box>
