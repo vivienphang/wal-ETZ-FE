@@ -1,19 +1,19 @@
 import React from "react";
-import { Box, HStack, Stack, VStack } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 function AccountsCarousel() {
   return (
-    <Stack direction={["row"]} spacing="24px">
-      <Box w="40px" h="40px" bg="yellow.200">
+    <Flex border="solid" justify="space-around" align="center" w="80%" h="20%">
+      <Flex w="20%" h="30%" bg="yellow.200" justify="center">
         1
-      </Box>
-      <Box w="40px" h="40px" bg="tomato">
+      </Flex>
+      <Flex w="20%" h="30%" bg="tomato" justify="center">
         2
-      </Box>
-      <Box w="40px" h="40px" bg="pink.100">
+      </Flex>
+      <Flex w="20%" h="30%" bg="pink.100" justify="center">
         3
-      </Box>
-    </Stack>
+      </Flex>
+    </Flex>
   );
 }
 

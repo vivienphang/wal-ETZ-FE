@@ -1,13 +1,6 @@
 import React from "react";
-import {
-  Flex,
-  Box,
-  Spacer,
-  ButtonGroup,
-  Button,
-  Heading,
-  Container,
-} from "@chakra-ui/react";
+// eslint-disable-next-line object-curly-newline
+import { Flex, Box, Spacer, Heading, Container } from "@chakra-ui/react";
 
 function Navbar() {
   return (

@@ -6,6 +6,7 @@ import MainPage from "./pages/MainPage.tsx";
 import Records from "./pages/Records.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Signup from "./pages/Signup.tsx";
+import BalanceChart from "./components/BalanceChart.tsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/records" element={<Records />} />
+          <Route path="/balanceChart" element={<BalanceChart />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
