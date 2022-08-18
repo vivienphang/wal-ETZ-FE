@@ -1,22 +1,36 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-
 import { Chart, registerables } from "chart.js";
+// eslint-disable-next-line import/extensions
+import { balanceData } from "../data.js";
 
 Chart.register(...registerables);
 
 export default function BalanceChart() {
+  const yearList = balanceData.map((year, index) => {
+    console.log(balanceData[index].year);
+    return balanceData[index].year;
+  });
+  console.log(yearList);
   return (
     <div>
       <Bar
         data={{
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          labels: balanceData.map((year, index) => balanceData[index].year),
           datasets: [
             {
-              label: "# of Votes",
-              data: [12, 19, 3, 5, 2, 3],
+              label: "Balance",
+              data: balanceData.map(
+                // eslint-disable-next-line comma-dangle
+                (balance, index) => balanceData[index].balance
+              ),
+              backgroundColor: ["#AA1155"],
+              borderWidth: 6,
             },
           ],
+        }}
+        options={{
+          responsive: true,
         }}
       />
     </div>

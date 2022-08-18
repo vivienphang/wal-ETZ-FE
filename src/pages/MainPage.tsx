@@ -9,14 +9,17 @@ const MainPage = () => {
   const navigate = useNavigate();
   return (
     <Box
-      bg="teal.200"
-      w="100vw"
-      h="100vh"
+      bg="#BDE4A8"
+      maxW="5000px"
+      maxH="5000px"
+      w="99vw"
+      h="99vh"
       display="flex"
-      flexDirection={["column", "row"]}
+      flexDirection={["column", "column", "row"]}
       justifyContent="space-around"
       // alignContent="center"
       alignItems="center"
+      fontSize={["30px"]}
     >
       <h1>This is the main Page</h1>
       <AccountsCarousel />
