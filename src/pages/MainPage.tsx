@@ -12,7 +12,6 @@ const MainPage = () => {
       bg="teal.200"
       w="100vw"
       h="100vh"
-      fontSize=""
       display="flex"
       flexDirection={["column", "row"]}
       justifyContent="space-around"
