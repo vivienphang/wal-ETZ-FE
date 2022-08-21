@@ -1,29 +1,30 @@
 /* eslint-disable react/function-component-definition */
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Box } from "@chakra-ui/react";
+import { Button, Box, Wrap } from "@chakra-ui/react";
 import AccountsCarousel from "../components/AccountsCarousel.tsx";
-import Charts from "../components/Charts2.tsx";
+import Filter from "../components/Filter.tsx";
+import BalanceChart from "../components/BalanceChart.tsx";
+import EIPieChart from "../components/EIPieChart.tsx";
 
 const MainPage = () => {
   const navigate = useNavigate();
   return (
-    <Box
+    <Wrap
       bg="#BDE4A8"
-      maxW="5000px"
-      maxH="5000px"
-      w="99vw"
-      h="99vh"
-      display="flex"
-      flexDirection={["column", "column", "row"]}
-      justifyContent="space-around"
-      // alignContent="center"
-      alignItems="center"
+      height="100%"
+      // display="flex"
+      // flexDirection={["column", "column", "row"]}
+      // justifyContent="space-around"
+      // // alignContent="center"
+      // alignItems="center"
       fontSize={["30px"]}
     >
       <h1>This is the main Page</h1>
       <AccountsCarousel />
-      <Charts />
+      <Filter />
+      <BalanceChart />
+      <EIPieChart />
       <Box>
         <Button
           onClick={() => {
@@ -54,7 +55,7 @@ const MainPage = () => {
           BalanceChart
         </Button>
       </Box>
-    </Box>
+    </Wrap>
   );
 };
 

@@ -1,10 +1,14 @@
+/* eslint-disable import/order */
 import React from "react";
+import ExpensePie from "./ExpensePie.tsx";
+import IncomePie from "./IncomePie.tsx";
+import { HStack } from "@chakra-ui/react";
 
 export default function EIPieChart() {
   return (
-    <div>
-      <h1>Expense Pie Charts</h1>
-      <h1>Income Pie charts</h1>
-    </div>
+    <HStack border="solid">
+      <ExpensePie />
+      <IncomePie />
+    </HStack>
   );
 }
