@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
@@ -7,10 +8,7 @@ import { balanceData } from "../data.js";
 Chart.register(...registerables);
 
 export default function BalanceChart() {
-  const yearList = balanceData.map((year, index) => {
-    console.log(balanceData[index].year);
-    return balanceData[index].year;
-  });
+  const yearList = balanceData.map((year, index) => balanceData[index].year);
   console.log(yearList);
   return (
     <div>
@@ -30,6 +28,7 @@ export default function BalanceChart() {
           ],
         }}
         options={{
+          indexAxis: "y",
           responsive: true,
         }}
       />
