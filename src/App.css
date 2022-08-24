@@ -1,4 +1,9 @@
-body {
-  background-color: bisque;
+.App {
+  background-color: rgb(249, 223, 191);
+  text-align: center;
+  height: 100vh;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-
