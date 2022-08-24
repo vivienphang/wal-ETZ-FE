@@ -1,37 +1,50 @@
 /* eslint-disable react/function-component-definition */
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, HStack, Box } from "@chakra-ui/react";
-import AccountsCarousel from "../components/AccountsCarousel.tsx";
+import { Button, ButtonGroup } from "@chakra-ui/react";
+
+// import AccountsCarousel from "../components/AccountsCarousel.tsx";
 
 function MainPage() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const google = () => {
+    console.log("button clicked");
+    window.open("http://localhost:7000/auth/google");
+  };
 
   return (
-    <div>
-      <h1>This is the main Page</h1>
-      <AccountsCarousel />
-      <Button
+    <div className="MainPage">
+      {/* <AccountsCarousel /> */}
+      {/* <Button
         onClick={() => {
           navigate("/");
         }}
       >
         Main Page
-      </Button>
-      <Button
+      </Button> */}
+      {/* <Button
         onClick={() => {
           navigate("/login");
         }}
       >
         Login
-      </Button>
+      </Button> */}
+      {/* <Button>Google</Button> */}
       <Button
         onClick={() => {
           navigate("/signup");
         }}
       >
-        SignUp
+        Sign up
       </Button>
+      <br />
+      <ButtonGroup gap="5">
+        <Button colorScheme="facebook" onClick={google}>
+          {" "}
+          Sign in with Google
+        </Button>
+      </ButtonGroup>
     </div>
   );
 }
