@@ -7,8 +7,11 @@ import Filter from "../components/Filter.tsx";
 import BalanceChart from "../components/BalanceChart.tsx";
 import EIPieChart from "../components/EIPieChart.tsx";
 
-const MainPage = () => {
+// import AccountsCarousel from "../components/AccountsCarousel.tsx";
+
+function MainPage() {
   const navigate = useNavigate();
+
   return (
     <Wrap
       bg="#BDE4A8"
@@ -57,6 +60,6 @@ const MainPage = () => {
       </Box>
     </Wrap>
   );
-};
+}
 
 export default MainPage;
