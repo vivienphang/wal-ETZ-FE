@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
+axios.defaults.withCredentials = true;
+
 function Login() {
   // initialize states
   // const [user, setUser] = useState([]);
@@ -10,9 +12,11 @@ function Login() {
 
   const googleLogin = () => {
     console.log("button clicked");
+    const backEndUrl = process.env.REACT_APP_BACKEND_URL;
+    console.log("this is backend URL", backEndUrl);
     // axios call to get backend route: auth/google
     try {
-      axios.get("REACT_APP_BACKEND_URL/auth/google");
+      axios.get(`${backEndUrl}/auth/google`);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log("this is error:", error);
