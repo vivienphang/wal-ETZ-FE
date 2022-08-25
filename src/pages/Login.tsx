@@ -4,10 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 function Login() {
+  // initialize states
+  // const [user, setUser] = useState([]);
   const navigate = useNavigate();
+
   const googleLogin = () => {
     console.log("button clicked");
+    // axios call to get backend route: auth/google
+    try {
+      axios.get("REACT_APP_BACKEND_URL/auth/google");
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log("this is error:", error);
+    }
   };
+
   return (
     <div>
       <div className="LoginPage">

@@ -1,12 +1,10 @@
-/* eslint-disable import/order */
-/* eslint-disable import/extensions */
-/* eslint-disable no-console */
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import { randomColor } from "randomcolor";
-import { expenses } from "../data.js";
 import { Box } from "@chakra-ui/react";
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { expenses } from "../data.js";
 
 Chart.register(...registerables);
 
