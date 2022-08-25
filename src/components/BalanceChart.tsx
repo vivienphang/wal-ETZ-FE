@@ -8,8 +8,6 @@ import { balanceData } from "../data.js";
 Chart.register(...registerables);
 
 export default function BalanceChart() {
-  const yearList = balanceData.map((year, index) => balanceData[index].year);
-  console.log(yearList);
   return (
     <div>
       <Bar

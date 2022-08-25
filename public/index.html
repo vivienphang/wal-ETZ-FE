@@ -16,20 +16,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-
-    <script>
-      //check if serviceWorker is supported
-     //check if serviceWorker is supported
-      if('serviceWorker' in navigator){
-        //add an event listener on page load
-        window.addEventListener('load', ()=>{
-          //create our serviceWorker
-          navigator.serviceWorker.register('./serviceworker.js')
-          //returns a promise
-          .then((reg)=>{console.log("Service Worker: Registered")})
-          .catch((err)=>{console.log("Service worker Error", err)})
-        })
-      }
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
