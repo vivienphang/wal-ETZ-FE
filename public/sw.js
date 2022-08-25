@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const version = "1.0";
+const version = "1.23124";
 const assets = [
   "/",
   "index.html",
@@ -30,10 +30,9 @@ self.addEventListener("activate", (e) => {
 });
 
 // Static Cache Strategy
-const staticCache = (req) =>
-  caches.match(req).then((cachedRes) => {
+const staticCache = (req) => {
+  const p = caches.match(req).then((cachedRes) => {
     if (cachedRes) return cachedRes;
-
     // If no cache go to network to get files
     return fetch(req).then((networkRes) => {
       // Update the Cache with new files from network
@@ -45,7 +44,8 @@ const staticCache = (req) =>
       });
     });
   });
-
+  return p;
+};
 //
 
 self.addEventListener("fetch", (e) => {
