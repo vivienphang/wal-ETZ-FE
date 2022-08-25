@@ -17,7 +17,6 @@ function ExpensePie() {
     }
     return colorArr;
   };
-  console.log(colorList());
   return (
     <Box>
       <h1>Expense Pie</h1>
