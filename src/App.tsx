@@ -7,6 +7,7 @@ import Records from "./pages/Records.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Signup from "./pages/Signup.tsx";
 import BalanceChart from "./components/BalanceChart.tsx";
+import BalanceInput from "./pages/BalanceInput.tsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/records" element={<Records />} />
           <Route path="/balanceChart" element={<BalanceChart />} />
+          <Route path="/newAccount" element={<BalanceInput />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>

@@ -57,6 +57,13 @@ function MainPage() {
         >
           BalanceChart
         </Button>
+        <Button
+          onClick={() => {
+            navigate("/newAccount");
+          }}
+        >
+          new account
+        </Button>
       </Box>
     </Wrap>
   );

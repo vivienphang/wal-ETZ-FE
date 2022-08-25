@@ -12,7 +12,7 @@ Chart.register(...registerables);
 
 function ExpensePie() {
   const colorList = () => {
-    const colorArr = [];
+    const colorArr: any[] = [];
     for (let i = 0; i < expenses.length; i += 1) {
       const randomCol = randomColor();
       colorArr.push(randomCol);
