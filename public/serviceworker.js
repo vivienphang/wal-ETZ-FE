@@ -1,8 +1,8 @@
-//name of our cache storage
+// name of our cache storage
 const cacheName = "v1";
 
-//calling install event
-//self is this service worker
+// calling install event
+// self is this service worker
 // const self = this;
 
 self.addEventListener("install", (e) => {
@@ -12,7 +12,7 @@ self.addEventListener("install", (e) => {
 //activate event
 self.addEventListener("activate", (e) => {
   console.log("Service Worker: Activated");
-  //Remove unwanted caches here
+  // Remove unwanted caches here
   e.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
