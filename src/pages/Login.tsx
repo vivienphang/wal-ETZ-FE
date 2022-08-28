@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 axios.defaults.withCredentials = true;
+
 function Login() {
   const backEndUrl = process.env.REACT_APP_BACKEND_URL;
   // initialize states
@@ -11,12 +12,7 @@ function Login() {
   const navigate = useNavigate();
   const googleLogin = () => {
     console.log("button clicked");
-    try {
-      window.location.href = `${backEndUrl}/auth/google`;
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log("this is error:", error);
-    }
+    window.location.href = `${backEndUrl}/auth/google`;
   };
 
   return (
