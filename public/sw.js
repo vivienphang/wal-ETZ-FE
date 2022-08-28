@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const version = "1.23124";
+const version = "1.3";
 const assets = [
   "/",
   "index.html",
@@ -46,36 +46,10 @@ const staticCache = (req) => {
   });
   return p;
 };
-//
 
 self.addEventListener("fetch", (e) => {
   // App Shell
   if (e.request.url.match(location.origin)) {
     e.respondWith(staticCache(e.request));
   }
-
-  // else if (
-  //   e.request.url.match("an api call or axios call that we may want to cache")
-  // ) {
-  //   e.respondWith(fallbackCache(e.request));
-  // }
 });
-
-// check network first then check cache
-// const fallbackCache = (req) =>
-//   // Try Network
-
-//   fetch(req)
-//     .then((networkRes) => {
-//       // Check Res is ok go to cache
-//       if (!networkRes.ok) throw "Fetch Error";
-//       //if network goes through add files to cache
-//       caches
-//         .open(`static-${version}`)
-//         .then((cache) => cache.put(req, networkRes.clone()));
-//       return networkRes;
-//     })
-//     .catch((err) => {
-//       // if there is an error in getting files from network fall back on caches to find those files
-//       caches.match(req);
-//     });
