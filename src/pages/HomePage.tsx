@@ -32,7 +32,6 @@ function HomePage() {
       <BalanceChart />
       <EIPieChart />
     </Wrap>
-    // </div>
   );
 }
 
