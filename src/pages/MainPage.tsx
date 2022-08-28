@@ -2,15 +2,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Box, Wrap } from "@chakra-ui/react";
+import axios from "axios";
+
 import AccountsCarousel from "../components/AccountsCarousel.tsx";
 import Filter from "../components/Filter.tsx";
 import BalanceChart from "../components/BalanceChart.tsx";
 import EIPieChart from "../components/EIPieChart.tsx";
 
-// import AccountsCarousel from "../components/AccountsCarousel.tsx";
-
 function MainPage() {
   const navigate = useNavigate();
+  const whatever = async () => {
+    const d = {
+      id: "6305beb943e3928b3f62b640",
+    };
+    const data = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
+      d
+    );
+    console.log(data);
+  };
 
   return (
     <Wrap
@@ -57,6 +67,7 @@ function MainPage() {
         >
           BalanceChart
         </Button>
+        <Button onClick={whatever}>BalanceChart</Button>
       </Box>
     </Wrap>
   );
