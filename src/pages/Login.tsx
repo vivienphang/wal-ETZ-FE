@@ -4,17 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 
 axios.defaults.withCredentials = true;
-
 function Login() {
+  const backEndUrl = process.env.REACT_APP_BACKEND_URL;
   // initialize states
   // const [user, setUser] = useState([]);
   const navigate = useNavigate();
-
   const googleLogin = () => {
     console.log("button clicked");
-
-    const backEndUrl = process.env.REACT_APP_BACKEND_URL;
-    console.log("this is backend URL", backEndUrl);
     try {
       window.location.href = `${backEndUrl}/auth/google`;
     } catch (error) {
@@ -27,6 +23,7 @@ function Login() {
     <div>
       <div className="LoginPage">
         <h1>Login Page</h1>
+
         <Button
           onClick={() => {
             navigate("/signup");
