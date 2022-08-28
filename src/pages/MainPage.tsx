@@ -31,14 +31,14 @@ function MainPage() {
       <Box>
         <Button
           onClick={() => {
-            navigate("/");
+            navigate("/home");
           }}
         >
           Main Page
         </Button>
         <Button
           onClick={() => {
-            navigate("/login");
+            navigate("/");
           }}
         >
           Login
