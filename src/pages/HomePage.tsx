@@ -9,8 +9,6 @@ import EIPieChart from "../components/EIPieChart.tsx";
 import Navbar from "../components/Navbar.tsx";
 
 function HomePage() {
-  // const navigate = useNavigate();
-
   return (
     <Wrap
       bg="#BDE4A8"
