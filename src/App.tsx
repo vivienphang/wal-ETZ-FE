@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login.tsx";
-import MainPage from "./pages/MainPage.tsx";
+import HomePage from "./pages/HomePage.tsx";
 import Records from "./pages/Records.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import Signup from "./pages/Signup.tsx";
@@ -15,8 +15,8 @@ function App() {
       <MainProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/records" element={<Records />} />
             <Route path="/balanceChart" element={<BalanceChart />} />
