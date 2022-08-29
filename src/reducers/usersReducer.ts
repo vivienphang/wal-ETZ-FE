@@ -2,7 +2,7 @@ import axios from "axios";
 import ACTIONS from "./actions.ts";
 
 axios.defaults.withCredentials = true;
-const backEndUrl = `${process.env.BACK_END_URL}`;
+const backEndUrl = `${process.env.REACT_APP_BACKEND_URL}`;
 
 export const initialUserState = {};
 // Getting all the user data from the backend
@@ -27,6 +27,8 @@ export const getUser = async () => {
   const data = {
     id: "6305beb943e3928b3f62b640",
   };
+  // get from local storage
+  // const { id } = localstorage.getitem("id");
   const url = `${backEndUrl}/users/populateAccounts`;
   try {
     const allData = await axios.post(url, data);

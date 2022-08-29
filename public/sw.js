@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const version = "1.3";
+const version = "1.0";
 const assets = [
   "/",
   "index.html",
