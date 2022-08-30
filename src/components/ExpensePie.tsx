@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import { randomColor } from "randomcolor";
 import { Box } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { expenses } from "../data.js";
+import { RecordsContext } from "../provider/mainProvider.tsx";
 
 Chart.register(...registerables);
 
 function ExpensePie() {
+  const { records, dispatchRecords } = useContext(RecordsContext);
   const colorList = () => {
     const colorArr = [];
     for (let i = 0; i < expenses.length; i += 1) {
@@ -17,6 +19,7 @@ function ExpensePie() {
     }
     return colorArr;
   };
+  console.log(records);
   return (
     <Box>
       <h1>Expense Pie</h1>

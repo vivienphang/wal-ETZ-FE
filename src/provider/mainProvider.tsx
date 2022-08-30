@@ -1,5 +1,13 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useReducer, createContext, useEffect } from "react";
+
+// Import data from axios call
+import {
+  userData,
+  accountsData,
+  recordsData,
+  getData,
+} from "../reducers/initialisingReducers.ts";
 import {
   initialUserState,
   usersReducer,
@@ -10,12 +18,7 @@ import {
   accountsReducer,
   getAccounts,
 } from "../reducers/accountsReducer.ts";
-import {
-  initialRecordsState,
-  recordsReducer,
-  getRecords,
-} from "../reducers/recordsReducer.ts";
-
+// Create Context
 export const UsersContext = React.createContext();
 export const AccountsContext = React.createContext();
 export const RecordsContext = React.createContext();
@@ -27,23 +30,17 @@ export default function MainProvider({ children }) {
     accountsReducer,
     initialAccountsState
   );
-  const [records, dispatchRecords] = useReducer(
-    recordsReducer,
-    initialRecordsState
-  );
   // run these functions on every render
   // all the reducers will return the state with the new data from the db
-  useEffect(() => {
-    getUser();
-    getAccounts();
-    getRecords();
+  useEffect(async () => {
+    await getData();
+    dispatchUsers(getUser());
+    dispatchAccounts(getAccounts());
   }, []);
   return (
     <UsersContext.Provider value={{ users, dispatchUsers }}>
       <AccountsContext.Provider value={{ accounts, dispatchAccounts }}>
-        <RecordsContext.Provider value={{ records, dispatchRecords }}>
-          {children}
-        </RecordsContext.Provider>
+        {children}
       </AccountsContext.Provider>
     </UsersContext.Provider>
   );

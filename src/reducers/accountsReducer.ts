@@ -1,8 +1,8 @@
 import axios from "axios";
 import ACTIONS from "./actions.ts";
+import { accountsData } from "../reducers/initialisingReducers.ts";
 
 axios.defaults.withCredentials = true;
-const backEndUrl = `${process.env.REACT_APP_BACKEND_URL}`;
 
 export const initialAccountsState = [];
 
@@ -19,17 +19,7 @@ export const accountsReducer = async (state, action) => {
 };
 
 export const getAccounts = async () => {
-  let accountsData;
-  const data = {
-    id: "6305beb943e3928b3f62b640",
-  };
-  const url = `${backEndUrl}/users/populateAccounts`;
-  try {
-    const allData = await axios.post(url, data);
-    accountsData = allData.data.accounts;
-  } catch (err) {
-    console.log("Error in getAccountsData", err);
-  }
+  console.log(accountsData);
   return {
     type: ACTIONS.RETRIEVE,
     payload: {
