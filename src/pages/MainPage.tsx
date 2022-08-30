@@ -2,10 +2,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Box, Wrap } from "@chakra-ui/react";
-import AccountsCarousel from "../components/AccountsCarousel.tsx";
-import Filter from "../components/Filter.tsx";
-import BalanceChart from "../components/BalanceChart.tsx";
-import EIPieChart from "../components/EIPieChart.tsx";
+import AccountsCarousel from "../components/AccountsCarousel";
+import Filter from "../components/Filter";
+import BalanceChart from "../components/BalanceChart";
+import EIPieChart from "../components/EIPieChart";
 
 // import AccountsCarousel from "../components/AccountsCarousel.tsx";
 

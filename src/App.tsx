@@ -1,13 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/Login.tsx";
-import MainPage from "./pages/MainPage.tsx";
-import Records from "./pages/Records.tsx";
-import ErrorPage from "./pages/ErrorPage.tsx";
-import Signup from "./pages/Signup.tsx";
-import BalanceChart from "./components/BalanceChart.tsx";
-import BalanceInput from "./pages/BalanceInput.tsx";
+import Login from "./pages/Login";
+import MainPage from "./pages/MainPage";
+import Records from "./pages/Records";
+import ErrorPage from "./pages/ErrorPage";
+import Signup from "./pages/Signup";
+import BalanceChart from "./components/BalanceChart";
+import InitAccount from "./pages/InitAccount";
+import NewAccount from "./pages/NewAccount";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/records" element={<Records />} />
           <Route path="/balanceChart" element={<BalanceChart />} />
-          <Route path="/newAccount" element={<BalanceInput />} />
+          <Route path="/getStarted" element={<InitAccount />} />
+          <Route path="/newAccount" element={<NewAccount />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>

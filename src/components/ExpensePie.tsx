@@ -1,7 +1,7 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { randomColor } from "randomcolor";
+import randomColor from "randomcolor";
 import { Box } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { expenses } from "../data.js";

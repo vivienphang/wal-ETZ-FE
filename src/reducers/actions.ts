@@ -4,4 +4,4 @@ const ACTIONS = {
   UPDATE: "UPDATE",
   DELETE: "DELETE",
 };
-module.exports = ACTIONS;
+export default ACTIONS;
