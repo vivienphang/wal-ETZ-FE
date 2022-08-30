@@ -11,13 +11,15 @@ import {
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "../components/Navbar";
 
 function Signup() {
   // handle email input error message
   const [input, setInput] = useState("");
 
-  const handleInputChange = (event) => setInput(event.target.value);
+  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => setInput(event.target.value);
 
   const isError = input === "";
 

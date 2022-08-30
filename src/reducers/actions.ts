@@ -6,4 +6,4 @@ const ACTIONS = {
   DELETE: "DELETE",
   ERROR: "ERROR",
 };
-module.exports = ACTIONS;
+export default ACTIONS;

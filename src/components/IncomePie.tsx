@@ -3,7 +3,7 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { randomColor } from "randomcolor";
+import randomColor from "randomcolor";
 
 Chart.register(...registerables);
 // eslint-disable-next-line import/first, import/extensions
@@ -11,7 +11,7 @@ import { income } from "../data.js";
 
 export default function IncomePie() {
   const colorList = () => {
-    const colorArr = [];
+    const colorArr: any[] = [];
     for (let i = 0; i < income.length; i += 1) {
       const randomCol = randomColor();
       colorArr.push(randomCol);
