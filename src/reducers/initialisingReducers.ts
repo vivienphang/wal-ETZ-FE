@@ -24,9 +24,8 @@ export const getData = async () => {
     friends: data.data.data.friends,
     friendsRequest: data.data.data.friendsRequest,
   };
-  console.log(data);
   accountsData = data.data.data.accounts.forEach((account) => {
-    return account;
+    console.log(account);
   });
   console.log(accountsData);
 };

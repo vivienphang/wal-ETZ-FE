@@ -1,20 +1,26 @@
 import axios from "axios";
-import ACTIONS from "./actions.ts";
-import { accountsData } from "../reducers/initialisingReducers.ts";
+import ACTIONS from "./actions";
+import { accountsData } from "../reducers/initialisingReducers";
 
-axios.defaults.withCredentials = true;
+import {
+  accountReducerInterface,
+  accountActionInterface,
+} from "../types/reducerInterface";
 
 export const initialAccountsState = [];
 
-export const accountsReducer = async (state, action) => {
+export const accountsReducer = async (
+  accountState: accountReducerInterface[],
+  action: accountActionInterface
+) => {
   switch (action.type) {
     case ACTIONS.GET:
-      return state;
+      return accountState;
     case ACTIONS.RETRIEVE:
-      return [...action.payload];
+      return [...action.payload.data];
     default:
       console.log("Need something here");
-      return state;
+      return accountState;
   }
 };
 
