@@ -9,6 +9,16 @@ import EIPieChart from "../components/EIPieChart.tsx";
 import Navbar from "../components/Navbar.tsx";
 
 function HomePage() {
+  // const whatever = async () => {
+  //   const d = {
+  //     id: "6305beb943e3928b3f62b640",
+  //   };
+  //   const data = await axios.post(
+  //     `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
+  //     d
+  //   );
+  //   console.log(data);
+  //   };
   return (
     <Wrap
       bg="#BDE4A8"
