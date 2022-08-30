@@ -4,21 +4,21 @@ import {
   initialUserState,
   usersReducer,
   getUser,
-} from "../reducers/usersReducer.ts";
+} from "../reducers/usersReducer";
 import {
   initialAccountsState,
   accountsReducer,
   getAccounts,
-} from "../reducers/accountsReducer.ts";
+} from "../reducers/accountsReducer";
 import {
   initialRecordsState,
   recordsReducer,
   getRecords,
-} from "../reducers/recordsReducer.ts";
+} from "../reducers/recordsReducer";
 
-export const UsersContext = React.createContext();
-export const AccountsContext = React.createContext();
-export const RecordsContext = React.createContext();
+export const UsersContext = React.createContext("");
+export const AccountsContext = React.createContext("");
+export const RecordsContext = React.createContext("");
 
 // eslint-disable-next-line react/prop-types
 export default function MainProvider({ children }) {

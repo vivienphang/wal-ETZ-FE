@@ -1,5 +1,5 @@
 import axios from "axios";
-import ACTIONS from "./actions.ts";
+import ACTIONS from "./actions";
 
 axios.defaults.withCredentials = true;
 const backEndUrl = `${process.env.REACT_APP_BACKEND_URL}`;

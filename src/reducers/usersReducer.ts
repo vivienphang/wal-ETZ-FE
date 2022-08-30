@@ -1,5 +1,5 @@
 import axios from "axios";
-import ACTIONS from "./actions.ts";
+import ACTIONS from "./actions";
 
 axios.defaults.withCredentials = true;
 const backEndUrl = `${process.env.REACT_APP_BACKEND_URL}`;
@@ -8,7 +8,10 @@ export const initialUserState = {};
 // Getting all the user data from the backend
 // This is the state that we are using in REACT
 // Actual data is from the functions below
-export const usersReducer = async (state, action) => {
+export const usersReducer = async (
+  state: any,
+  action: { type: any; payload: any }
+) => {
   switch (action.type) {
     case ACTIONS.GET:
       return state;
