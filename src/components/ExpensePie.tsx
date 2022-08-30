@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import randomColor from "randomcolor";

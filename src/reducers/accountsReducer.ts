@@ -1,35 +1,31 @@
 import axios from "axios";
-import ACTIONS from "./actions.ts";
+import ACTIONS from "./actions";
+import { accountsData } from "../reducers/initialisingReducers";
 
-axios.defaults.withCredentials = true;
-const backEndUrl = `${process.env.REACT_APP_BACKEND_URL}`;
+import {
+  accountReducerInterface,
+  accountActionInterface,
+} from "../types/reducerInterface";
 
 export const initialAccountsState = [];
 
-export const accountsReducer = async (state, action) => {
+export const accountsReducer = async (
+  accountState: accountReducerInterface[],
+  action: accountActionInterface
+) => {
   switch (action.type) {
     case ACTIONS.GET:
-      return state;
+      return accountState;
     case ACTIONS.RETRIEVE:
-      return [...action.payload];
+      return [...action.payload.data];
     default:
       console.log("Need something here");
-      return state;
+      return accountState;
   }
 };
 
 export const getAccounts = async () => {
-  let accountsData;
-  const data = {
-    id: "6305beb943e3928b3f62b640",
-  };
-  const url = `${backEndUrl}/users/populateAccounts`;
-  try {
-    const allData = await axios.post(url, data);
-    accountsData = allData.data.accounts;
-  } catch (err) {
-    console.log("Error in getAccountsData", err);
-  }
+  console.log(accountsData);
   return {
     type: ACTIONS.RETRIEVE,
     payload: {
