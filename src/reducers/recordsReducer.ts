@@ -2,7 +2,7 @@ import axios from "axios";
 import ACTIONS from "./actions.ts";
 
 axios.defaults.withCredentials = true;
-const backEndUrl = `${process.env.BACK_END_URL}`;
+const backEndUrl = `${process.env.REACT_APP_BACKEND_URL}`;
 
 export const initialRecordsState = [];
 

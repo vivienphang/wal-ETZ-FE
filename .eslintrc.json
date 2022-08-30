@@ -16,6 +16,17 @@
   "rules": {
     "quotes": "off",
     "react/jsx-filename-extension": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "no-console": "off",
+    "import/extensions": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["src/", "node_modules"],
+        "typescript": {}
+      }
+    }
   }
 }

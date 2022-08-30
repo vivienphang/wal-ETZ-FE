@@ -2,11 +2,11 @@
 import React from "react";
 // import { useNavigate } from "react-router-dom";
 import { Wrap } from "@chakra-ui/react";
-import AccountsCarousel from "../components/AccountsCarousel.tsx";
-import Filter from "../components/Filter.tsx";
-import BalanceChart from "../components/BalanceChart.tsx";
-import EIPieChart from "../components/EIPieChart.tsx";
-import Navbar from "../components/Navbar.tsx";
+import AccountsCarousel from "../components/AccountsCarousel";
+import Filter from "../components/Filter";
+import BalanceChart from "../components/BalanceChart";
+import EIPieChart from "../components/EIPieChart";
+import Navbar from "../components/Navbar";
 
 function HomePage() {
   // const whatever = async () => {
