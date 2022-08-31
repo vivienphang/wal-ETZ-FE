@@ -4,7 +4,6 @@ import { Select, Divider } from "@chakra-ui/react";
 import { expenseCategories, incomeCategories } from "../constants/categoryList";
 
 export default function CategoryList() {
-  console.log(incomeCategories);
   const incomeList = incomeCategories.map((category) => (
     <option key={category.incomeName}>{category.incomeName}</option>
   ));

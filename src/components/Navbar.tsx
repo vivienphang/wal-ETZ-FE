@@ -18,6 +18,8 @@ import {
 import AddRecord from "../pages/AddRecord";
 import Camera from "./Camera";
 import Settings from "../pages/Settings";
+import Records from "../pages/Records";
+
 // eslint-disable-next-line object-curly-newline
 
 axios.defaults.withCredentials = true;
@@ -35,6 +37,11 @@ function Navbar() {
     isOpen: isCameraOpen,
     onOpen: onCameraOpen,
     onClose: onCameraClose,
+  } = useDisclosure();
+  const {
+    isOpen: isRecordsOpen,
+    onOpen: onRecordsOpen,
+    onClose: onRecordsClose,
   } = useDisclosure();
 
   const navigate = useNavigate();
@@ -65,9 +72,10 @@ function Navbar() {
         >
           Balance Chart
         </Button>
-        <Button colorScheme="teal" onClick={handleLogout}>
-          Logout
+        <Button colorScheme="teal" onClick={onRecordsOpen}>
+          Records
         </Button>
+
         <Button colorScheme="teal" onClick={onOpen}>
           +
         </Button>
@@ -77,6 +85,24 @@ function Navbar() {
         <Button colorScheme="teal" onClick={onCameraOpen}>
           Camera Feed Test
         </Button>
+        <Button colorScheme="teal" onClick={handleLogout}>
+          Logout
+        </Button>
+
+        <Drawer
+          placement="top"
+          onClose={onRecordsClose}
+          isOpen={isRecordsOpen}
+          size="full"
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
+            <DrawerBody>
+              <Records />
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
 
         <Drawer
           placement="top"
