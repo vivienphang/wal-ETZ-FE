@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -54,6 +54,7 @@ function Login() {
     console.log("THIS IS USER ID:", id, typeof id);
     localStorage.setItem("id", id);
     navigate("/home");
+    return null;
   };
 
   const googleLogin = () => {

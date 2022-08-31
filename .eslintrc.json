@@ -14,11 +14,15 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "quotes": "off",
-    "react/jsx-filename-extension": "off",
     "comma-dangle": "off",
     "no-console": "off",
-    "import/extensions": "off"
+    "no-shadow": "off",
+    "object-curly-newline": "off",
+    "operator-linebreak": "off",
+    "quotes": "off",
+    "import/extensions": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-no-constructed-context-values": "off"
   },
   "settings": {
     "import/resolver": {

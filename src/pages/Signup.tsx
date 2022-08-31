@@ -13,7 +13,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {

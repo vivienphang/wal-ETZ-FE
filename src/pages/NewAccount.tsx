@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import currencyList from "../constants/currencyList";
 
+axios.defaults.withCredentials = true;
+
 export default function NewAccount() {
   const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ export default function NewAccount() {
       // Todo: Change route to /accounts/newAccount
 
       const data = {
-        id: "630cf38cf3ae5addee6def60",
+        id: "6305beb943e3928b3f62b640",
         accName,
         accCurrency,
         balance,
