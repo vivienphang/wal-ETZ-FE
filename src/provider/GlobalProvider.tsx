@@ -11,7 +11,7 @@ import {
 
 export const UserContext: React.Context<userContextInterface> =
   createContext(initialUserState);
-const AccountsContext: React.Context<accountContextInterface> =
+export const AccountsContext: React.Context<accountContextInterface> =
   createContext(initialAccountsState);
 
 export default function GlobalProvider({ children }: childrenInterface) {
