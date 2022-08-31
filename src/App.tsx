@@ -9,12 +9,12 @@ import BalanceChart from "./components/BalanceChart";
 import InitAccount from "./pages/InitAccount";
 import NewAccount from "./pages/NewAccount";
 import HomePage from "./pages/HomePage";
-import MainProvider from "./provider/mainProvider";
+import GlobalProvider from "./provider/GlobalProvider";
 
 function App() {
   return (
     <div className="App">
-      <MainProvider>
+      <GlobalProvider>
         <Router>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -27,7 +27,7 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Router>
-      </MainProvider>
+      </GlobalProvider>
     </div>
   );
 }

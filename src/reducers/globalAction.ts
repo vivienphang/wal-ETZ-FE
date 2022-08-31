@@ -1,0 +1,72 @@
+import axios, { AxiosResponse } from "axios";
+import {
+  singularAccountInterface,
+  accountRecordsInterface,
+} from "../types/accountReducerInterface";
+import { globalActionInterface } from "../types/globalActionInterface";
+import ACTIONS from "./actions";
+
+axios.defaults.withCredentials = true;
+
+const status = {
+  POPULATE_FAIL: "failed to populate user data",
+  POPULATE_SUCCESS: "populated user data",
+};
+
+export default async function getData(userId: string) {
+  console.log("getting data for userId:", userId);
+  let userData: AxiosResponse | null = null;
+  try {
+    // todo: add JWT on headers
+    const data = { id: userId };
+    userData = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
+      data
+    );
+  } catch (err) {
+    console.log("can't get user data by axios");
+  }
+
+  let globalAction: globalActionInterface;
+  if (userData?.data.status !== status.POPULATE_SUCCESS) {
+    // todo: add accounts action creator
+    globalAction = {
+      userAction: { type: ACTIONS.ERROR },
+      accountAction: { type: ACTIONS.ERROR },
+    };
+  } else {
+    console.log(userData?.data);
+    // todo: add accounts action creator
+    const { _id, defaultCurrency, email, friends, friendRequests, accounts } =
+      userData.data.data;
+    const accountsArray: singularAccountInterface[] = [];
+    accounts.forEach((account: singularAccountInterface) => {
+      const recordsArray: accountRecordsInterface[] = [];
+      if (account.accRecords) {
+        account.accRecords.forEach((record: accountRecordsInterface) => {
+          recordsArray.push(record);
+        });
+      }
+      const { _id: accId, accCurrency } = account;
+      accountsArray.push({ _id: accId, accCurrency, accRecords: recordsArray });
+    });
+    globalAction = {
+      userAction: {
+        type: ACTIONS.RETRIEVE,
+        payload: {
+          _id,
+          defaultCurrency,
+          email,
+          friends,
+          friendRequests,
+        },
+      },
+      accountAction: {
+        type: ACTIONS.RETRIEVE,
+        payload: accountsArray,
+      },
+    };
+  }
+
+  return globalAction;
+}

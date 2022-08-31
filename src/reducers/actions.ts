@@ -1,5 +1,6 @@
 const ACTIONS = {
   GET: "GET",
+  SET: "SET",
   RETRIEVE: "RETRIEVE",
   ADD: "ADD",
   UPDATE: "UPDATE",
