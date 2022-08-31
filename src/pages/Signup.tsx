@@ -13,7 +13,7 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -47,12 +47,17 @@ function Signup() {
     };
     console.log("this is data:", data);
     if (username && email && password) {
-      const checkEmail = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
-        data
-      );
-      console.log(checkEmail);
-      navigate("/");
+      try {
+        const checkEmail = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
+          data
+        );
+        console.log(checkEmail);
+        navigate("/");
+      } catch (err: any) {
+        console.log("this is error:", err);
+        alert(err.response.data.status);
+      }
     }
   };
 
@@ -70,13 +75,7 @@ function Signup() {
           <ModalHeader>Create your account</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form
-              id="new-form"
-              onSubmit={(event: React.FormEvent<Element>) => {
-                event.preventDefault();
-                console.log("Account created");
-              }}
-            >
+            <form id="new-form" onSubmit={handleSubmitBtn}>
               <FormControl isRequired isInvalid={isError}>
                 <FormLabel>Username</FormLabel>
                 <Input
@@ -100,6 +99,15 @@ function Signup() {
                   placeholder="Enter password"
                 />
               </FormControl>
+              <br />
+              <Button
+                form="new-form"
+                colorScheme="teal"
+                type="submit"
+                // onSubmit={handleSubmitBtn}
+              >
+                Submit
+              </Button>
             </form>
           </ModalBody>
 
@@ -107,14 +115,6 @@ function Signup() {
             {/* <Button colorScheme="red" mr={3} onClick={onClose}>
               Cancel
             </Button> */}
-            <Button
-              form="new-form"
-              colorScheme="teal"
-              type="submit"
-              onSubmit={handleSubmitBtn}
-            >
-              Submit
-            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

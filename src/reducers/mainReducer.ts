@@ -1,5 +1,6 @@
 // import axios from "axios";
 // import ACTIONS from "./actions";
+// import { usersReducer } from "./usersReducer";
 
 // axios.defaults.withCredentials = true;
 // // const backEndUrl = `${process.env.BACK_END_URL}`;
@@ -8,7 +9,10 @@
 
 // // This is the state that we are using in REACT
 // // Actual data is from the functions below
-// export default usersReducer = async (state, action) => {
+// export default usersReducer = async (
+//   state: any,
+//   action: { type: any; payload: any }
+// ) => {
 //   switch (action.type) {
 //     case ACTIONS.GET:
 //       return state;
@@ -19,8 +23,8 @@
 //   }
 // };
 
-// export const getOne = async () => {
-//   // Get id from cookie
-//   // const data = await axios.get();
-// };
-export {};
+// // export const getOne = async () => {
+// //   // Get id from cookie
+// //   // const data = await axios.get();
+// // };
+// export {};

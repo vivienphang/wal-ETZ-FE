@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -25,15 +25,45 @@ const CFaLock = chakra(FaLock);
 
 function Login() {
   const backEndUrl = process.env.REACT_APP_BACKEND_URL;
-  // initialize states
-  // const [user, setUser] = useState([]);
-  // const [fadeIn, setFadeIn] = useState(false);
   const navigate = useNavigate();
+  const [loginCredentials, setLoginCredentials] = useState("");
+  const [password, setPassword] = useState("");
+  // check if user has accounts array in DB
+  const submitLoginBtn: React.FormEventHandler<HTMLFormElement> = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    let userData: any;
+    const data = {
+      loginCredentials,
+      password,
+    };
+    console.log("data:", data);
+    try {
+      userData = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/users/logIn`,
+        data
+      );
+    } catch (err: any) {
+      console.log("login error:", err);
+      return alert(err.response.data.status);
+    }
+    console.log("this is data", userData);
+    navigate("/home");
+  };
 
   const googleLogin = () => {
     console.log("button clicked");
     window.location.href = `${backEndUrl}/auth/google`;
   };
+
+  const handleLoginCredChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => setLoginCredentials(event.target.value);
+
+  const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => setPassword(event.target.value);
 
   return (
     <div>
@@ -56,7 +86,7 @@ function Login() {
             <p>Daily Budget and Expense Manager</p>
             <br />
             <Box minW={{ base: "90%", md: "468px" }}>
-              <form>
+              <form id="login-form" onSubmit={submitLoginBtn}>
                 <Stack
                   spacing={4}
                   p="1rem"
@@ -69,7 +99,12 @@ function Login() {
                         pointerEvents="none"
                         children={<CFaUserAlt color="gray.300" />}
                       />
-                      <Input type="email" placeholder="Email address" />
+                      <Input
+                        type="text"
+                        placeholder="Email address or Username"
+                        value={loginCredentials}
+                        onChange={handleLoginCredChange}
+                      />
                     </InputGroup>
                   </FormControl>
                   <FormControl>
@@ -79,7 +114,12 @@ function Login() {
                         color="gray.300"
                         children={<CFaLock color="gray.300" />}
                       />
-                      <Input placeholder="Password" />
+                      <Input
+                        placeholder="Password"
+                        type="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                      />
                     </InputGroup>
                     {/* <FormHelperText textAlign="right">
                       {/* <Link>forgot password?</Link> */}
@@ -91,13 +131,13 @@ function Login() {
                     variant="solid"
                     colorScheme="teal"
                     width="full"
+                    form="login-form"
                   >
                     Sign in
                   </Button>
                   <p>or</p>
                   <Button
                     borderRadius={0}
-                    type="submit"
                     variant="solid"
                     colorScheme="teal"
                     width="full"
