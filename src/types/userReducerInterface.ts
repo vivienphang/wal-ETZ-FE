@@ -4,6 +4,7 @@ export interface userStateInterface {
   _id?: string;
   defaultCurrency?: string;
   email?: string;
+  username?: string;
   friends?: object[];
   friendRequests?: object[];
 }

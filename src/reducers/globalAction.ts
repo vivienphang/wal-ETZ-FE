@@ -37,8 +37,15 @@ export default async function getData(userId: string) {
   } else {
     console.log(userData?.data);
     // todo: add accounts action creator
-    const { _id, defaultCurrency, email, friends, friendRequests, accounts } =
-      userData.data.data;
+    const {
+      _id,
+      defaultCurrency,
+      email,
+      username,
+      friends,
+      friendRequests,
+      accounts,
+    } = userData.data.data;
     const accountsArray: singularAccountInterface[] = [];
     accounts.forEach((account: singularAccountInterface) => {
       const recordsArray: accountRecordsInterface[] = [];
@@ -47,8 +54,13 @@ export default async function getData(userId: string) {
           recordsArray.push(record);
         });
       }
-      const { _id: accId, accCurrency } = account;
-      accountsArray.push({ _id: accId, accCurrency, accRecords: recordsArray });
+      const { _id: accId, accCurrency, accName } = account;
+      accountsArray.push({
+        _id: accId,
+        accCurrency,
+        accRecords: recordsArray,
+        accName,
+      });
     });
     globalAction = {
       userAction: {
@@ -57,6 +69,7 @@ export default async function getData(userId: string) {
           _id,
           defaultCurrency,
           email,
+          username,
           friends,
           friendRequests,
         },
