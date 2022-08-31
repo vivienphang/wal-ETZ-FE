@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -49,6 +49,10 @@ function Login() {
       return alert(err.response.data.status);
     }
     console.log("this is data", userData);
+    // save id into local storage
+    const { id } = userData.data;
+    console.log("THIS IS USER ID:", id, typeof id);
+    localStorage.setItem("id", id);
     navigate("/home");
   };
 
