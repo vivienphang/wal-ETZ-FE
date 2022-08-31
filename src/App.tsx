@@ -9,22 +9,25 @@ import BalanceChart from "./components/BalanceChart";
 import InitAccount from "./pages/InitAccount";
 import NewAccount from "./pages/NewAccount";
 import HomePage from "./pages/HomePage";
+import GlobalProvider from "./provider/GlobalProvider";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/records" element={<Records />} />
-          <Route path="/balanceChart" element={<BalanceChart />} />
-          <Route path="/getStarted" element={<InitAccount />} />
-          <Route path="/newAccount" element={<NewAccount />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </Router>
+      <GlobalProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/records" element={<Records />} />
+            <Route path="/balanceChart" element={<BalanceChart />} />
+            <Route path="/getStarted" element={<InitAccount />} />
+            <Route path="/newAccount" element={<NewAccount />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </Router>
+      </GlobalProvider>
     </div>
   );
 }
