@@ -8,7 +8,6 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  ModalFooter,
   FormControl,
   FormLabel,
   Input,
@@ -17,7 +16,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-  // handle email input error message
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -45,14 +43,13 @@ function Signup() {
       email,
       password,
     };
-    console.log("this is data:", data);
     if (username && email && password) {
       try {
         const checkEmail = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
           data
         );
-        console.log(checkEmail);
+        console.log("check email", checkEmail);
         navigate("/");
       } catch (err: any) {
         console.log("this is error:", err);
@@ -67,7 +64,8 @@ function Signup() {
   return (
     <>
       <Button variant="ghost" onClick={onOpen}>
-        New to us? Sign up here
+        New to us?
+        <u> Sign up here</u>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -110,56 +108,10 @@ function Signup() {
               </Button>
             </form>
           </ModalBody>
-
-          <ModalFooter>
-            {/* <Button colorScheme="red" mr={3} onClick={onClose}>
-              Cancel
-            </Button> */}
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
   );
-
-  // {
-  //       <>
-  //      <Navbar />
-  // }
-  // {
-  /* //   <Container maxW="550px" bg="gray.400" color="white">
-  //     <h1>Sign up form</h1>
-  //     <Divider />
-  //     <Box padding="10" maxW="md">
-  //       <FormControl isRequired isInvalid={isError}>
-  //         <FormLabel>Email</FormLabel>
-  //         <Input type="email" value={input} onChange={handleInputChange} /> */
-  // }
-  //   {!isError ? (
-  //   {
-  /* //           <FormHelperText>
-  //             Enter the email you would like to receive the newsletter on.
-  //           </FormHelperText>
-  //         ) : (
-  //           <FormErrorMessage>Email is required.</FormErrorMessage>
-  //         )}
-  //         <br />
-  //         <FormLabel>Password</FormLabel>
-  //         <Input placeholder="Enter password" />
-  //       </FormControl> */
-  // }
-  // {
-  /* //       <br />
-  //       <ButtonGroup gap="2">
-  //         <Button colorScheme="teal">Submit</Button>
-  //       </ButtonGroup>
-  //     </Box> */
-  // }
-  // {
-  /* //   </Container> */
-  // }
-  // {
-  /* // </> */
-  // }
 }
 
 export default Signup;

@@ -12,7 +12,7 @@ import {
 export const UserContext: React.Context<userContextInterface> =
   createContext(initialUserState);
 export const AccountsContext: React.Context<accountContextInterface> =
-  createContext(initialAccountsState);
+  createContext(initialUserState);
 
 export default function GlobalProvider({ children }: childrenInterface) {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
@@ -21,22 +21,25 @@ export default function GlobalProvider({ children }: childrenInterface) {
     initialAccountsState
   );
 
-  useEffect(() => {
-    // todo: pass the id data here
-    (async () => {
-      const data = await getData("6305beb943e3928b3f62b640");
-      console.log(data);
-      userDispatch(data.userAction);
-      accountsDispatch(data.accountAction);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   // todo: pass the id data here
+  //   (async () => {
+  //     const id = localStorage.getItem("id");
+  //     if (id) {
+  //       const data = await getData(id);
+  //       console.log(data);
+  //       userDispatch(data.userAction);
+  //       accountsDispatch(data.accountAction);
+  //     }
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    console.log(userState);
-  }, [userState]);
-  useEffect(() => {
-    console.log(accountsState);
-  }, [accountsState]);
+  // useEffect(() => {
+  //   console.log(userState);
+  // }, [userState]);
+  // useEffect(() => {
+  //   console.log(accountsState);
+  // }, [accountsState]);
 
   return (
     <UserContext.Provider value={{ userState, userDispatch }}>
