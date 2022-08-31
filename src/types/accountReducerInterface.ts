@@ -15,6 +15,7 @@ export interface singularAccountInterface {
   _id?: string;
   accCurrency?: string;
   accRecords?: accountRecordsInterface[];
+  accName?: string;
 }
 
 export interface accountActionInterface {

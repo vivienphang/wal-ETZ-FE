@@ -9,7 +9,7 @@ import {
   initialAccountsState,
 } from "../reducers/accountReducer";
 
-const UserContext: React.Context<userContextInterface> =
+export const UserContext: React.Context<userContextInterface> =
   createContext(initialUserState);
 const AccountsContext: React.Context<accountContextInterface> =
   createContext(initialAccountsState);

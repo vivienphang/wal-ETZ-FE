@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  Box,
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
-  HStack,
-} from "@chakra-ui/react";
+import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react";
+
+// Password change funcitionality
 
 export default function Password() {
   return (
