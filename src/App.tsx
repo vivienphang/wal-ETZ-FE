@@ -10,6 +10,7 @@ import InitAccount from "./pages/InitAccount";
 import NewAccount from "./pages/NewAccount";
 import HomePage from "./pages/HomePage";
 import GlobalProvider from "./provider/GlobalProvider";
+import ReducerLoader from "./pages/ReducerLoader";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/balanceChart" element={<BalanceChart />} />
             <Route path="/getStarted" element={<InitAccount />} />
             <Route path="/newAccount" element={<NewAccount />} />
+            <Route path="/loading" element={<ReducerLoader />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </Router>

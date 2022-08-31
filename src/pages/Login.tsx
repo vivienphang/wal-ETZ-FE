@@ -51,9 +51,8 @@ function Login() {
     console.log("this is data", userData);
     // save id into local storage
     const { id } = userData.data;
-    console.log("THIS IS USER ID:", id, typeof id);
     localStorage.setItem("id", id);
-    navigate("/home");
+    navigate("/loading");
     return null;
   };
 

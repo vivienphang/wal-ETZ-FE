@@ -6,10 +6,10 @@ import { expenseCategories, incomeCategories } from "../constants/categoryList";
 export default function CategoryList() {
   console.log(incomeCategories);
   const incomeList = incomeCategories.map((category) => (
-    <option>{category.incomeName}</option>
+    <option key={category.incomeName}>{category.incomeName}</option>
   ));
   const expenseList = expenseCategories.map((category) => (
-    <option>{category.expenseName}</option>
+    <option key={category.expenseName}>{category.expenseName}</option>
   ));
   return (
     <Select>

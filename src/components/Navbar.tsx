@@ -40,8 +40,8 @@ function Navbar() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     const backEndUrl = process.env.REACT_APP_BACKEND_URL;
-    // if req.user exists, post logout
     console.log("LOGGING OUT");
+    localStorage.clear();
     window.location.href = `${backEndUrl}/auth/logout`;
   };
   return (

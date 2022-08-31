@@ -4,7 +4,7 @@ import {
 } from "../types/accountReducerInterface";
 import ACTIONS from "./actions";
 
-export const initialAccountsState = {};
+export const initialAccountsState = [];
 
 /* reducer */
 export function accountReducer(
