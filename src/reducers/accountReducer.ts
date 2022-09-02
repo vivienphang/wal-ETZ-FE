@@ -13,11 +13,11 @@ export function accountReducer(
 ) {
   switch (action.type) {
     case ACTIONS.RETRIEVE:
-      return action.payload ? [...action.payload] : [...accountState];
+      return [...action.payload!];
     case ACTIONS.SET:
-      return action.payload ? [...action.payload] : [...accountState];
+      return [...action.payload!];
     default:
-      return [...accountState];
+      return accountState;
   }
 }
 

@@ -13,18 +13,19 @@ const status = {
   POPULATE_SUCCESS: "populated user data",
 };
 
-export default async function getData(userId: string) {
-  console.log("getting data for userId:", userId);
+export default async function getData(token: string) {
+  console.log("getting data for token:", token);
   let userData: AxiosResponse | null = null;
   try {
     // todo: add JWT on headers
-    const data = { id: userId };
-    userData = await axios.post(
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    userData = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
-      data
+      config
     );
   } catch (err) {
     console.log("can't get user data by axios");
+    return "error";
   }
 
   let globalAction: globalActionInterface;
