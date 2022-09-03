@@ -44,7 +44,7 @@ export default function InitAccount() {
       // Todo: Change route to /accounts/initializeAccount
 
       const data = {
-        id: "630cf38cf3ae5addee6def60",
+        id: localStorage.getItem("id"),
         accName,
         accCurrency,
         balance,
@@ -55,7 +55,7 @@ export default function InitAccount() {
         data
       );
       console.log(createAccount);
-      navigate("/");
+      navigate("/home");
     }
   };
 

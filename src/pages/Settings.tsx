@@ -1,26 +1,55 @@
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../provider/GlobalProvider";
 import {
-  Box,
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
+  Heading,
+  // Box,
+  // Editable,
+  // EditableInput,
+  // EditableTextarea,
+  // EditablePreview,
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
-
 import ProfilePic from "../atoms/ProfilePic";
-import UserName from "../atoms/UserName";
+import ProfileForm from "../atoms/UserName";
 import DefaultCurrency from "../atoms/DefaultCurrency";
 import Password from "../atoms/Password";
+import getData from "../reducers/globalAction";
 
 export default function Settings() {
+  const { userState, userDispatch } = useContext(UserContext);
+
+  // get id on page load
+  useEffect(() => {
+    // eslint-disable-next-line consistent-return
+    (async () => {
+      const id = localStorage.getItem("id");
+      if (id) {
+        const data = await getData(id);
+        const { username, defaultCurrency } = data.userAction.payload;
+        console.log(
+          "###this is data.userAction.payload",
+          username,
+          defaultCurrency
+        );
+        userDispatch!(data.userAction);
+        return null;
+      }
+    })();
+  }, []);
+
   return (
     <VStack>
-      <h1>Settings Page</h1>
+      <Heading>
+        Hello,
+        {"\u00a0\u00a0"}
+        {userState?.username}
+      </Heading>
       <HStack justify="space-around">
+        <br />
         <ProfilePic />
-        <UserName />
+        <br />
+        <ProfileForm />
       </HStack>
       <DefaultCurrency />
       <Password />
