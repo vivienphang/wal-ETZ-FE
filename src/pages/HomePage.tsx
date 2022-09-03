@@ -25,7 +25,7 @@ function HomePage() {
       maxHeight="100%"
       maxWidth="100%"
       display="flex"
-      flexDirection={["column", "row"]}
+      flexDirection={["column", "row", "row"]}
       // justifyContent="space-around"
       // alignContent="center"
       // alignItems="center"

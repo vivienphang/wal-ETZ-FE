@@ -11,7 +11,7 @@ export default function DefaultCurrency() {
   return (
     <div>
       <Editable
-        defaultValue={userState?.defaultCurrency}
+        value={userState?.defaultCurrency}
         shadow="md"
         borderRadius="5px"
       >

@@ -55,7 +55,7 @@ export default function InitAccount() {
         data
       );
       console.log(createAccount);
-      navigate("/");
+      navigate("/loading");
     }
   };
 
@@ -66,11 +66,13 @@ export default function InitAccount() {
     setAccCurrency(value);
   };
 
+  // Account Name
   const handleAccNameChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { value } = e.target;
     console.log(value);
+    // Checks for a-z A-Z 0-9 _-
     const sanitization = value.trim().match(/[A-Za-z0-9\-_]*/);
     const sanitizedValue = sanitization ? sanitization[0] : "";
     if (value !== sanitizedValue) {
