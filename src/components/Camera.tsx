@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 // To read reciepts
 import React, { useRef, useEffect, useState } from "react";
+// if statement if let video=null
 
 export default function Camera() {
   const videoRef = useRef(null);

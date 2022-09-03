@@ -9,11 +9,7 @@ export default function UserName() {
   console.log(userState?.username);
   return (
     <div>
-      <Editable
-        defaultValue={userState?.username}
-        shadow="md"
-        borderRadius="10px"
-      >
+      <Editable value={userState?.username} shadow="md" borderRadius="10px">
         <EditablePreview />
         <EditableInput />
       </Editable>

@@ -11,6 +11,7 @@ import {
 
 export default function ProfilePic() {
   // Pass a src params to be used for the Avatar
+  // Add google profile
   return (
     <div>
       <Wrap>
@@ -21,7 +22,7 @@ export default function ProfilePic() {
             // icon={<AiOutlineUser fontSize="1.5rem" />} />
             size="lg"
             name="Mayank"
-            src="https://bit.ly/dan-abramov"
+            src="https://bit.ly/dan-abramov.asd"
           />
         </WrapItem>
       </Wrap>
