@@ -50,8 +50,8 @@ function Login() {
     }
     console.log("this is data", userData);
     // save id into local storage
-    const { id } = userData.data;
-    localStorage.setItem("id", id);
+    const { token } = userData.data;
+    localStorage.setItem("token", token);
     navigate("/loading");
     return null;
   };
