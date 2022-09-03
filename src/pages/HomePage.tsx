@@ -9,16 +9,6 @@ import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
 
 function HomePage() {
-  // const whatever = async () => {
-  //   const d = {
-  //     id: "6305beb943e3928b3f62b640",
-  //   };
-  //   const data = await axios.post(
-  //     `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
-  //     d
-  //   );
-  //   console.log(data);
-  //   };
   return (
     <Wrap
       bg="#BDE4A8"
