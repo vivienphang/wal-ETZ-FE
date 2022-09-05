@@ -16,9 +16,16 @@ export function accountReducer(
       return [...action.payload!];
     case ACTIONS.SET:
       return [...action.payload!];
+    case ACTIONS.RESET:
+      return initialAccountsState;
     default:
       return accountState;
   }
 }
 
 /* action creator */
+export function resetState() {
+  return {
+    type: ACTIONS.RESET,
+  };
+}
