@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -19,11 +19,15 @@ import AddRecord from "../pages/AddRecord";
 import Camera from "./Camera";
 import Settings from "../pages/Settings";
 import Records from "../pages/Records";
+import { AccountsContext, UserContext } from "../provider/GlobalProvider";
+import { resetState } from "../reducers/userReducer";
 
 // eslint-disable-next-line object-curly-newline
 
 axios.defaults.withCredentials = true;
 function Navbar() {
+  const { userDispatch } = useContext(UserContext);
+  const { accountsDispatch } = useContext(AccountsContext);
   // For opening modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -49,6 +53,8 @@ function Navbar() {
     const backEndUrl = process.env.REACT_APP_BACKEND_URL;
     console.log("LOGGING OUT");
     localStorage.clear();
+    userDispatch!(resetState());
+    accountsDispatch!(resetState());
     window.location.href = `${backEndUrl}/auth/logout`;
   };
   return (

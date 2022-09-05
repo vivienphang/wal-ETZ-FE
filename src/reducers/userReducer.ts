@@ -11,15 +11,19 @@ export function userReducer(
   userState: userStateInterface,
   action: userActionInterface
 ) {
-  console.log(action);
   switch (action.type) {
     case ACTIONS.RETRIEVE:
       return { ...action.payload };
     case ACTIONS.SET:
       return { ...action.payload };
+    case ACTIONS.RESET:
+      return initialUserState;
     default:
       return userState;
   }
 }
 
 /* action creator */
+export function resetState() {
+  return { type: ACTIONS.RESET };
+}

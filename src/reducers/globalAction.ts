@@ -14,10 +14,8 @@ const status = {
 };
 
 export default async function getData(token: string) {
-  console.log("getting data for token:", token);
   let userData: AxiosResponse | null = null;
   try {
-    // todo: add JWT on headers
     const config = { headers: { Authorization: `Bearer ${token}` } };
     userData = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
@@ -30,14 +28,12 @@ export default async function getData(token: string) {
 
   let globalAction: globalActionInterface;
   if (userData?.data.status !== status.POPULATE_SUCCESS) {
-    // todo: add accounts action creator
     globalAction = {
       userAction: { type: ACTIONS.ERROR },
       accountAction: { type: ACTIONS.ERROR },
     };
   } else {
     console.log(userData?.data);
-    // todo: add accounts action creator
     const {
       _id,
       defaultCurrency,

@@ -6,5 +6,6 @@ const ACTIONS = {
   UPDATE: "UPDATE",
   DELETE: "DELETE",
   ERROR: "ERROR",
+  RESET: "RESET",
 };
 export default ACTIONS;

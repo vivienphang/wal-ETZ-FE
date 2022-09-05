@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import {
   Box,
   Button,
@@ -14,9 +14,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import currencyList from "../constants/currencyList";
+import { AccountsContext, UserContext } from "../provider/GlobalProvider";
 
 export default function InitAccount() {
   const navigate = useNavigate();
+  const { userState } = useContext(UserContext);
+  const { accountsState } = useContext(AccountsContext);
 
   const [fadeIn, setFadeIn] = useState(false);
   const [balanceInputErr, setBalanceInputErr] = useState(false);
@@ -40,20 +43,29 @@ export default function InitAccount() {
     } else {
       setFadeIn(false);
 
-      // Todo: JWT Headers and add the user id from localstorage
-      // Todo: Change route to /accounts/initializeAccount
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/loading");
+        return;
+      }
+
+      const config = { headers: { Authorization: `Bearer ${token}` } };
 
       const data = {
-        id: "630cf38cf3ae5addee6def60",
         accName,
         accCurrency,
         balance,
       };
-      console.log(data);
-      const createAccount = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/accounts/initTest`,
-        data
-      );
+      let createAccount: AxiosResponse | null = null;
+      try {
+        createAccount = await axios.post(
+          `${process.env.REACT_APP_BACKEND_URL}/accounts/initializeAccount`,
+          data,
+          config
+        );
+      } catch (err) {
+        navigate("/loading");
+      }
       console.log(createAccount);
       navigate("/loading");
     }
@@ -71,12 +83,10 @@ export default function InitAccount() {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { value } = e.target;
-    console.log(value);
     // Checks for a-z A-Z 0-9 _-
     const sanitization = value.trim().match(/[A-Za-z0-9\-_]*/);
     const sanitizedValue = sanitization ? sanitization[0] : "";
     if (value !== sanitizedValue) {
-      console.log("sanitization fail");
       setAccNameInputErr(true);
       setTimeout(() => {
         setAccNameInputErr(false);
@@ -96,7 +106,6 @@ export default function InitAccount() {
     const sanitizedValue = sanitization ? sanitization[0] : "";
 
     if (value !== sanitizedValue) {
-      console.log("sanitization fail");
       setBalanceInputErr(true);
       setTimeout(() => {
         setBalanceInputErr(false);
@@ -108,7 +117,9 @@ export default function InitAccount() {
   };
 
   useEffect(() => {
-    // todo: check if user has an account already, redirect to new account if present.
+    if (!userState?._id || accountsState?.length) {
+      navigate("/loading");
+    }
     setTimeout(() => {
       setFadeIn(true);
     }, 300);
