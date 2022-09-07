@@ -9,6 +9,7 @@ export default function RecordsList({ acc, rec, setRec }) {
     accountsState?.forEach((account) => {
       if (account.accName === acc) {
         console.log("Current Account", account.accName);
+        console.log(account._id);
         setRec(account.accRecords);
       }
     });
@@ -27,7 +28,6 @@ export default function RecordsList({ acc, rec, setRec }) {
     console.log(rec);
   }, [rec]);
   // When account is picked display the records
-  /////////////// Left styling of data
   return (
     <div>
       <h1>Records List</h1>
