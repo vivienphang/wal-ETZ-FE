@@ -6,7 +6,9 @@ export default function AccountList({ setAcc, acc }) {
   const selectAcc = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {
+    console.log(e.target.value);
     setAcc(e.target.value);
+    // Take the account id and
   };
   const { accountsState } = useContext(AccountsContext);
   const accountsList = accountsState?.map((account) => (
