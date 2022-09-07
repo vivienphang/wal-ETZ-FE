@@ -10,7 +10,7 @@ const showNotification = () => {
     icon: "./images/logo.png",
   };
   // give logic for notifications
-  Notification("New Notification", notificationOpts);
+  // Notification("New Notification", notificationOpts);
 };
 // Getting notification permission
 if (window.Notification) {

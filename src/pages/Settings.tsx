@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { UserContext } from "../provider/GlobalProvider";
+import React, { useContext } from "react";
 import {
   Heading,
   // Box,
@@ -10,8 +9,9 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
+import { UserContext } from "../provider/GlobalProvider";
 // import ProfilePic from "../atoms/ProfilePic";
-import ProfileForm from "../atoms/UserName";
+// import ProfileForm from "../atoms/UserName";
 // import DefaultCurrency from "../atoms/DefaultCurrency";
 // import Password from "../atoms/Password";
 // import getData from "../reducers/globalAction";
@@ -30,7 +30,7 @@ export default function Settings() {
         <br />
         {/* <ProfilePic /> */}
         <br />
-        <ProfileForm />
+        {/* <ProfileForm /> */}
       </HStack>
       {/* <DefaultCurrency /> */}
       {/* <Password /> */}

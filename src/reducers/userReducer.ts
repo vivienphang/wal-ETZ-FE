@@ -26,21 +26,7 @@ export function userReducer(
 }
 
 /* action creator */
-// <<<<<<< HEAD
-// export const retrieveUser = async () => {
-//   console.log("retrieving user data");
-//   const config = { headers: { Authorization: `Bearer ${token}` } };
-//   const userData = await axios.get(
-//     `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
-//     config
-//   );
-//   console.log("this is data:", userData);
-//   return {
-//     type: ACTIONS.RETRIEVE,
-//     payload: { ...userData },
-//   };
-// };
-// =======
+
 export function resetState() {
   return { type: ACTIONS.RESET };
 }
