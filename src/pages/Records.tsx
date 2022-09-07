@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import AccountList from "../components/AccountList";
 import RecordsList from "../components/RecordsList";
+import { accountRecordsInterface } from "../types/accountReducerInterface";
 
 function Records() {
   const [acc, setAcc] = useState("");
-  const [rec, setRec] = useState([]);
+  const [rec, setRec] = useState<accountRecordsInterface[]>([]);
 
   return (
     <div>
