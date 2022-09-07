@@ -45,25 +45,6 @@ import { UserContext } from "../provider/GlobalProvider";
 export default function ProfileForm() {
   const { userState } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   // eslint-disable-next-line consistent-return
-  //   (async () => {
-  //     const id = localStorage.getItem("id");
-  //     if (id) {
-  //       const data = await getData(id);
-  //       const { username, defaultCurrency, password } = data.userAction.payload;
-  //       console.log(
-  //         "###this is data.userAction.payload",
-  //         username,
-  //         defaultCurrency,
-  //         password
-  //       );
-  //       userDispatch!(data.userAction);
-  //       return null;
-  //     }
-  //   })();
-  // }, []);
-
   function EditableControls() {
     const {
       isEditing,
@@ -74,12 +55,25 @@ export default function ProfileForm() {
 
     return isEditing ? (
       <ButtonGroup justifyContent="center" size="sm">
-        <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
-        <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} />
+        <IconButton
+          aria-label="check button"
+          icon={<CheckIcon />}
+          {...getSubmitButtonProps()}
+        />
+        <IconButton
+          aria-label="close button"
+          icon={<CloseIcon />}
+          {...getCancelButtonProps()}
+        />
       </ButtonGroup>
     ) : (
       <Flex justifyContent="center">
-        <IconButton size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
+        <IconButton
+          aria-label="edit button"
+          size="sm"
+          icon={<EditIcon />}
+          {...getEditButtonProps()}
+        />
       </Flex>
     );
   }
@@ -94,7 +88,7 @@ export default function ProfileForm() {
       >
         <EditablePreview />
         {/* Here is the custom input */}
-        <Input as={userState?.username} />
+        <Input variant="outline" value={userState?.username} />
         <EditableControls />
       </Editable>
       <div>
