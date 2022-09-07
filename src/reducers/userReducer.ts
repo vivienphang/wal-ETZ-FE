@@ -13,28 +13,34 @@ export function userReducer(
   userState: userStateInterface,
   action: userActionInterface
 ) {
-  console.log(action);
   switch (action.type) {
     case ACTIONS.RETRIEVE:
       return { ...action.payload };
     case ACTIONS.SET:
       return { ...action.payload };
+    case ACTIONS.RESET:
+      return initialUserState;
     default:
       return userState;
   }
 }
 
 /* action creator */
-export const retrieveUser = async () => {
-  console.log("retrieving user data");
-  const config = { headers: { Authorization: `Bearer ${token}` } };
-  const userData = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
-    config
-  );
-  console.log("this is data:", userData);
-  return {
-    type: ACTIONS.RETRIEVE,
-    payload: { ...userData },
-  };
-};
+// <<<<<<< HEAD
+// export const retrieveUser = async () => {
+//   console.log("retrieving user data");
+//   const config = { headers: { Authorization: `Bearer ${token}` } };
+//   const userData = await axios.get(
+//     `${process.env.REACT_APP_BACKEND_URL}/users/populateRecords`,
+//     config
+//   );
+//   console.log("this is data:", userData);
+//   return {
+//     type: ACTIONS.RETRIEVE,
+//     payload: { ...userData },
+//   };
+// };
+// =======
+export function resetState() {
+  return { type: ACTIONS.RESET };
+}

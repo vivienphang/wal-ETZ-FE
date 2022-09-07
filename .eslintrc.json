@@ -17,6 +17,7 @@
     "comma-dangle": "off",
     "no-console": "off",
     "no-shadow": "off",
+    "no-underscore-dangle": "off",
     "object-curly-newline": "off",
     "operator-linebreak": "off",
     "quotes": "off",
