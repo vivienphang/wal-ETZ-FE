@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import {
   singularAccountInterface,
   accountActionInterface,
+  addRecordInterface,
 } from "../types/accountReducerInterface";
 import ACTIONS from "./actions";
 
@@ -18,6 +19,10 @@ export function accountReducer(
     case ACTIONS.RETRIEVE:
       return [...action.payload!];
     case ACTIONS.SET:
+      // Check accountState for this accountId
+      //action.payload.updateaccount.accountiD
+      // foreach if === this.accId{
+      // replace
       return [...action.payload!];
     case ACTIONS.RESET:
       return initialAccountsState;
@@ -35,24 +40,16 @@ export function resetState() {
 // Create function to set acccountState after axios call
 // addRecord
 
-export async function addRecord(data: {
-  token: string;
-  accId: string;
-  amount: string;
-  name: string;
-  comment: string;
-  date: string;
-  isExpense: boolean;
-  acc: string;
-  cat: string;
-}) {
+export async function addRecord(data: addRecordInterface) {
   console.log("In add Record in accountReducer");
   // Get bearer token for JWT authentication
   const config = { headers: { Authorization: `Bearer ${data.token}` } };
   const addingRecord = await axios.post(
     `${process.env.REACT_APP_BACKEND_URL}/records/newRecord`,
-    data
+    data,
+    config
   );
+  console.log(addingRecord);
   return {
     type: ACTIONS.SET,
     payload: addingRecord,

@@ -27,3 +27,14 @@ export interface accountContextInterface {
   accountsState?: singularAccountInterface[];
   accountsDispatch?: React.Dispatch<accountActionInterface>;
 }
+export interface addRecordInterface {
+  token: string;
+  accId: string;
+  amount: string;
+  name: string;
+  comment: string;
+  date: string;
+  isExpense: boolean;
+  acc: string;
+  cat: string;
+}

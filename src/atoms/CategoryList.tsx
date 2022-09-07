@@ -18,7 +18,7 @@ export default function CategoryList({ setCat, cat }) {
   return (
     <Select onChange={settingCategory}>
       {incomeList}
-      <Divider orientation="horizontal" />
+      {/* <Divider orientation="horizontal" /> */}
       {expenseList}
     </Select>
   );

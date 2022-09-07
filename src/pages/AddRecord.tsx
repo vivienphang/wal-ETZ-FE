@@ -76,7 +76,6 @@ export default function AddRecord() {
       isExpense,
       acc,
       cat,
-      // Get the token for jwt
     };
     console.log(data);
     addRecord(data);

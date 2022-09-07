@@ -1,6 +1,5 @@
 /* eslint-disable react/function-component-definition */
 import React from "react";
-// import { useNavigate } from "react-router-dom";
 import { Wrap } from "@chakra-ui/react";
 import AccountsCarousel from "../components/AccountsCarousel";
 import Filter from "../components/Filter";
