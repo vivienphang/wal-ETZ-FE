@@ -1,11 +1,6 @@
 import { Select } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AccountsContext } from "../provider/GlobalProvider";
-
-interface Props {
-  setAcc: any;
-  acc: any;
-}
 
 export default function AccountList({ setAcc, acc }) {
   const selectAcc = (e: {

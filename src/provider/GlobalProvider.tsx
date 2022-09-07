@@ -9,6 +9,7 @@ import {
   initialAccountsState,
 } from "../reducers/accountReducer";
 
+// initialise global states
 export const UserContext: React.Context<userContextInterface> =
   createContext(initialUserState);
 export const AccountsContext: React.Context<accountContextInterface> =

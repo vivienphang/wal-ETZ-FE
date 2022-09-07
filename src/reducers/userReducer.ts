@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+import axios from "axios";
 import {
   userActionInterface,
   userStateInterface,
@@ -5,7 +7,7 @@ import {
 import ACTIONS from "./actions";
 
 export const initialUserState = {};
-
+axios.defaults.withCredentials = true;
 /* reducer */
 export function userReducer(
   userState: userStateInterface,
@@ -24,6 +26,7 @@ export function userReducer(
 }
 
 /* action creator */
+
 export function resetState() {
   return { type: ACTIONS.RESET };
 }
