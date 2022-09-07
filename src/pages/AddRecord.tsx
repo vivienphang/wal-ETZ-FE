@@ -1,17 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 // Import action creator to make axios call for records
-import {
-  Button,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  HStack,
-  VStack,
-  Input,
-  Textarea,
-} from "@chakra-ui/react";
+import { Button, HStack, VStack, Input, Textarea } from "@chakra-ui/react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
@@ -76,7 +65,7 @@ export default function AddRecord() {
     // update all the things that are rendered based on the state
     // Get jwt token
     const token = localStorage.getItem("token");
-    console.group(token);
+    console.log(token);
     const data = {
       token,
       accId,
@@ -119,13 +108,6 @@ export default function AddRecord() {
           <Button onClick={isEF}>-</Button>
         </VStack>
         <Input placeholder="Enter Amount" type="number" onChange={addAmount} />
-        {/* <NumberInput precision={2} step={0.1} allowMouseWheel>
-          <NumberInputField onChange={addAmount} />
-          <NumberInputStepper>
-            <NumberIncrementStepper onChange={addAmount} />
-            <NumberDecrementStepper onChange={addAmount} />
-          </NumberInputStepper>
-        </NumberInput> */}
       </HStack>
       <Input
         placeholder="Date And Time"
