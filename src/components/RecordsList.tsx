@@ -18,6 +18,7 @@ export default function RecordsList({ acc, rec, setRec }) {
     // eslint-disable-next-line no-underscore-dangle
     <div key={record._id}>
       <h1>{record.recordCategory}</h1>
+      <h1>{record.amount.$numberDecimal}</h1>
       <h1>{record.recordName}</h1>
       <h1>{record.recordDate}</h1>
     </div>

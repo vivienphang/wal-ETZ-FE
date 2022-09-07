@@ -10,33 +10,14 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import ProfilePic from "../atoms/ProfilePic";
+// import ProfilePic from "../atoms/ProfilePic";
 import ProfileForm from "../atoms/UserName";
-import DefaultCurrency from "../atoms/DefaultCurrency";
-import Password from "../atoms/Password";
-import getData from "../reducers/globalAction";
+// import DefaultCurrency from "../atoms/DefaultCurrency";
+// import Password from "../atoms/Password";
+// import getData from "../reducers/globalAction";
 
 export default function Settings() {
-  const { userState, userDispatch } = useContext(UserContext);
-
-  // get id on page load
-  useEffect(() => {
-    // eslint-disable-next-line consistent-return
-    (async () => {
-      const id = localStorage.getItem("id");
-      if (id) {
-        const data = await getData(id);
-        const { username, defaultCurrency } = data.userAction.payload;
-        console.log(
-          "###this is data.userAction.payload",
-          username,
-          defaultCurrency
-        );
-        userDispatch!(data.userAction);
-        return null;
-      }
-    })();
-  }, []);
+  const { userState } = useContext(UserContext);
 
   return (
     <VStack>
@@ -47,12 +28,12 @@ export default function Settings() {
       </Heading>
       <HStack justify="space-around">
         <br />
-        <ProfilePic />
+        {/* <ProfilePic /> */}
         <br />
         <ProfileForm />
       </HStack>
-      <DefaultCurrency />
-      <Password />
+      {/* <DefaultCurrency /> */}
+      {/* <Password /> */}
     </VStack>
   );
 }

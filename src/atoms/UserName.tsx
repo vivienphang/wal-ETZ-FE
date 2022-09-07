@@ -26,7 +26,7 @@
 //   );
 // }
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import {
   ButtonGroup,
@@ -40,29 +40,29 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { UserContext } from "../provider/GlobalProvider";
-import getData from "../reducers/globalAction";
+// import getData from "../reducers/globalAction";
 
 export default function ProfileForm() {
-  const { userState, userDispatch } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
 
-  useEffect(() => {
-    // eslint-disable-next-line consistent-return
-    (async () => {
-      const id = localStorage.getItem("id");
-      if (id) {
-        const data = await getData(id);
-        const { username, defaultCurrency, password } = data.userAction.payload;
-        console.log(
-          "###this is data.userAction.payload",
-          username,
-          defaultCurrency,
-          password
-        );
-        userDispatch!(data.userAction);
-        return null;
-      }
-    })();
-  }, []);
+  // useEffect(() => {
+  //   // eslint-disable-next-line consistent-return
+  //   (async () => {
+  //     const id = localStorage.getItem("id");
+  //     if (id) {
+  //       const data = await getData(id);
+  //       const { username, defaultCurrency, password } = data.userAction.payload;
+  //       console.log(
+  //         "###this is data.userAction.payload",
+  //         username,
+  //         defaultCurrency,
+  //         password
+  //       );
+  //       userDispatch!(data.userAction);
+  //       return null;
+  //     }
+  //   })();
+  // }, []);
 
   function EditableControls() {
     const {
@@ -85,16 +85,24 @@ export default function ProfileForm() {
   }
 
   return (
-    <Editable
-      textAlign="center"
-      defaultValue={userState?.username}
-      fontSize="2xl"
-      isPreviewFocusable={false}
-    >
-      <EditablePreview />
-      {/* Here is the custom input */}
-      <Input as={userState?.username} />
-      <EditableControls />
-    </Editable>
+    <div>
+      <Editable
+        textAlign="center"
+        defaultValue={userState?.username}
+        fontSize="2xl"
+        isPreviewFocusable={false}
+      >
+        <EditablePreview />
+        {/* Here is the custom input */}
+        <Input as={userState?.username} />
+        <EditableControls />
+      </Editable>
+      <div>
+        <Editable value={userState?.username} shadow="md" borderRadius="10px">
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
+      </div>
+    </div>
   );
 }
