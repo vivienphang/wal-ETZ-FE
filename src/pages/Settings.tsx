@@ -1,29 +1,39 @@
+import React, { useContext } from "react";
 import {
-  Box,
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
+  Heading,
+  // Box,
+  // Editable,
+  // EditableInput,
+  // EditableTextarea,
+  // EditablePreview,
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
-
-import ProfilePic from "../atoms/ProfilePic";
-import UserName from "../atoms/UserName";
-import DefaultCurrency from "../atoms/DefaultCurrency";
-import Password from "../atoms/Password";
+import { UserContext } from "../provider/GlobalProvider";
+// import ProfilePic from "../atoms/ProfilePic";
+// import ProfileForm from "../atoms/UserName";
+// import DefaultCurrency from "../atoms/DefaultCurrency";
+// import Password from "../atoms/Password";
+// import getData from "../reducers/globalAction";
 
 export default function Settings() {
+  const { userState } = useContext(UserContext);
+
   return (
     <VStack>
-      <h1>Settings Page</h1>
+      <Heading>
+        Hello,
+        {"\u00a0\u00a0"}
+        {userState?.username}
+      </Heading>
       <HStack justify="space-around">
-        <ProfilePic />
-        <UserName />
+        <br />
+        {/* <ProfilePic /> */}
+        <br />
+        {/* <ProfileForm /> */}
       </HStack>
-      <DefaultCurrency />
-      <Password />
+      {/* <DefaultCurrency /> */}
+      {/* <Password /> */}
     </VStack>
   );
 }

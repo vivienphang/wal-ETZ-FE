@@ -29,7 +29,6 @@ export default function RecordsList(props: recordPropInterface) {
     console.log(rec);
   }, [rec]);
   // When account is picked display the records
-  // Left styling of data
   return (
     <div>
       <h1>Records List</h1>
