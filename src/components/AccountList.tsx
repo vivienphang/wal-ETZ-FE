@@ -1,8 +1,12 @@
 import { Select } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AccountsContext } from "../provider/GlobalProvider";
 
-export default function AccountList({ setAcc, acc }) {
+interface Props {
+  setAcc: any;
+  acc: any;
+}
+export default function AccountList({ setAcc, acc }: Props) {
   const selectAcc = (e: {
     target: { value: React.SetStateAction<string> };
   }) => {

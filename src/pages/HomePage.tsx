@@ -1,14 +1,25 @@
-/* eslint-disable react/function-component-definition */
-import React from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Wrap } from "@chakra-ui/react";
+// import { AccountsContext, UserContext } from "../provider/GlobalProvider";
 import AccountsCarousel from "../components/AccountsCarousel";
 import Filter from "../components/Filter";
 import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
+// import { userState } from "../types/userReducerInterface";
+import { UserContext } from "../provider/GlobalProvider";
 
 function HomePage() {
+  const { userState } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userState?._id) {
+      return navigate("/loading");
+    }
+  }, [userState]);
+
   return (
     <Wrap
       bg="#BDE4A8"

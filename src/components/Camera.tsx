@@ -14,7 +14,7 @@ export default function Camera() {
         video: { width: 1920, height: 1000 },
       })
       .then((stream) => {
-        const video = videoRef.current;
+        const video = videoRef.current || null;
         video.srcObject = stream;
         video.play();
       })
@@ -27,8 +27,8 @@ export default function Camera() {
     const width = 414;
     const height = width / (16 / 9);
 
-    let video = videoRef.current;
-    let photo = photoRef.current;
+    const video = videoRef.current;
+    const photo = photoRef.current;
     photo.width = width;
     photo.height = height;
 
@@ -38,8 +38,8 @@ export default function Camera() {
   };
 
   const closePhoto = () => {
-    let photo = photoRef.current;
-    let ctx = photo.getContext("2d");
+    const photo = photoRef.current;
+    const ctx = photo.getContext("2d");
     ctx.clearRect(0, 0, photo.width, photo.height);
     setHasPhoto(false);
   };
@@ -51,7 +51,7 @@ export default function Camera() {
     <div className="camera">
       <video ref={videoRef} />
       <button onClick={takePhoto}>SNAP</button>
-      <div className={"result" + (hasPhoto ? "hasPhoto" : "")}>
+      <div className={`result${hasPhoto ? "hasPhoto" : ""}`}>
         <canvas ref={photoRef} />
         <button onClick={closePhoto}>CLOSE</button>
       </div>
