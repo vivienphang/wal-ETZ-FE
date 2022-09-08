@@ -4,15 +4,14 @@ import { Button, HStack, VStack, Input, Textarea } from "@chakra-ui/react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
-import { AccountsContext } from "../provider/GlobalProvider";
 import { addRecordInterface } from "../types/accountReducerInterface";
-
-// import Calculator from "../components/Calculator";
+import { AccountsContext } from "../provider/GlobalProvider";
 
 // Component showing add record page
 export default function AddRecord() {
   // Get current account state and information
   // Acc is accId
+  const { accountsDispatch } = useContext(AccountsContext);
   const [acc, setAcc] = useState("");
   const [cat, setCat] = useState("");
   const [data, setData] = useState<addRecordInterface>({});
@@ -44,16 +43,15 @@ export default function AddRecord() {
     setData({ ...data, recordComment: e.target.value });
   };
   // Function to create record
-  const createRecord = () => {
+  const createRecord = async () => {
     // send data through the action creator
     // update data into db records accounts
-    // update the reducer of accountState
     // update all the things that are rendered based on the state
     // Get jwt token
     const token = localStorage.getItem("token");
     console.log(token);
     console.log(data);
-    addRecord({ ...data, token });
+    accountsDispatch!(await addRecord({ ...data, token }));
   };
   // Checking change in State
   useEffect(() => {

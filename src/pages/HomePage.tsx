@@ -1,17 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Wrap } from "@chakra-ui/react";
-// import { AccountsContext, UserContext } from "../provider/GlobalProvider";
-import AccountsCarousel from "../components/AccountsCarousel";
+import AllAccDisplay from "../components/AllAccDisplay";
 import Filter from "../components/Filter";
 import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
 // import { userState } from "../types/userReducerInterface";
-import { UserContext } from "../provider/GlobalProvider";
+import { UserContext, AccountsContext } from "../provider/GlobalProvider";
+import { accountRecordsInterface } from "../types/accountReducerInterface";
 
 function HomePage() {
   const { userState } = useContext(UserContext);
+  const { accountsState } = useContext(AccountsContext);
+  // Creating states to be shared among children
+  const [chosenAcc, setChosenAcc] = useState("");
+  const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +23,16 @@ function HomePage() {
       navigate("/loading");
     }
   }, [userState]);
+  useEffect(() => {
+    console.log(chosenAcc);
+    // Setting the records state as chosenAcc records
+    accountsState?.forEach((account) => {
+      if (account._id === chosenAcc) {
+        // Take the chosenAcc's accRecords
+        setRecs(account.accRecords!);
+      }
+    });
+  }, [chosenAcc]);
 
   return (
     <Wrap
@@ -36,10 +50,11 @@ function HomePage() {
     >
       <Navbar />
       <h1>HOME</h1>
-      <AccountsCarousel />
+      {/* <AccountsCarousel /> */}
+      <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter />
-      <BalanceChart />
-      <EIPieChart />
+      <BalanceChart recs={recs} />
+      <EIPieChart recs={recs} />
     </Wrap>
   );
 }

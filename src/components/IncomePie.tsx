@@ -4,12 +4,16 @@ import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 import randomColor from "randomcolor";
-
-Chart.register(...registerables);
 // eslint-disable-next-line import/first, import/extensions
 import { income } from "../data.js";
+import { EIPieChartPropInterface } from "../types/propInterface";
 
-export default function IncomePie() {
+Chart.register(...registerables);
+// Import data from records in homepage array
+
+export default function IncomePie(props: EIPieChartPropInterface) {
+  const { recs } = props;
+  console.log(recs);
   const colorList = () => {
     const colorArr: any[] = [];
     for (let i = 0; i < income.length; i += 1) {

@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+/* eslint-disable prefer-destructuring */
+import axios from "axios";
 import {
   singularAccountInterface,
   accountActionInterface,
@@ -15,15 +16,24 @@ export function accountReducer(
   accountState: singularAccountInterface[],
   action: accountActionInterface
 ) {
+  const accCopy = [...accountState];
   switch (action.type) {
     case ACTIONS.RETRIEVE:
       return [...action.payload!];
-    case ACTIONS.SET:
+    case ACTIONS.UPDATE:
       // Check accountState for this accountId
-      //action.payload.updateaccount.accountiD
+      // action.payload.updateaccount.accountiD
       // foreach if === this.accId{
       // replace
-      return [...action.payload!];
+      console.log("In actions update accounts reducer");
+      console.log(action.payload);
+      accountState.forEach((account, index) => {
+        if (action.payload![0]._id === account._id) {
+          accCopy[index] = action.payload![0];
+        }
+      });
+      // Find the id of old account and update it
+      return [...accCopy];
     case ACTIONS.RESET:
       return initialAccountsState;
     default:
@@ -51,7 +61,7 @@ export async function addRecord(data: addRecordInterface) {
   );
   console.log(addingRecord);
   return {
-    type: ACTIONS.SET,
-    payload: addingRecord,
+    type: ACTIONS.UPDATE,
+    payload: [addingRecord.data.updateAccount],
   };
 }
