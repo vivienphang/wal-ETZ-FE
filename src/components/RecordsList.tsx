@@ -1,23 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import { AccountsContext } from "../provider/GlobalProvider";
+import React, { useEffect } from "react";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
-import { recordPropInterface } from "../types/propInterface";
+import { recordsListPropInterface } from "../types/propInterface";
 
-export default function RecordsList(props: recordPropInterface) {
-  const { accountsState } = useContext(AccountsContext);
+export default function RecordsList(props: recordsListPropInterface) {
   // Find the account with the name acc
-  const { setRec, rec, acc } = props;
+  const { filteredRec } = props;
 
-  useEffect(() => {
-    accountsState?.forEach((account) => {
-      if (account.accName === acc) {
-        console.log("Current Account", account.accName);
-        setRec!(account.accRecords!);
-      }
-    });
-  }, [acc]);
-
-  const recordsList = rec!.map((record: accountRecordsInterface) => (
+  const recordsList = filteredRec!.map((record: accountRecordsInterface) => (
     <div key={record._id}>
       <h1>{record.recordCategory}</h1>
       <h1>{record.amount}</h1>
@@ -26,8 +15,8 @@ export default function RecordsList(props: recordPropInterface) {
     </div>
   ));
   useEffect(() => {
-    console.log(rec);
-  }, [rec]);
+    console.log(filteredRec);
+  }, [filteredRec]);
   // When account is picked display the records
   return (
     <div>
