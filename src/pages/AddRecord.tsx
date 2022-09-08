@@ -5,57 +5,43 @@ import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
 import { AccountsContext } from "../provider/GlobalProvider";
+import { addRecordInterface } from "../types/accountReducerInterface";
 
 // import Calculator from "../components/Calculator";
 
 // Component showing add record page
 export default function AddRecord() {
   // Get current account state and information
-  const { accountsState } = useContext(AccountsContext);
-  // Statese for the add account form
+  // Acc is accId
   const [acc, setAcc] = useState("");
-  const [accId, setAccId] = useState("");
   const [cat, setCat] = useState("");
-  const [isExpense, setIsExpense] = useState(true);
-  const [amount, setAmount] = useState("0.00");
-  const [date, setDate] = useState("");
-  const [name, setName] = useState("");
-  const [comment, setComment] = useState("");
-
-  const data = {
-    amount,
-    name,
-    comment,
-    date,
-    isExpense,
-    acc,
-    cat,
-  };
+  const [data, setData] = useState<addRecordInterface>({});
 
   // Functions to handle the states
   const isET = () => {
-    setIsExpense(true);
+    // setIsExpense(true);
+    setData({ ...data, isExpense: true });
   };
   const isEF = () => {
-    setIsExpense(false);
+    setData({ ...data, isExpense: false });
   };
-  const addAmount = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    console.log(e.target.value);
+  const addAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const sanitization = e.target.value.trim().match(/\d*(\.\d{0,2})?/);
+    const sanitizedValue = sanitization ? sanitization[0] : "";
+    console.log(sanitizedValue);
     // I dont understand why this is an error when i changed the type to string at line 39
-    setAmount(e.target.value);
+    setData({ ...data, amount: sanitizedValue });
   };
-  const addDate = (e: { target: { value: React.SetStateAction<string> } }) => {
-    setDate(e.target.value);
+  const addDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, recordDate: e.target.value });
   };
-  const addName = (e: { target: { value: React.SetStateAction<string> } }) => {
-    setName(e.target.value);
+  const addName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, recordName: e.target.value });
   };
-  const addComment = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setComment(e.target.value);
+  const addComment: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setData({ ...data, recordComment: e.target.value });
   };
   // Function to create record
   const createRecord = () => {
@@ -66,35 +52,21 @@ export default function AddRecord() {
     // Get jwt token
     const token = localStorage.getItem("token");
     console.log(token);
-    const data = {
-      token,
-      accId,
-      amount,
-      name,
-      comment,
-      date,
-      isExpense,
-      acc,
-      cat,
-    };
     console.log(data);
-    addRecord(data);
+    addRecord({ ...data, token });
   };
   // Checking change in State
   useEffect(() => {
     // Checking to see when any changes are made to fields
     console.log(data);
-  }, [amount, name, comment, date, isExpense, acc, cat]);
+  }, [data]);
+  useEffect(() => {
+    // Checking to see when any changes are made to fields
+    setData({ ...data, recordCategory: cat });
+  }, [cat]);
   // UseEffect to get the account id based on acc change
   useEffect(() => {
-    accountsState?.forEach((account) => {
-      if (account.accName === acc) {
-        console.log("Current Account", account.accName);
-        const id = account._id;
-        console.log(id);
-        setAccId(id);
-      }
-    });
+    setData({ ...data, acc });
   }, [acc]);
 
   return (

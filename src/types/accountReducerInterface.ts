@@ -8,7 +8,7 @@ export interface accountRecordsInterface {
   recordComment?: string;
   recordCategory?: string;
   recordPhoto?: string;
-  recordDate?: Date;
+  recordDate?: Date | string;
 }
 
 export interface singularAccountInterface {
@@ -27,14 +27,7 @@ export interface accountContextInterface {
   accountsState?: singularAccountInterface[];
   accountsDispatch?: React.Dispatch<accountActionInterface>;
 }
-export interface addRecordInterface {
-  token: string;
-  accId: string;
-  amount: string;
-  name: string;
-  comment: string;
-  date: string;
-  isExpense: boolean;
-  acc: string;
-  cat: string;
+export interface addRecordInterface extends accountRecordsInterface {
+  token?: string | null;
+  acc?: string;
 }
