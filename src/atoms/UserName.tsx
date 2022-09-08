@@ -29,18 +29,22 @@
 import React, { useContext } from "react";
 
 import {
+  Box,
+  Button,
   ButtonGroup,
   Editable,
   EditableInput,
   EditablePreview,
   Flex,
+  FormControl,
+  FormLabel,
   IconButton,
   Input,
+  Switch,
   useEditableControls,
 } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { UserContext } from "../provider/GlobalProvider";
-// import getData from "../reducers/globalAction";
 
 export default function ProfileForm() {
   const { userState } = useContext(UserContext);
@@ -80,23 +84,28 @@ export default function ProfileForm() {
 
   return (
     <div>
-      <Editable
-        textAlign="center"
-        defaultValue={userState?.username}
-        fontSize="2xl"
-        isPreviewFocusable={false}
-      >
-        <EditablePreview />
-        {/* Here is the custom input */}
-        <Input variant="outline" value={userState?.username} />
-        <EditableControls />
-      </Editable>
-      <div>
-        <Editable value={userState?.username} shadow="md" borderRadius="10px">
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
-      </div>
+      <FormControl display="flex" alignItems="end">
+        <FormLabel htmlFor="allow-edit" mb="0">
+          Update profile?
+        </FormLabel>
+        <Switch size="md" id="allow-edit" />
+      </FormControl>
+      <br />
+      <Box w="100%" p={3} borderWidth="2px" borderRadius="lg" bg="gray.100">
+        <form>
+          <FormControl>
+            <FormLabel>Username:</FormLabel>
+            <Input type="text" value={userState?.username} />
+            <br />
+            <FormLabel>Default currency:</FormLabel>
+            <Input type="text" value={userState?.defaultCurrency} />
+          </FormControl>
+          <br />
+          <Button display="flex" alignItems="center" colorScheme="teal">
+            Update
+          </Button>
+        </form>
+      </Box>
     </div>
   );
 }

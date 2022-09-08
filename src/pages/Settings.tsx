@@ -10,27 +10,29 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { UserContext } from "../provider/GlobalProvider";
-// import ProfilePic from "../atoms/ProfilePic";
-// import ProfileForm from "../atoms/UserName";
+import ProfilePic from "../atoms/ProfilePic";
+import ProfileForm from "../atoms/UserName";
 // import DefaultCurrency from "../atoms/DefaultCurrency";
 // import Password from "../atoms/Password";
-// import getData from "../reducers/globalAction";
 
 export default function Settings() {
   const { userState } = useContext(UserContext);
 
   return (
     <VStack>
-      <Heading>
+      <Heading p="2px" as="h3" size="md">
         Hello,
         {"\u00a0\u00a0"}
-        {userState?.username}
+        {userState?.username}!
       </Heading>
+      <br />
       <HStack justify="space-around">
         <br />
-        {/* <ProfilePic /> */}
-        <br />
-        {/* <ProfileForm /> */}
+        <ProfilePic />
+      </HStack>
+      <br />
+      <HStack justify="space-around">
+        <ProfileForm />
       </HStack>
       {/* <DefaultCurrency /> */}
       {/* <Password /> */}
