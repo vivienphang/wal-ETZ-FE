@@ -7,3 +7,9 @@ export interface recordPropInterface {
   rec?: accountRecordsInterface[];
   setRec?: React.Dispatch<React.SetStateAction<accountRecordsInterface[]>>;
 }
+// To define props
+
+export interface categoryPropInterface {
+  cat?: string;
+  setCat?: React.Dispatch<React.SetStateAction<string>>;
+}

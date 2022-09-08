@@ -13,7 +13,7 @@ export default function AccountList(prop: recordPropInterface) {
   };
   const { accountsState } = useContext(AccountsContext);
   const accountsList = accountsState?.map((account) => (
-    <option key={account._id} value={account.accName}>
+    <option key={account._id} value={account._id}>
       {account.accName}
     </option>
   ));

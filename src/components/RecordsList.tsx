@@ -10,7 +10,7 @@ export default function RecordsList(props: recordPropInterface) {
 
   useEffect(() => {
     accountsState?.forEach((account) => {
-      if (account.accName === acc) {
+      if (account._id === acc) {
         console.log("Current Account", account.accName);
         setRec!(account.accRecords!);
       }
