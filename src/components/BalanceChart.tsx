@@ -7,6 +7,8 @@ import { Chart, registerables } from "chart.js";
 import { EIPieChartPropInterface } from "../types/propInterface";
 
 Chart.register(...registerables);
+// Removing grid lines for bar chart
+Chart.defaults.scale.grid.display = false;
 
 export default function BalanceChart(props: EIPieChartPropInterface) {
   const { recs } = props;
@@ -38,10 +40,11 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
           labels: ["income", "expense"],
           datasets: [
             {
-              label: "Balance",
+              label: "Income & Expense",
               data: [income, expense],
               backgroundColor: ["#50a36c"],
-              borderWidth: 6,
+              // borderWidth: 6,
+              borderRadius: 20,
             },
           ],
         }}
