@@ -27,3 +27,7 @@ export interface accountContextInterface {
   accountsState?: singularAccountInterface[];
   accountsDispatch?: React.Dispatch<accountActionInterface>;
 }
+export interface addRecordInterface extends accountRecordsInterface {
+  token?: string | null;
+  acc?: string;
+}

@@ -15,6 +15,9 @@ import {
 } from "@chakra-ui/react";
 import currencyList from "../constants/currencyList";
 
+// Check through the accountState account names
+// If name===newName throw error
+
 axios.defaults.withCredentials = true;
 
 export default function NewAccount() {

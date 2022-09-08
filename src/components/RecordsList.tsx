@@ -6,7 +6,7 @@ export default function RecordsList(props: recordsListPropInterface) {
   // Find the account with the name acc
   const { filteredRec } = props;
 
-  const recordsList = filteredRec!.map((record: accountRecordsInterface) => (
+  const recordsList = filteredRec.map((record: accountRecordsInterface) => (
     <div key={record._id}>
       <h1>{record.recordCategory}</h1>
       <h1>{record.amount}</h1>

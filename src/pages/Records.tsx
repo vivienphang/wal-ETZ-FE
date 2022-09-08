@@ -15,6 +15,7 @@ export default function Records() {
     viewExpense: false,
     viewIncome: false,
   };
+
   const [acc, setAcc] = useState("");
   const [rec, setRec] = useState<accountRecordsInterface[]>([]);
   const [filteredRec, setFilteredRec] = useState<accountRecordsInterface[]>([]);
@@ -29,7 +30,11 @@ export default function Records() {
         setRec!(account.accRecords!);
       }
     });
-  }, [acc, filters]);
+  }, [acc]);
+
+  useEffect(() => {
+    const preFilteredRec = setFilteredRec();
+  }, [rec, filters]);
 
   return (
     <div>
