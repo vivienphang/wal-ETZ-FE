@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React, { useState, useContext, useEffect } from "react";
 import AccountList from "../components/AccountList";
@@ -77,9 +77,19 @@ export default function Records() {
 
   return (
     <div>
-      <Heading size="md">{currentAcc ? currentAcc.accName : "bbb"}</Heading>
-      <AccountList acc={acc} setAcc={setAcc} />
-      <Filter filters={filters} setFilters={setFilters} />
+      <Heading size="md" py={5}>
+        {currentAcc
+          ? `Records of - ${currentAcc.accName}`
+          : "Select an account"}
+      </Heading>
+      <Flex minW="max-content">
+        <Box w="85%" mr={1}>
+          <AccountList acc={acc} setAcc={setAcc} />
+        </Box>
+        <Box w="15%" ml={1}>
+          <Filter filters={filters} setFilters={setFilters} />
+        </Box>
+      </Flex>
       <RecordsList filteredRec={filteredRec} />
     </div>
   );
