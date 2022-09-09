@@ -1,31 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/jsx-props-no-spreading */
-// import React, { useContext } from "react";
-
-// import { Editable, EditableInput, EditablePreview } from "@chakra-ui/react";
-// import { UserContext } from "../provider/GlobalProvider";
-// import { userStateInterface } from "../types/userReducerInterface";
-
-// export default function UserName() {
-//   const { userState } = useContext(UserContext);
-//   const { username, defaultCurrency } = userState<userStateInterface>;
-//   console.log("username:", username);
-//   console.log("username:", defaultCurrency);
-//   console.log(userState?.username);
-//   return (
-//     <div>
-//       <Editable
-//         defaultValue={userState?.username}
-//         shadow="md"
-//         borderRadius="10px"
-//       >
-//         <EditablePreview />
-//         <EditableInput />
-//       </Editable>
-//     </div>
-//   );
-// }
-
 import React, { useContext } from "react";
 
 import {
@@ -40,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 import { UserContext } from "../provider/GlobalProvider";
-// import getData from "../reducers/globalAction";
 
 export default function ProfileForm() {
   const { userState } = useContext(UserContext);

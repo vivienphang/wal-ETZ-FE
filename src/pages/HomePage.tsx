@@ -16,7 +16,7 @@ function HomePage() {
 
   useEffect(() => {
     if (!userState?._id) {
-      return navigate("/loading");
+      navigate("/loading");
     }
   }, [userState]);
 
