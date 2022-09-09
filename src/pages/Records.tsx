@@ -23,7 +23,6 @@ export default function Records() {
     viewExpense: false,
     viewIncome: false,
   };
-
   const [acc, setAcc] = useState("");
   const [rec, setRec] = useState<accountRecordsInterface[]>([]);
   const [currentAcc, setCurrentAcc] = useState<singularAccountInterface>();
