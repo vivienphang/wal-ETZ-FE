@@ -21,9 +21,3 @@ export interface categoryPropInterface {
   cat?: string;
   setCat?: React.Dispatch<React.SetStateAction<string>>;
 }
-// To define props
-
-export interface categoryPropInterface {
-  cat?: string;
-  setCat?: React.Dispatch<React.SetStateAction<string>>;
-}
