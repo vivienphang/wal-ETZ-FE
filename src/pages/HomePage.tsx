@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Wrap } from "@chakra-ui/react";
 // import { AccountsContext, UserContext } from "../provider/GlobalProvider";
 import AccountsCarousel from "../components/AccountsCarousel";
-import Filter from "../components/Filter";
+// import Filter from "../components/Filter";
 import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
@@ -37,7 +37,7 @@ function HomePage() {
       <Navbar />
       <h1>HOME</h1>
       <AccountsCarousel />
-      <Filter />
+      {/* <Filter /> */}
       <BalanceChart />
       <EIPieChart />
     </Wrap>

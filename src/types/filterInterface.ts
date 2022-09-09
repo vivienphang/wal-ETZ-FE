@@ -1,6 +1,6 @@
 export interface filterInterface {
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   viewExpense?: boolean;
   viewIncome?: boolean;
 }
