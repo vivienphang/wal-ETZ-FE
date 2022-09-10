@@ -5,10 +5,9 @@ import { accountListPropInterface } from "../types/propInterface";
 
 export default function AccountList(prop: accountListPropInterface) {
   const { setAcc, acc } = prop;
-  console.log(acc);
-  const selectAcc = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const selectAcc: React.FormEventHandler<HTMLSelectElement> = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setAcc!(e.target.value);
   };
   const { accountsState } = useContext(AccountsContext);
