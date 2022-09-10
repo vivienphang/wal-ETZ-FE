@@ -1,8 +1,11 @@
+import { DateTime } from "luxon";
 import React, { useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
+  Box,
   Button,
-  FormControl,
+  Center,
+  Flex,
   FormLabel,
   IconButton,
   Input,
@@ -13,6 +16,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
   Switch,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -31,6 +35,56 @@ export default function Filter(props: filterPropInterface) {
   const [dateConfig, setDateConfig] = useState(initialDateConfig);
   const [viewExpenseConfig, setViewExpenseConfig] = useState(false);
   const [viewIncomeConfig, setViewIncomeConfig] = useState(false);
+
+  const handleQuickSelect: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selectedDateRange = e.target.value;
+    const currentDate = DateTime.now();
+    switch (selectedDateRange) {
+      case "currentWeek":
+        setDateConfig({
+          startDate: currentDate.startOf("week").toISODate(),
+          endDate: currentDate.endOf("week").toISODate(),
+        });
+        break;
+      case "lastWeek":
+        setDateConfig({
+          startDate: currentDate.minus({ week: 1 }).startOf("week").toISODate(),
+          endDate: currentDate.minus({ week: 1 }).endOf("week").toISODate(),
+        });
+        break;
+      case "currentMonth":
+        setDateConfig({
+          startDate: currentDate.startOf("month").toISODate(),
+          endDate: currentDate.endOf("month").toISODate(),
+        });
+        break;
+      case "lastMonth":
+        setDateConfig({
+          startDate: currentDate
+            .minus({ month: 1 })
+            .startOf("month")
+            .toISODate(),
+          endDate: currentDate.minus({ month: 1 }).endOf("month").toISODate(),
+        });
+        break;
+      case "currentYear":
+        setDateConfig({
+          startDate: currentDate.startOf("year").toISODate(),
+          endDate: currentDate.endOf("year").toISODate(),
+        });
+        break;
+      case "lastYear":
+        setDateConfig({
+          startDate: currentDate.minus({ year: 1 }).startOf("year").toISODate(),
+          endDate: currentDate.minus({ year: 1 }).endOf("year").toISODate(),
+        });
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleStartDateChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -92,44 +146,74 @@ export default function Filter(props: filterPropInterface) {
             <ModalHeader>Filter Settings</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <FormControl>
-                <FormLabel>Start Date</FormLabel>
-                <Input
-                  placeholder="Select Start Date"
-                  size="md"
-                  type="date"
-                  value={dateConfig.startDate}
-                  onChange={handleStartDateChange}
-                />
-                <FormLabel>End Date</FormLabel>
-                <Input
-                  placeholder="Select End Date"
-                  size="md"
-                  type="date"
-                  value={dateConfig.endDate}
-                  onChange={handleEndDateChange}
-                />
-              </FormControl>
-              {filters.viewExpense !== undefined && (
-                <>
-                  <FormLabel>View Expense</FormLabel>
-                  <Switch
-                    isChecked={viewExpenseConfig}
-                    onChange={handleViewExpenseSwitch}
-                    isDisabled={viewIncomeConfig}
+              <Center>
+                <FormLabel>Quick Date Select</FormLabel>
+              </Center>
+              <Select
+                onChange={handleQuickSelect}
+                placeholder="Quick Date Select"
+              >
+                <option value="currentWeek">This Week</option>
+                <option value="lastWeek">Last Week</option>
+                <option value="currentMonth">This Month</option>
+                <option value="lastMonth">Last Month</option>
+                <option value="currentYear">This Year</option>
+                <option value="lastYear">Last Year</option>
+              </Select>
+              <Flex>
+                <Box w="49%" my={5} mr={1}>
+                  <Center>
+                    <FormLabel>Start Date</FormLabel>
+                  </Center>
+                  <Input
+                    placeholder="Select Start Date"
+                    size="md"
+                    type="date"
+                    value={dateConfig.startDate}
+                    onChange={handleStartDateChange}
                   />
-                </>
-              )}
-              {filters.viewIncome !== undefined && (
-                <>
-                  <FormLabel>View Income</FormLabel>
-                  <Switch
-                    isChecked={viewIncomeConfig}
-                    onChange={handleViewIncomeSwitch}
-                    isDisabled={viewExpenseConfig}
+                </Box>
+                <Box w="49%" my={5} ml={1}>
+                  <Center>
+                    <FormLabel>End Date</FormLabel>
+                  </Center>
+                  <Input
+                    placeholder="Select End Date"
+                    size="md"
+                    type="date"
+                    value={dateConfig.endDate}
+                    onChange={handleEndDateChange}
                   />
-                </>
-              )}
+                </Box>
+              </Flex>
+              <Flex>
+                {filters.viewExpense !== undefined && (
+                  <Box w="50%" my={2}>
+                    <Center>
+                      <FormLabel>View Expense</FormLabel>
+                      <br />
+                      <Switch
+                        isChecked={viewExpenseConfig}
+                        onChange={handleViewExpenseSwitch}
+                        isDisabled={viewIncomeConfig}
+                      />
+                    </Center>
+                  </Box>
+                )}
+                {filters.viewIncome !== undefined && (
+                  <Box w="50%" my={2}>
+                    <Center>
+                      <FormLabel>View Income</FormLabel>
+                      <br />
+                      <Switch
+                        isChecked={viewIncomeConfig}
+                        onChange={handleViewIncomeSwitch}
+                        isDisabled={viewExpenseConfig}
+                      />
+                    </Center>
+                  </Box>
+                )}
+              </Flex>
             </ModalBody>
 
             <ModalFooter>
