@@ -8,7 +8,7 @@ export interface accountRecordsInterface {
   recordComment?: string;
   recordCategory?: string;
   recordPhoto?: string;
-  recordDate?: Date | string;
+  recordDate?: string;
 }
 
 export interface singularAccountInterface {
