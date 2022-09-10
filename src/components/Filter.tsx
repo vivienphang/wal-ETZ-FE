@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -35,11 +35,15 @@ export default function Filter(props: filterPropInterface) {
   const [dateConfig, setDateConfig] = useState(initialDateConfig);
   const [viewExpenseConfig, setViewExpenseConfig] = useState(false);
   const [viewIncomeConfig, setViewIncomeConfig] = useState(false);
+  const [dateQuickSelection, setDateQuickSelection] = useState<string | number>(
+    -1
+  );
 
   const handleQuickSelect: React.ChangeEventHandler<HTMLSelectElement> = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedDateRange = e.target.value;
+    setDateQuickSelection(selectedDateRange);
     const currentDate = DateTime.now();
     switch (selectedDateRange) {
       case "currentWeek":
@@ -89,17 +93,25 @@ export default function Filter(props: filterPropInterface) {
   const handleStartDateChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setDateQuickSelection(-1);
     const newStartDate = e.target.value;
-    console.log(newStartDate);
-    setDateConfig({ ...dateConfig, startDate: newStartDate });
+    if (DateTime.fromISO(newStartDate) > DateTime.fromISO(dateConfig.endDate)) {
+      setDateConfig({ startDate: newStartDate, endDate: newStartDate });
+    } else {
+      setDateConfig({ ...dateConfig, startDate: newStartDate });
+    }
   };
 
   const handleEndDateChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setDateQuickSelection(-1);
     const newEndDate = e.target.value;
-    console.log(newEndDate);
-    setDateConfig({ ...dateConfig, endDate: newEndDate });
+    if (DateTime.fromISO(newEndDate) < DateTime.fromISO(dateConfig.startDate)) {
+      setDateConfig({ startDate: newEndDate, endDate: newEndDate });
+    } else {
+      setDateConfig({ ...dateConfig, endDate: newEndDate });
+    }
   };
 
   const handleViewExpenseSwitch = () => {
@@ -122,6 +134,10 @@ export default function Filter(props: filterPropInterface) {
     });
     onClose();
   };
+
+  useEffect(() => {
+    console.log(setDateQuickSelection);
+  }, [setDateQuickSelection]);
 
   return (
     <>
@@ -152,6 +168,7 @@ export default function Filter(props: filterPropInterface) {
               <Select
                 onChange={handleQuickSelect}
                 placeholder="Quick Date Select"
+                value={dateQuickSelection}
               >
                 <option value="currentWeek">This Week</option>
                 <option value="lastWeek">Last Week</option>
