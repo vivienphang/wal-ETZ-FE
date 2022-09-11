@@ -6,7 +6,7 @@ import { HStack } from "@chakra-ui/react";
 
 export default function EIPieChart() {
   return (
-    <HStack border="solid">
+    <HStack border="solid" display="flex" flexDirection={["column"]}>
       <ExpensePie />
       <IncomePie />
     </HStack>

@@ -1,33 +1,39 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Flex,
   Box,
   Spacer,
-  Container,
-  Button,
   useDisclosure,
   Drawer,
   DrawerBody,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
+  Stack,
+  Heading,
+  Container,
 } from "@chakra-ui/react";
+import {
+  MdAdd,
+  MdSettings,
+  MdEqualizer,
+  MdHome,
+  MdPhotoCamera,
+} from "react-icons/md";
+import { FaCamera } from "react-icons/fa";
 
 import AddRecord from "../pages/AddRecord";
 import Camera from "./Camera";
 import Settings from "../pages/Settings";
 import Records from "../pages/Records";
-import { AccountsContext, UserContext } from "../provider/GlobalProvider";
-import { resetState } from "../reducers/userReducer";
 
 // eslint-disable-next-line object-curly-newline
 
 axios.defaults.withCredentials = true;
 function Navbar() {
-  const { userDispatch } = useContext(UserContext);
-  const { accountsDispatch } = useContext(AccountsContext);
+  const navigate = useNavigate();
   // For opening modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -35,7 +41,9 @@ function Navbar() {
     onOpen: onSettingsOpen,
     onClose: onSettingsClose,
   } = useDisclosure();
-
+  function handleHomeBtn() {
+    navigate("/home");
+  }
   // Trying camera feed
   const {
     isOpen: isCameraOpen,
@@ -48,52 +56,38 @@ function Navbar() {
     onClose: onRecordsClose,
   } = useDisclosure();
 
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    const backEndUrl = process.env.REACT_APP_BACKEND_URL;
-    console.log("LOGGING OUT");
-    localStorage.clear();
-    userDispatch!(resetState());
-    accountsDispatch!(resetState());
-    window.location.href = `${backEndUrl}/auth/logout`;
-  };
   return (
-    <Container bg="gray.400" color="white">
-      <Flex minWidth="max-content" alignItems="flex-start" gap="0">
-        <Box p="2">{/* <Heading size="md">Chakra App</Heading> */}</Box>
+    <Container display="flex" justifyContent="space-evenly">
+      <Flex minWidth="max-content" paddingTop={2} paddingBottom={2}>
+        {/* <Box p="2"></Box> */}
         <Spacer />
-        <Button
-          colorScheme="teal"
-          onClick={() => {
-            navigate("/home");
-          }}
-        >
-          Main Page
-        </Button>
-        <Button
-          colorScheme="teal"
-          onClick={() => {
-            navigate("/balanceChart");
-          }}
-        >
-          Balance Chart
-        </Button>
-        <Button colorScheme="teal" onClick={onRecordsOpen}>
-          Records
-        </Button>
-
-        <Button colorScheme="teal" onClick={onOpen}>
-          +
-        </Button>
-        <Button colorScheme="teal" onClick={onSettingsOpen}>
-          Settings
-        </Button>
-        <Button colorScheme="teal" onClick={onCameraOpen}>
-          Camera Feed Test
-        </Button>
-        <Button colorScheme="teal" onClick={handleLogout}>
-          Logout
-        </Button>
+        <Stack direction="row" spacing={4}>
+          <Box
+            as={MdHome}
+            color="gray.500"
+            size="50px"
+            onClick={handleHomeBtn}
+          />
+          <Box
+            as={MdEqualizer}
+            color="gray.500"
+            size="50px"
+            onClick={onRecordsOpen}
+          />
+          <Box as={MdAdd} color="gray.500" size="50px" onClick={onOpen} />
+          <Box
+            as={MdPhotoCamera}
+            color="gray.500"
+            size="50px"
+            onClick={onCameraOpen}
+          />
+          <Box
+            as={MdSettings}
+            color="gray.500"
+            size="50px"
+            onClick={onSettingsOpen}
+          />
+        </Stack>
 
         <Drawer
           placement="top"

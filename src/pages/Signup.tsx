@@ -50,7 +50,9 @@ function Signup() {
           data
         );
         console.log("check email", checkEmail);
-        navigate("/");
+        const { token } = checkEmail.data;
+        localStorage.setItem("token", token);
+        navigate("/loading");
       } catch (err: any) {
         console.log("this is error:", err);
         alert(err.response.data.status);

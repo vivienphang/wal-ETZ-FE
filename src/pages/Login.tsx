@@ -137,7 +137,7 @@ function Login() {
                     width="full"
                     form="login-form"
                   >
-                    Sign in
+                    Login
                   </Button>
                   <p>or</p>
                   <Button
@@ -147,7 +147,7 @@ function Login() {
                     width="full"
                     onClick={googleLogin}
                   >
-                    Sign in with Google
+                    Connect with Google
                   </Button>
                 </Stack>
               </form>

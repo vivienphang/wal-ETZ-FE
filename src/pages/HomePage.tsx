@@ -22,24 +22,23 @@ function HomePage() {
 
   return (
     <Wrap
-      bg="#BDE4A8"
+      bg="gray.100"
       maxHeight="100%"
       maxWidth="100%"
       display="flex"
       flexDirection={["column", "row", "row"]}
-      // justifyContent="space-around"
-      // alignContent="center"
-      // alignItems="center"
+      justifyContent="space-around"
+      alignItems="center"
       fontSize={["30px"]}
       overflowY="scroll"
       overflowX="scroll"
     >
-      <Navbar />
       <h1>HOME</h1>
       <AccountsCarousel />
       <Filter />
       <BalanceChart />
       <EIPieChart />
+      <Navbar />
     </Wrap>
   );
 }

@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   FormControl,
-  FormErrorMessage,
   FormHelperText,
   FormLabel,
   // IconButton,
@@ -13,15 +12,19 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../provider/GlobalProvider";
+import { updateProfile } from "../reducers/userReducer";
+import ACTIONS from "../reducers/actions";
 // import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 
 axios.defaults.withCredentials = true;
 
 export default function ProfileForm() {
-  const { userState } = useContext(UserContext);
+  const { userState, userDispatch } = useContext(UserContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState(userState?.username);
   const [currency, setCurrency] = useState(userState?.defaultCurrency);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleUsernameChange: React.ChangeEventHandler<HTMLInputElement> = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -31,81 +34,77 @@ export default function ProfileForm() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => setCurrency(event.target.value);
 
-  // Input error handlers
-  const usernameError = username === "";
-  const currencyError = currency === "";
-  // Update checks
-  // i. if username already exists in DB
-  // ii. regex conditions for username
-  // iii. findIdAndUpdate, returnDocument: "after"
+  // Error handlers if username
+  // i. is empty
+  // ii. submitted is identical to initial state
+  // iii. already exists in DB
   const handleUpdateBtn: React.FormEventHandler<HTMLFormElement> = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     console.log("update button clicked");
-    const updateData = {
-      username,
-      currency,
-    };
-    if (username) {
-      try {
-        const id: any = userState?._id;
-        console.log("THIS IS ID:", id);
-        const updateUsername = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/${id}`,
-          updateData
-        );
-        console.log("update username", updateUsername);
-        navigate("/home");
-      } catch (err) {
-        console.log(err);
-      }
+    if (!username) {
+      setErrorMessage("Username is required.");
+      return;
     }
+    if (username === userState?.username) {
+      setErrorMessage("Choose another username.");
+      return;
+    }
+    const token = localStorage.getItem("token");
+    const action = await updateProfile(username, currency!, token!);
+    userDispatch!(action);
+    if (action.type === ACTIONS.ERROR) {
+      setErrorMessage("Username no longer available.");
+      return;
+    }
+    navigate("/home");
   };
+
+  const handleSwitch = () => {
+    setIsEditing(!isEditing);
+  };
+
   return (
     <div>
       <FormControl display="flex" alignItems="end">
         <FormLabel htmlFor="allow-edit" mb="0">
           Update profile?
         </FormLabel>
-        <Switch size="md" id="allow-edit" />
+        <Switch size="md" id="allow-edit" onChange={handleSwitch} />
       </FormControl>
       <br />
       <Box w="100%" p={3} borderWidth="2px" borderRadius="lg" bg="gray.100">
-        <form>
-          <FormControl isInvalid={usernameError}>
+        <form onSubmit={handleUpdateBtn}>
+          <FormControl>
             <FormLabel>Username:</FormLabel>
             <Input
               type="text"
               value={username}
               onChange={handleUsernameChange}
+              disabled={!isEditing}
             />
-            {!usernameError ? (
-              <FormHelperText />
-            ) : (
-              <FormErrorMessage>Username is required.</FormErrorMessage>
-            )}
             <br />
           </FormControl>
-          <FormControl isInvalid={currencyError}>
+          <FormControl>
             <FormLabel>Default currency:</FormLabel>
             <Input
               type="text"
               value={currency}
               onChange={handleCurrencyChange}
+              disabled={!isEditing}
             />
-            {!currencyError ? (
-              <FormHelperText />
-            ) : (
-              <FormErrorMessage>Default currency is required.</FormErrorMessage>
-            )}
           </FormControl>
           <br />
+          <FormControl>
+            <FormHelperText>{errorMessage}</FormHelperText>
+          </FormControl>
           <Button
             display="flex"
             alignItems="center"
             colorScheme="teal"
-            onClick={handleUpdateBtn}
+            type="submit"
+            disabled={!isEditing}
           >
             Update
           </Button>
