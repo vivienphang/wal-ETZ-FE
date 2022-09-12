@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,7 +8,6 @@ import {
   chakra,
   Flex,
   FormControl,
-  // FormHelperText,
   Heading,
   Input,
   InputGroup,
@@ -28,7 +27,14 @@ function Login() {
   const navigate = useNavigate();
   const [loginCredentials, setLoginCredentials] = useState("");
   const [password, setPassword] = useState("");
-  // check if user has accounts array in DB
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/loading");
+    }
+  }, []);
+
   const submitLoginBtn: React.FormEventHandler<HTMLFormElement> = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {

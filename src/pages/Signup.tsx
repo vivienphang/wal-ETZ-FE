@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import {
   Button,
-  useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  FormControl,
-  FormLabel,
-  Input,
+  Text,
+  useDisclosure,
+  Highlight,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -66,8 +68,14 @@ function Signup() {
   return (
     <>
       <Button variant="ghost" onClick={onOpen}>
-        New to us?
-        <u> Sign up here</u>
+        <Text>
+          <Highlight
+            query="Sign up here!"
+            styles={{ textDecoration: "underline" }}
+          >
+            New to us? Sign up here!
+          </Highlight>
+        </Text>
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

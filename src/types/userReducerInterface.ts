@@ -5,8 +5,6 @@ export interface userStateInterface {
   defaultCurrency?: string;
   email?: string;
   username?: string;
-  friends?: object[];
-  friendRequests?: object[];
 }
 
 export interface userActionInterface {

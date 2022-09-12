@@ -3,7 +3,6 @@ import { userContextInterface } from "../types/userReducerInterface";
 import { accountContextInterface } from "../types/accountReducerInterface";
 import { childrenInterface } from "../types/providerInterface";
 import { initialUserState, userReducer } from "../reducers/userReducer";
-
 import {
   accountReducer,
   initialAccountsState,

@@ -12,8 +12,8 @@ import {
   DrawerOverlay,
   DrawerContent,
   Stack,
-  Heading,
   Container,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import {
   MdAdd,
@@ -22,7 +22,6 @@ import {
   MdHome,
   MdPhotoCamera,
 } from "react-icons/md";
-import { FaCamera } from "react-icons/fa";
 
 import AddRecord from "../pages/AddRecord";
 import Camera from "./Camera";
@@ -90,14 +89,15 @@ function Navbar() {
         </Stack>
 
         <Drawer
-          placement="top"
+          placement="left"
           onClose={onRecordsClose}
           isOpen={isRecordsOpen}
-          size="full"
+          size="md"
         >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
+            <DrawerCloseButton />
             <DrawerBody>
               <Records />
             </DrawerBody>
