@@ -1,6 +1,4 @@
 import React from "react";
-// Take data from users in userState
-
 import {
   Avatar,
   // AvatarBadge,
