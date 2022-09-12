@@ -13,6 +13,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 
 import AddRecord from "../pages/AddRecord";
@@ -96,14 +97,15 @@ function Navbar() {
         </Button>
 
         <Drawer
-          placement="top"
+          placement="left"
           onClose={onRecordsClose}
           isOpen={isRecordsOpen}
-          size="full"
+          size="md"
         >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
+            <DrawerCloseButton />
             <DrawerBody>
               <Records />
             </DrawerBody>

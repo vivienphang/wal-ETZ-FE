@@ -73,8 +73,8 @@ export default function AddRecord() {
       <AccountList acc={acc} setAcc={setAcc} />
       <HStack>
         <VStack>
-          <Button onClick={isET}>+</Button>
-          <Button onClick={isEF}>-</Button>
+          <Button onClick={isEF}>+</Button>
+          <Button onClick={isET}>-</Button>
         </VStack>
         <Input placeholder="Enter Amount" type="number" onChange={addAmount} />
       </HStack>
