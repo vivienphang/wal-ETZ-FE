@@ -16,6 +16,7 @@ export default function CategoryList(prop: categoryPropInterface) {
   // Setting the category state
   const settingCategory = (e: { target: { value: any } }) => {
     console.log(e.target.value);
+    setSelectedValue(e.target.value);
     setCat!(e.target.value);
   };
 
