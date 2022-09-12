@@ -15,11 +15,11 @@ export interface filterPropInterface {
 export interface recordsListPropInterface {
   filteredRec: accountRecordsInterface[];
 }
-// To define props
 
 export interface categoryPropInterface {
-  cat?: string;
-  setCat?: React.Dispatch<React.SetStateAction<string>>;
+  isExpense: boolean;
+  cat: string;
+  setCat: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface allAccDisplayPropInterface {

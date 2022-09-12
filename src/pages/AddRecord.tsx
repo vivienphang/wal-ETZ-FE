@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-// Import action creator to make axios call for records
 import { Button, HStack, VStack, Input, Textarea } from "@chakra-ui/react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
@@ -7,18 +6,23 @@ import { addRecord } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
 import { AccountsContext } from "../provider/GlobalProvider";
 
-// Component showing add record page
 export default function AddRecord() {
-  // Get current account state and information
-  // Acc is accId
+  const initData = {
+    amount: "",
+    isExpense: false,
+    recordName: "",
+    recordComment: "",
+    recordCategory: "",
+    recordPhoto: "",
+    recordDate: "",
+  };
+
   const { accountsDispatch } = useContext(AccountsContext);
   const [acc, setAcc] = useState("");
   const [cat, setCat] = useState("");
-  const [data, setData] = useState<addRecordInterface>({});
+  const [data, setData] = useState<addRecordInterface>(initData);
 
-  // Functions to handle the states
   const isET = () => {
-    // setIsExpense(true);
     setData({ ...data, isExpense: true });
   };
   const isEF = () => {
@@ -28,7 +32,6 @@ export default function AddRecord() {
     const sanitization = e.target.value.trim().match(/\d*(\.\d{0,2})?/);
     const sanitizedValue = sanitization ? sanitization[0] : "";
     console.log(sanitizedValue);
-    // I dont understand why this is an error when i changed the type to string at line 39
     setData({ ...data, amount: sanitizedValue });
   };
   const addDate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,27 +45,18 @@ export default function AddRecord() {
   ) => {
     setData({ ...data, recordComment: e.target.value });
   };
-  // Function to create record
+
   const createRecord = async () => {
-    // send data through the action creator
-    // update data into db records accounts
-    // update all the things that are rendered based on the state
-    // Get jwt token
+    // todo: update reducer here
     const token = localStorage.getItem("token");
     console.log(token);
     console.log(data);
     accountsDispatch!(await addRecord({ ...data, token }));
   };
-  // Checking change in State
+
   useEffect(() => {
-    // Checking to see when any changes are made to fields
-    console.log(data);
-  }, [data]);
-  useEffect(() => {
-    // Checking to see when any changes are made to fields
     setData({ ...data, recordCategory: cat });
   }, [cat]);
-  // UseEffect to get the account id based on acc change
   useEffect(() => {
     setData({ ...data, acc });
   }, [acc]);
@@ -84,7 +78,7 @@ export default function AddRecord() {
         onChange={addDate}
       />
       <Input placeholder="Record Name" type="string" onChange={addName} />
-      <CategoryList setCat={setCat} cat={cat} />
+      <CategoryList setCat={setCat} cat={cat} isExpense={data.isExpense!} />
       <Textarea
         placeholder="Here is a sample placeholder"
         size="sm"
