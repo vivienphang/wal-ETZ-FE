@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Select } from "@chakra-ui/react";
 
 import { expenseCategories, incomeCategories } from "../constants/categoryList";
@@ -6,6 +6,7 @@ import { categoryPropInterface } from "../types/propInterface";
 
 export default function CategoryList(prop: categoryPropInterface) {
   const { setCat, isExpense } = prop;
+  const [selectedValue, setSelectedValue] = useState<string | number>(-1);
   const incomeList = incomeCategories.map((category) => (
     <option key={category.incomeName}>{category.incomeName}</option>
   ));
@@ -18,9 +19,12 @@ export default function CategoryList(prop: categoryPropInterface) {
     setCat!(e.target.value);
   };
 
-  useEffect({});
+  useEffect(() => {
+    setSelectedValue(-1);
+  }, [isExpense]);
+
   return (
-    <Select onChange={settingCategory}>
+    <Select onChange={settingCategory} value={selectedValue}>
       {isExpense ? expenseList : incomeList}
     </Select>
   );

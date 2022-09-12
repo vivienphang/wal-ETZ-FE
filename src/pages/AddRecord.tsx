@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, HStack, VStack, Input, Textarea } from "@chakra-ui/react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
+import { AccountsContext } from "../provider/GlobalProvider";
 
 export default function AddRecord() {
   const initData = {
@@ -16,6 +17,7 @@ export default function AddRecord() {
     recordDate: "",
   };
 
+  const { accountsDispatch } = useContext(AccountsContext);
   const [acc, setAcc] = useState("");
   const [cat, setCat] = useState("");
   const [data, setData] = useState<addRecordInterface>(initData);
@@ -44,12 +46,12 @@ export default function AddRecord() {
     setData({ ...data, recordComment: e.target.value });
   };
 
-  const createRecord = () => {
+  const createRecord = async () => {
     // todo: update reducer here
     const token = localStorage.getItem("token");
     console.log(token);
     console.log(data);
-    addRecord({ ...data, token });
+    accountsDispatch!(await addRecord({ ...data, token }));
   };
 
   useEffect(() => {
@@ -65,8 +67,8 @@ export default function AddRecord() {
       <AccountList acc={acc} setAcc={setAcc} />
       <HStack>
         <VStack>
-          <Button onClick={isET}>+</Button>
-          <Button onClick={isEF}>-</Button>
+          <Button onClick={isEF}>+</Button>
+          <Button onClick={isET}>-</Button>
         </VStack>
         <Input placeholder="Enter Amount" type="number" onChange={addAmount} />
       </HStack>

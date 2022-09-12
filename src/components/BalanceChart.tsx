@@ -1,27 +1,56 @@
 /* eslint-disable no-console */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 // eslint-disable-next-line import/extensions
-import { balanceData } from "../data.js";
+// Take data from homePage records array
+import { EIPieChartPropInterface } from "../types/propInterface";
 
 Chart.register(...registerables);
+// Removing grid lines for bar chart
+Chart.defaults.scale.grid.display = false;
 
-export default function BalanceChart() {
+export default function BalanceChart(props: EIPieChartPropInterface) {
+  const { recs } = props;
+  if (!recs) {
+    console.log("Recs is empty for now");
+  }
+  // Import initial income/expense state here which is the
+  // combination of all the records from all accounts
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  // Extract the granddaughter from recs for each amount
+  useEffect(() => {
+    let inc = 0;
+    let exp = 0;
+    if (!recs) {
+      return;
+    }
+    recs!.forEach((rec) => {
+      const { amount } = rec!;
+      if (rec.isExpense) {
+        exp += Number(amount);
+      } else if (!rec.isExpense) {
+        inc += Number(amount);
+      }
+    });
+    console.log("Total Income", inc, "Total Expense", exp);
+    setIncome(inc);
+    setExpense(exp);
+  }, [recs]);
+
   return (
     <div>
       <Bar
         data={{
-          labels: balanceData.map((year, index) => balanceData[index].year),
+          labels: ["income", "expense"],
           datasets: [
             {
-              label: "Balance",
-              data: balanceData.map(
-                // eslint-disable-next-line comma-dangle
-                (balance, index) => balanceData[index].balance
-              ),
-              backgroundColor: ["#AA1155"],
-              borderWidth: 6,
+              label: "Income & Expense",
+              data: [income, expense],
+              backgroundColor: ["#50a36c"],
+              // borderWidth: 6,
+              borderRadius: 20,
             },
           ],
         }}
