@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -134,10 +134,6 @@ export default function Filter(props: filterPropInterface) {
     });
     onClose();
   };
-
-  useEffect(() => {
-    console.log(setDateQuickSelection);
-  }, [setDateQuickSelection]);
 
   return (
     <>

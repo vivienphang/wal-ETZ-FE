@@ -1,11 +1,11 @@
-import React from "react";
-import { Select, Divider } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Select } from "@chakra-ui/react";
 
 import { expenseCategories, incomeCategories } from "../constants/categoryList";
 import { categoryPropInterface } from "../types/propInterface";
 
 export default function CategoryList(prop: categoryPropInterface) {
-  const { setCat } = prop;
+  const { setCat, isExpense } = prop;
   const incomeList = incomeCategories.map((category) => (
     <option key={category.incomeName}>{category.incomeName}</option>
   ));
@@ -17,11 +17,11 @@ export default function CategoryList(prop: categoryPropInterface) {
     console.log(e.target.value);
     setCat!(e.target.value);
   };
+
+  useEffect({});
   return (
     <Select onChange={settingCategory}>
-      {incomeList}
-      <Divider orientation="horizontal" />
-      {expenseList}
+      {isExpense ? expenseList : incomeList}
     </Select>
   );
 }
