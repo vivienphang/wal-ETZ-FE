@@ -1,6 +1,8 @@
 import { DateTime } from "luxon";
 import {
+  Avatar,
   Center,
+  Icon,
   Table,
   Tbody,
   Td,
@@ -9,9 +11,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { FaAd } from "react-icons/fa";
 import React, { useEffect } from "react";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { recordsListPropInterface } from "../types/propInterface";
+import { incomeCategories, expenseCategories } from "../constants/categoryList";
+import { categoryInterface } from "../types/categoryInterface";
 
 export default function RecordsList(props: recordsListPropInterface) {
   // todo: maybe a total expense and total income for the filtered data?
@@ -26,17 +31,24 @@ export default function RecordsList(props: recordsListPropInterface) {
 
   const recordsList = filteredRec.map((record: accountRecordsInterface) => {
     const recordDate = new Date(record.recordDate!).toISOString();
+
+    const categoryFilter = (category: categoryInterface) => {
+      return record.recordCategory === category.name;
+    };
+
+    const recordCat = record.isExpense
+      ? expenseCategories.filter(categoryFilter)
+      : incomeCategories.filter(categoryFilter);
+    const recordIcon = recordCat[0] ? recordCat[0].icon : FaAd;
+
     return (
-      <Tr
-        key={record._id}
-        bg={record.isExpense ? "red.100" : "green.100"}
-        onClick={handleRowClick}
-        id={record._id}
-      >
+      <Tr key={record._id} onClick={handleRowClick} id={record._id}>
         <Td>
-          <Text fontSize="xs" as="sub">
-            {record.recordCategory}
-          </Text>
+          <Avatar
+            size="md"
+            icon={<Icon as={recordIcon} />}
+            bg={record.isExpense ? "red.100" : "green.100"}
+          />
         </Td>
         <Td>
           <Text fontSize="xs">
