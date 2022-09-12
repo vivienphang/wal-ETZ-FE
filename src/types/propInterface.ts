@@ -21,3 +21,12 @@ export interface categoryPropInterface {
   cat?: string;
   setCat?: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface allAccDisplayPropInterface {
+  chosenAcc?: string;
+  setChosenAcc: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface EIPieChartPropInterface {
+  recs?: accountRecordsInterface[];
+}

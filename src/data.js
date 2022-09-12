@@ -22,11 +22,11 @@ export const balanceData = [
   },
   {
     year: 2017,
-    balance: -29,
+    balance: 29,
   },
   {
     year: 2016,
-    balance: -300,
+    balance: 300,
   },
 ];
 

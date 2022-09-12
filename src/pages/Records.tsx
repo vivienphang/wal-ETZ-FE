@@ -14,12 +14,12 @@ import { filterInterface } from "../types/filterInterface";
 export default function Records() {
   const currentDate = DateTime.now();
   const initFilterState = {
-    startDate: DateTime.utc(currentDate.year, currentDate.month, 1)
-      .toString()
-      .substring(0, 10),
-    endDate: DateTime.utc(currentDate.year, currentDate.month, currentDate.day)
-      .toString()
-      .substring(0, 10),
+    startDate: DateTime.utc(currentDate.year, currentDate.month, 1).toISODate(),
+    endDate: DateTime.utc(
+      currentDate.year,
+      currentDate.month,
+      currentDate.day
+    ).toISODate(),
     viewExpense: false,
     viewIncome: false,
   };
