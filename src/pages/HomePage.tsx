@@ -79,7 +79,6 @@ function HomePage() {
     >
       <Navbar />
       <h1>HOME</h1>
-      <AccountsCarousel />
       <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
       <BalanceChart recs={recs} />

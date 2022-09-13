@@ -15,13 +15,13 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
   };
   const accountList = accountsState!.map((account) => (
     // Setting the account
+    // Make sure
     <Button key={account._id} onClick={settingAcc} value={account._id}>
       {account.accName}
     </Button>
   ));
   return (
     <div>
-      <h1>Show all accounts as buttons</h1>
       <div>{accountList}</div>
     </div>
   );
