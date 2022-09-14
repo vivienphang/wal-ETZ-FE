@@ -1,9 +1,4 @@
 import {
-  FcCurrencyExchange,
-  FcBullish,
-  FcIdea,
-  FcCustomerSupport,
-  FcAbout,
   FcInTransit,
   FcPhoneAndroid,
   FcReading,
@@ -14,71 +9,81 @@ import {
   FcLinux,
 } from "react-icons/fc";
 
+import {
+  GiCardAceSpades,
+  GiHamburgerMenu,
+  GiMoneyStack,
+  GiPiggyBank,
+  GiReceiveMoney,
+  GiTakeMyMoney,
+} from "react-icons/gi";
+
 export const incomeCategories = [
   {
-    incomeName: "Wages",
-    icon: FcCurrencyExchange,
+    name: "Wages",
+    icon: GiMoneyStack,
   },
   {
-    incomeName: "Sales",
-    icon: FcCustomerSupport,
+    name: "Sales",
+    icon: GiTakeMyMoney,
   },
   {
-    incomeName: "Passive Income",
-    icon: FcIdea,
+    name: "Passive Income",
+    icon: GiReceiveMoney,
   },
   {
-    incomeName: "Gambling",
-    icon: FcAbout,
+    name: "Gambling",
+    icon: GiCardAceSpades,
   },
   {
-    incomeName: "Dividends",
-    icon: FcBullish,
+    name: "Dividends",
+    icon: GiPiggyBank,
   },
+  { name: "Misc. Income", icon: GiHamburgerMenu },
 ];
 export const expenseCategories = [
   {
-    expenseName: "Housing",
+    name: "Housing",
     icon: FcHome,
   },
   {
-    expenseName: "Restraunts",
+    name: "Restaurants",
     icon: FcLinux,
   },
   {
-    expenseName: "Groceries",
+    name: "Groceries",
     icon: FcPaid,
   },
   {
-    expenseName: "Shopping",
+    name: "Shopping",
     icon: FcLinux,
   },
   {
-    expenseName: "Insurance",
+    name: "Insurance",
     icon: FcLinux,
   },
   {
-    expenseName: "Transportation",
+    name: "Transportation",
     icon: FcInTransit,
   },
   {
-    expenseName: "Education",
+    name: "Education",
     icon: FcReading,
   },
   {
-    expenseName: "Leisure",
+    name: "Leisure",
     icon: FcLandscape,
   },
   {
-    expenseName: "Telecommunications",
+    name: "Telecommunications",
     icon: FcPhoneAndroid,
   },
   {
-    expenseName: "Tax",
+    name: "Tax",
     icon: FcLinux,
   },
   {
-    expenseName: "Health & Beauty",
+    name: "Health & Beauty",
     icon: FcNightPortrait,
   },
 ];

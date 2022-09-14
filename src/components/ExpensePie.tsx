@@ -6,7 +6,6 @@ import { Box } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 // Import records data
 import { EIPieChartPropInterface } from "../types/propInterface";
-import { categorySplitInterface } from "../types/expenseInterface.js";
 
 Chart.register(...registerables);
 // Getting accountState
