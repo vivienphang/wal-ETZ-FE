@@ -58,21 +58,19 @@ export default function IncomePie(props: EIPieChartPropInterface) {
     // Change the labelNames and datasets.data
     const labelData = Object.keys(categorySplit);
     setLabelNames(labelData);
-    console.log(labelNames);
-    // A summary of the three category amounts
     // Logic to render the graphs based on expenseRecs
     // Take categorySplit and map for each category
     const valueArr = Object.values(categorySplit);
     // Adding all the expenses based on category
     const data = valueArr.map((cat) => {
       let catAmount = 0;
-      cat.map((rec) => {
+      cat.map((rec: { amount: number }) => {
         catAmount += rec.amount;
+        return null;
       });
       return catAmount;
     });
     setIncomeCat(data);
-    console.log(incomeCat);
   }, [incomeRecs]);
   return (
     <div>

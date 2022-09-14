@@ -4,10 +4,10 @@ import { Wrap } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import AllAccDisplay from "../components/AllAccDisplay";
 import Filter from "../components/Filter";
-import AccountsCarousel from "../components/AccountsCarousel";
 import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
+import LineChart from "../components/LineChart";
 // import { userState } from "../types/userReducerInterface";
 import { UserContext, AccountsContext } from "../provider/GlobalProvider";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
@@ -27,9 +27,7 @@ function HomePage() {
       initialRecs = [...initialRecs, ...account.accRecords!];
       return initialRecs;
     });
-    // Why is the setRecs not working?
   }, []);
-  // Add the combination of all accounts here
 
   const navigate = useNavigate();
 
@@ -44,6 +42,9 @@ function HomePage() {
     ).toISODate(),
   };
   const [filters, setFilters] = useState<filterInterface>(initFilterState);
+  const [filteredRecs, setFilteredRecs] = useState<accountRecordsInterface[]>(
+    []
+  );
 
   useEffect(() => {
     if (!userState?._id) {
@@ -53,6 +54,11 @@ function HomePage() {
   useEffect(() => {
     // Setting the records state as chosenAcc records
     accountsState?.forEach((account) => {
+      console.log(chosenAcc);
+      if (chosenAcc === "") {
+        setRecs(initialRecs);
+        return;
+      }
       if (account._id === chosenAcc) {
         // Take the chosenAcc's accRecords
         setRecs(account.accRecords!);
@@ -63,6 +69,23 @@ function HomePage() {
       }
     });
   }, [chosenAcc]);
+
+  useEffect(() => {
+    const dateFilter = (record: accountRecordsInterface) => {
+      return (
+        DateTime.fromISO(record.recordDate!) >
+          DateTime.fromISO(filters.startDate).startOf("day") &&
+        DateTime.fromISO(record.recordDate!) <
+          DateTime.fromISO(filters.endDate).endOf("day")
+      );
+    };
+
+    const preFilteredRecords = [...recs];
+
+    const postFilteredRecords = preFilteredRecords.filter(dateFilter);
+
+    setFilteredRecs(postFilteredRecords);
+  }, [recs, filters]);
   return (
     <Wrap
       bg="#BDE4A8"
@@ -70,20 +93,17 @@ function HomePage() {
       maxWidth="100%"
       display="flex"
       flexDirection={["column", "row", "row"]}
-      // justifyContent="space-around"
-      // alignContent="center"
-      // alignItems="center"
       fontSize={["30px"]}
       overflowY="scroll"
       overflowX="scroll"
     >
+      {/* Pass in filtered data as recs */}
       <Navbar />
-      <h1>HOME</h1>
-      <AccountsCarousel />
+      <LineChart recs={filteredRecs} />
       <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
-      <BalanceChart recs={recs} />
-      <EIPieChart recs={recs} />
+      <BalanceChart recs={filteredRecs} />
+      <EIPieChart recs={filteredRecs} />
     </Wrap>
   );
 }

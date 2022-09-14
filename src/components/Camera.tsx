@@ -31,6 +31,7 @@ export default function Camera() {
     const photo = photoRef.current;
     photo.width = width;
     photo.height = height;
+    console.log(photoRef);
 
     const ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
