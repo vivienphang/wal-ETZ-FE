@@ -52,6 +52,7 @@ function ExpensePie(props: EIPieChartPropInterface) {
         categorySplit[`${category}`] = [rec];
       }
     });
+    console.log(categorySplit);
   }, [expenseRecs]);
 
   useEffect(() => {
@@ -63,10 +64,11 @@ function ExpensePie(props: EIPieChartPropInterface) {
     // Take categorySplit and map for each category
     const valueArr = Object.values(categorySplit);
     // Adding all the expenses based on category
-    const data = valueArr.map((cat) => {
+    const data = valueArr.map((cat: any) => {
       let catAmount = 0;
-      cat.map((rec) => {
+      cat.map((rec: { amount: number }) => {
         catAmount += rec.amount;
+        return null;
       });
       return catAmount;
     });

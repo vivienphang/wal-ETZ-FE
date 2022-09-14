@@ -12,7 +12,6 @@ import LineChart from "../components/LineChart";
 import { UserContext, AccountsContext } from "../provider/GlobalProvider";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
-import { Line } from "react-chartjs-2";
 
 let initialRecs: accountRecordsInterface[] = [];
 
@@ -28,9 +27,7 @@ function HomePage() {
       initialRecs = [...initialRecs, ...account.accRecords!];
       return initialRecs;
     });
-    // Why is the setRecs not working?
   }, []);
-  // Add the combination of all accounts here
 
   const navigate = useNavigate();
 
@@ -45,6 +42,9 @@ function HomePage() {
     ).toISODate(),
   };
   const [filters, setFilters] = useState<filterInterface>(initFilterState);
+  const [filteredRecs, setFilteredRecs] = useState<accountRecordsInterface[]>(
+    []
+  );
 
   useEffect(() => {
     if (!userState?._id) {
@@ -69,6 +69,23 @@ function HomePage() {
       }
     });
   }, [chosenAcc]);
+
+  useEffect(() => {
+    const dateFilter = (record: accountRecordsInterface) => {
+      return (
+        DateTime.fromISO(record.recordDate!) >
+          DateTime.fromISO(filters.startDate).startOf("day") &&
+        DateTime.fromISO(record.recordDate!) <
+          DateTime.fromISO(filters.endDate).endOf("day")
+      );
+    };
+
+    const preFilteredRecords = [...recs];
+
+    const postFilteredRecords = preFilteredRecords.filter(dateFilter);
+
+    setFilteredRecs(postFilteredRecords);
+  }, [recs, filters]);
   return (
     <Wrap
       bg="#BDE4A8"
@@ -82,11 +99,11 @@ function HomePage() {
     >
       {/* Pass in filtered data as recs */}
       <Navbar />
-      <LineChart recs={recs} />
+      <LineChart recs={filteredRecs} />
       <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
-      <BalanceChart recs={recs} />
-      <EIPieChart recs={recs} />
+      <BalanceChart recs={filteredRecs} />
+      <EIPieChart recs={filteredRecs} />
     </Wrap>
   );
 }
