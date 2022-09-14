@@ -30,3 +30,7 @@ export interface allAccDisplayPropInterface {
 export interface EIPieChartPropInterface {
   recs?: accountRecordsInterface[];
 }
+
+export interface addRecordPropInterface {
+  onClose: () => void;
+}

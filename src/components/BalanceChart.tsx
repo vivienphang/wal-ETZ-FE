@@ -34,9 +34,14 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
         inc += Number(amount);
       }
     });
-    console.log("Total Income", inc, "Total Expense", exp);
-    setIncome(inc);
-    setExpense(exp);
+    console.log(
+      "Total Income",
+      Number(inc.toFixed(2)),
+      "Total Expense",
+      Number(exp.toFixed(2))
+    );
+    setIncome(Number(inc.toFixed(2)));
+    setExpense(Number(exp.toFixed(2)));
   }, [recs]);
 
   return (

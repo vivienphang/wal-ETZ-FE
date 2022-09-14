@@ -1,13 +1,32 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Button, HStack, VStack, Input, Textarea } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  Textarea,
+  FormControl,
+  FormLabel,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Center,
+  Flex,
+  Box,
+  Switch,
+  FormHelperText,
+} from "@chakra-ui/react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
 import { AccountsContext } from "../provider/GlobalProvider";
+import { addRecordPropInterface } from "../types/propInterface";
 
-export default function AddRecord() {
+export default function AddRecord(props: addRecordPropInterface) {
+  const { onClose } = props;
   const initData = {
+    acc: "",
     amount: "",
     isExpense: false,
     recordName: "",
@@ -21,37 +40,58 @@ export default function AddRecord() {
   const [acc, setAcc] = useState("");
   const [cat, setCat] = useState("");
   const [data, setData] = useState<addRecordInterface>(initData);
+  const [formError, setFormError] = useState(false);
 
-  const isET = () => {
-    setData({ ...data, isExpense: true });
+  const handleToggleExpense = () => {
+    setData({ ...data, isExpense: !data.isExpense });
   };
-  const isEF = () => {
-    setData({ ...data, isExpense: false });
-  };
-  const addAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const sanitization = e.target.value.trim().match(/\d*(\.\d{0,2})?/);
+
+  const updateAmount: React.ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    const sanitization = value.trim().match(/\d*(\.\d{0,2})?/);
     const sanitizedValue = sanitization ? sanitization[0] : "";
-    console.log(sanitizedValue);
     setData({ ...data, amount: sanitizedValue });
   };
-  const addDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateDate: React.ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setData({ ...data, recordDate: e.target.value });
   };
-  const addName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateName: React.ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setData({ ...data, recordName: e.target.value });
   };
-  const addComment: React.ChangeEventHandler<HTMLTextAreaElement> = (
+  const updateComment: React.ChangeEventHandler<HTMLTextAreaElement> = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setData({ ...data, recordComment: e.target.value });
   };
 
-  const createRecord = async () => {
+  const createRecord = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !data.acc ||
+      !data.amount ||
+      !data.recordDate ||
+      !data.recordCategory ||
+      !data.recordName
+    ) {
+      setFormError(true);
+      setTimeout(() => {
+        setFormError(false);
+      }, 2500);
+      return;
+    }
     // todo: update reducer here
+    // todo: also add currency symbol to form
     const token = localStorage.getItem("token");
     console.log(token);
     console.log(data);
     accountsDispatch!(await addRecord({ ...data, token }));
+    onClose();
   };
 
   useEffect(() => {
@@ -63,29 +103,88 @@ export default function AddRecord() {
 
   return (
     <div>
-      <h1>New Record</h1>
-      <AccountList acc={acc} setAcc={setAcc} />
-      <HStack>
-        <VStack>
-          <Button onClick={isEF}>+</Button>
-          <Button onClick={isET}>-</Button>
-        </VStack>
-        <Input placeholder="Enter Amount" type="number" onChange={addAmount} />
-      </HStack>
-      <Input
-        placeholder="Date And Time"
-        type="datetime-local"
-        onChange={addDate}
-      />
-      <Input placeholder="Record Name" type="string" onChange={addName} />
-      <CategoryList setCat={setCat} cat={cat} isExpense={data.isExpense!} />
-      <Textarea
-        placeholder="Here is a sample placeholder"
-        size="sm"
-        resize="none"
-        onChange={addComment}
-      />
-      <Button onClick={createRecord}>Create Record</Button>
+      <form onSubmit={createRecord}>
+        <FormControl>
+          <Center>
+            <FormLabel>Select Account</FormLabel>
+          </Center>
+          <AccountList acc={acc} setAcc={setAcc} />
+          <Center mt={1}>
+            <FormLabel>
+              {data.isExpense ? "Expense " : "Income "}
+              Amount
+            </FormLabel>
+          </Center>
+          <Flex>
+            <Box w="25%">
+              <Center>
+                <Switch
+                  size="lg"
+                  isChecked={data.isExpense}
+                  onChange={handleToggleExpense}
+                  colorScheme="red"
+                />
+              </Center>
+            </Box>
+            <Box w="75%">
+              <NumberInput defaultValue={0} precision={2} step={0.1} min={0}>
+                <NumberInputField
+                  type="number"
+                  onChange={updateAmount}
+                  value={data.amount}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </Box>
+          </Flex>
+          <Center mt={1}>
+            <FormLabel>Date of Transaction</FormLabel>
+          </Center>
+          <Input
+            placeholder="Date And Time"
+            type="datetime-local"
+            onChange={updateDate}
+            value={data.recordDate}
+          />
+          <Center mt={1}>
+            <FormLabel>Record Name</FormLabel>
+          </Center>
+          <Input
+            placeholder="Record Name"
+            type="string"
+            onChange={updateName}
+          />
+          <Center mt={1}>
+            <FormLabel>Select Category</FormLabel>
+          </Center>
+          <CategoryList setCat={setCat} cat={cat} isExpense={data.isExpense!} />
+          <Center mt={1}>
+            <FormLabel>Comments</FormLabel>
+          </Center>
+          <Textarea
+            placeholder="Enter your comments here"
+            size="sm"
+            resize="none"
+            onChange={updateComment}
+            value={data.recordComment}
+            mb={1}
+          />
+          <Center>
+            <FormHelperText
+              className={formError ? "show" : "hide"}
+              transition="0.8s linear"
+              color="red"
+              my={1}
+            >
+              Please check your input!
+            </FormHelperText>
+          </Center>
+          <Button type="submit">Create Record</Button>
+        </FormControl>
+      </form>
     </div>
   );
 }
