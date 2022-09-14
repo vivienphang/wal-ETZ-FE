@@ -133,7 +133,7 @@ function Navbar() {
             <DrawerHeader borderBottomWidth="1px">Add New Record</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
-              <AddRecord />
+              <AddRecord onClose={onClose} />
             </DrawerBody>
           </DrawerContent>
         </Drawer>

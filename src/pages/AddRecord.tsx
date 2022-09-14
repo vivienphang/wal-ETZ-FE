@@ -13,15 +13,20 @@ import {
   Center,
   Flex,
   Box,
+  Switch,
+  FormHelperText,
 } from "@chakra-ui/react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
 import { AccountsContext } from "../provider/GlobalProvider";
+import { addRecordPropInterface } from "../types/propInterface";
 
-export default function AddRecord() {
+export default function AddRecord(props: addRecordPropInterface) {
+  const { onClose } = props;
   const initData = {
+    acc: "",
     amount: "",
     isExpense: false,
     recordName: "",
@@ -35,13 +40,12 @@ export default function AddRecord() {
   const [acc, setAcc] = useState("");
   const [cat, setCat] = useState("");
   const [data, setData] = useState<addRecordInterface>(initData);
+  const [formError, setFormError] = useState(false);
 
-  const isET = () => {
-    setData({ ...data, isExpense: true });
+  const handleToggleExpense = () => {
+    setData({ ...data, isExpense: !data.isExpense });
   };
-  const isEF = () => {
-    setData({ ...data, isExpense: false });
-  };
+
   const updateAmount: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -66,12 +70,28 @@ export default function AddRecord() {
     setData({ ...data, recordComment: e.target.value });
   };
 
-  const createRecord = async () => {
+  const createRecord = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !data.acc ||
+      !data.amount ||
+      !data.recordDate ||
+      !data.recordCategory ||
+      !data.recordName
+    ) {
+      setFormError(true);
+      setTimeout(() => {
+        setFormError(false);
+      }, 2500);
+      return;
+    }
     // todo: update reducer here
+    // todo: also add currency symbol to form
     const token = localStorage.getItem("token");
     console.log(token);
     console.log(data);
     accountsDispatch!(await addRecord({ ...data, token }));
+    onClose();
   };
 
   useEffect(() => {
@@ -97,8 +117,14 @@ export default function AddRecord() {
           </Center>
           <Flex>
             <Box w="25%">
-              <Button onClick={isEF}>+</Button>
-              <Button onClick={isET}>-</Button>
+              <Center>
+                <Switch
+                  size="lg"
+                  isChecked={data.isExpense}
+                  onChange={handleToggleExpense}
+                  colorScheme="red"
+                />
+              </Center>
             </Box>
             <Box w="75%">
               <NumberInput defaultValue={0} precision={2} step={0.1} min={0}>
@@ -139,13 +165,23 @@ export default function AddRecord() {
             <FormLabel>Comments</FormLabel>
           </Center>
           <Textarea
-            placeholder="Here is a sample placeholder"
+            placeholder="Enter your comments here"
             size="sm"
             resize="none"
             onChange={updateComment}
             value={data.recordComment}
             mb={1}
           />
+          <Center>
+            <FormHelperText
+              className={formError ? "show" : "hide"}
+              transition="0.8s linear"
+              color="red"
+              my={1}
+            >
+              Please check your input!
+            </FormHelperText>
+          </Center>
           <Button type="submit">Create Record</Button>
         </FormControl>
       </form>

@@ -56,7 +56,12 @@ export default function RecordsList(props: recordsListPropInterface) {
           </Text>
         </Td>
         <Td>
-          <Text>{Number(record.amount).toFixed(2)}</Text>
+          <Text>
+            {Number(record.amount).toLocaleString("en-us", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </Text>
         </Td>
       </Tr>
     );

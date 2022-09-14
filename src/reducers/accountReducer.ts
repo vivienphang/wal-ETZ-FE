@@ -16,15 +16,12 @@ export function accountReducer(
   accountState: singularAccountInterface[],
   action: accountActionInterface
 ) {
-  const accCopy = [...accountState];
+  let accCopy: singularAccountInterface[];
   switch (action.type) {
     case ACTIONS.RETRIEVE:
       return [...action.payload!];
     case ACTIONS.UPDATE:
-      // Check accountState for this accountId
-      // action.payload.updateaccount.accountiD
-      // foreach if === this.accId{
-      // replace
+      accCopy = [...accountState];
       console.log("In actions update accounts reducer");
       console.log(action.payload);
       accountState.forEach((account, index) => {
@@ -32,7 +29,6 @@ export function accountReducer(
           accCopy[index] = action.payload![0];
         }
       });
-      // Find the id of old account and update it
       return [...accCopy];
     case ACTIONS.RESET:
       return initialAccountsState;
