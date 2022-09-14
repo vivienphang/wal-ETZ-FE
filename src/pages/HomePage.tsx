@@ -4,14 +4,15 @@ import { Wrap } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import AllAccDisplay from "../components/AllAccDisplay";
 import Filter from "../components/Filter";
-import AccountsCarousel from "../components/AccountsCarousel";
 import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
+import LineChart from "../components/LineChart";
 // import { userState } from "../types/userReducerInterface";
 import { UserContext, AccountsContext } from "../provider/GlobalProvider";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
+import { Line } from "react-chartjs-2";
 
 let initialRecs: accountRecordsInterface[] = [];
 
@@ -53,6 +54,11 @@ function HomePage() {
   useEffect(() => {
     // Setting the records state as chosenAcc records
     accountsState?.forEach((account) => {
+      console.log(chosenAcc);
+      if (chosenAcc === "") {
+        setRecs(initialRecs);
+        return;
+      }
       if (account._id === chosenAcc) {
         // Take the chosenAcc's accRecords
         setRecs(account.accRecords!);
@@ -70,15 +76,13 @@ function HomePage() {
       maxWidth="100%"
       display="flex"
       flexDirection={["column", "row", "row"]}
-      // justifyContent="space-around"
-      // alignContent="center"
-      // alignItems="center"
       fontSize={["30px"]}
       overflowY="scroll"
       overflowX="scroll"
     >
+      {/* Pass in filtered data as recs */}
       <Navbar />
-      <h1>HOME</h1>
+      <LineChart recs={recs} />
       <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
       <BalanceChart recs={recs} />

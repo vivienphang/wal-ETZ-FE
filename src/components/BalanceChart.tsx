@@ -12,9 +12,6 @@ Chart.defaults.scale.grid.display = false;
 
 export default function BalanceChart(props: EIPieChartPropInterface) {
   const { recs } = props;
-  if (!recs) {
-    console.log("Recs is empty for now");
-  }
   // Import initial income/expense state here which is the
   // combination of all the records from all accounts
   const [income, setIncome] = useState(0);
@@ -34,7 +31,6 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
         inc += Number(amount);
       }
     });
-    console.log("Total Income", inc, "Total Expense", exp);
     setIncome(inc);
     setExpense(exp);
   }, [recs]);
