@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import {
   Avatar,
   Center,
@@ -11,11 +10,16 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { FaAd } from "react-icons/fa";
+import { DateTime } from "luxon";
 import React, { useEffect } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { recordsListPropInterface } from "../types/propInterface";
-import { incomeCategories, expenseCategories } from "../constants/categoryList";
+import {
+  incomeCategories,
+  expenseCategories,
+  inaccessibleCategories,
+} from "../constants/categoryList";
 import { categoryInterface } from "../types/categoryInterface";
 
 export default function RecordsList(props: recordsListPropInterface) {
@@ -36,10 +40,15 @@ export default function RecordsList(props: recordsListPropInterface) {
       return record.recordCategory === category.name;
     };
 
-    const recordCat = record.isExpense
-      ? expenseCategories.filter(categoryFilter)
-      : incomeCategories.filter(categoryFilter);
-    const recordIcon = recordCat[0] ? recordCat[0].icon : FaAd;
+    const allCategories = [
+      ...expenseCategories,
+      ...incomeCategories,
+      ...inaccessibleCategories,
+    ];
+
+    const recordCat = allCategories.filter(categoryFilter);
+
+    const recordIcon = recordCat[0] ? recordCat[0].icon : GiHamburgerMenu;
 
     return (
       <Tr key={record._id} onClick={handleRowClick} id={record._id}>
@@ -56,7 +65,7 @@ export default function RecordsList(props: recordsListPropInterface) {
           </Text>
         </Td>
         <Td>
-          <Text>
+          <Text color={record.isExpense ? "red.300" : "green.300"}>
             {Number(record.amount).toLocaleString("en-us", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,

@@ -18,7 +18,7 @@ export default function AccountList(prop: accountListPropInterface) {
   ));
   return (
     <div>
-      <Select placeholder="Pick Account" value={acc} onChange={selectAcc}>
+      <Select placeholder="Select Account" value={acc} onChange={selectAcc}>
         {accountsList}
       </Select>
     </div>

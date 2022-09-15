@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React, { useState, useContext, useEffect } from "react";
 import AccountList from "../components/AccountList";
@@ -28,6 +28,7 @@ export default function Records() {
   const [currentAcc, setCurrentAcc] = useState<singularAccountInterface>();
   const [filteredRec, setFilteredRec] = useState<accountRecordsInterface[]>([]);
   const [filters, setFilters] = useState<filterInterface>(initFilterState);
+  const [totalSum, setTotalSum] = useState(0);
 
   const { accountsState } = useContext(AccountsContext);
 
@@ -57,6 +58,9 @@ export default function Records() {
     const incomeFilter = (record: accountRecordsInterface) => {
       return !record.isExpense;
     };
+
+    let sum = 0;
+
     const preFilteredRecords = [...rec];
 
     let postFilteredRecords = preFilteredRecords.filter(dateFilter);
@@ -67,20 +71,32 @@ export default function Records() {
       postFilteredRecords = postFilteredRecords.filter(incomeFilter);
     }
 
+    postFilteredRecords.forEach((record) => {
+      if (record.isExpense) {
+        sum -= Number(record.amount!);
+      } else {
+        sum += Number(record.amount!);
+      }
+    });
+
+    setTotalSum(sum);
     setFilteredRec(postFilteredRecords);
   }, [rec, filters]);
 
   useEffect(() => {
-    console.log(filters);
-  }, [filters]);
+    console.log(totalSum);
+  }, [totalSum]);
 
   return (
-    <div>
-      <Heading size="md" py={5}>
-        {currentAcc
-          ? `Records of - ${currentAcc.accName}`
-          : "Select an account"}
-      </Heading>
+    <Flex h="100vh" flexDirection="column">
+      <Center>
+        <Heading size="sm" pb={5} pt={2}>
+          Period:
+          {` ${DateTime.fromISO(filters.startDate).toFormat(
+            "LLL d, y"
+          )} - ${DateTime.fromISO(filters.endDate).toFormat("LLL d, y")}`}
+        </Heading>
+      </Center>
       <Flex minW="max-content">
         <Box w="85%" mr={1}>
           <AccountList acc={acc} setAcc={setAcc} />
@@ -89,7 +105,15 @@ export default function Records() {
           <Filter filters={filters} setFilters={setFilters} />
         </Box>
       </Flex>
-      <RecordsList filteredRec={filteredRec} />
-    </div>
+      {currentAcc ? (
+        <RecordsList filteredRec={filteredRec} />
+      ) : (
+        <Flex flex="1 1 auto" alignItems="center" justify="center">
+          <Box>
+            <Text fontSize="xl">Please select an account</Text>
+          </Box>
+        </Flex>
+      )}
+    </Flex>
   );
 }

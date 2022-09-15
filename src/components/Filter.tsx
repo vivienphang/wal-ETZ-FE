@@ -126,12 +126,17 @@ export default function Filter(props: filterPropInterface) {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    setFilters({
-      ...filters,
-      ...dateConfig,
-      viewIncome: viewIncomeConfig,
-      viewExpense: viewExpenseConfig,
-    });
+
+    if (filters.viewExpense && filters.viewIncome) {
+      setFilters({
+        ...filters,
+        ...dateConfig,
+        viewIncome: viewIncomeConfig,
+        viewExpense: viewExpenseConfig,
+      });
+    } else {
+      setFilters({ ...filters, ...dateConfig });
+    }
     onClose();
   };
 

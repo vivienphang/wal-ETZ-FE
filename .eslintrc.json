@@ -24,7 +24,8 @@
     "quotes": "off",
     "import/extensions": "off",
     "react/jsx-filename-extension": "off",
-    "react/jsx-no-constructed-context-values": "off"
+    "react/jsx-no-constructed-context-values": "off",
+    "react/jsx-one-expression-per-line": "off"
   },
   "settings": {
     "import/resolver": {
