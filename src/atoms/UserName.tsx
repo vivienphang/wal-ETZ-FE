@@ -6,7 +6,6 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
-  // IconButton,
   Input,
   Switch,
 } from "@chakra-ui/react";
@@ -14,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../provider/GlobalProvider";
 import { updateProfile } from "../reducers/userReducer";
 import ACTIONS from "../reducers/actions";
-// import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 
 axios.defaults.withCredentials = true;
 

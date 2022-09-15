@@ -34,7 +34,7 @@ export default async function getData(token: string) {
     };
   } else {
     console.log(userData?.data);
-    const { _id, defaultCurrency, email, username, accounts } =
+    const { _id, defaultCurrency, email, username, accounts, profilePicture } =
       userData.data.data;
     const accountsArray: singularAccountInterface[] = [];
     accounts.forEach((account: singularAccountInterface) => {
@@ -60,6 +60,7 @@ export default async function getData(token: string) {
           defaultCurrency,
           email,
           username,
+          profilePicture,
         },
       },
       accountAction: {

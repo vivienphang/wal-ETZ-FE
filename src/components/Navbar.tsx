@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Flex,
@@ -15,13 +14,7 @@ import {
   Container,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import {
-  MdAdd,
-  MdSettings,
-  MdEqualizer,
-  MdHome,
-  MdPhotoCamera,
-} from "react-icons/md";
+import { MdAdd, MdSettings, MdEqualizer, MdPhotoCamera } from "react-icons/md";
 
 import AddRecord from "../pages/AddRecord";
 import Camera from "./Camera";
@@ -32,7 +25,6 @@ import Records from "../pages/Records";
 
 axios.defaults.withCredentials = true;
 function Navbar() {
-  const navigate = useNavigate();
   // For opening modal
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -40,9 +32,6 @@ function Navbar() {
     onOpen: onSettingsOpen,
     onClose: onSettingsClose,
   } = useDisclosure();
-  function handleHomeBtn() {
-    navigate("/home");
-  }
   // Trying camera feed
   const {
     isOpen: isCameraOpen,
@@ -61,12 +50,6 @@ function Navbar() {
         {/* <Box p="2"></Box> */}
         <Spacer />
         <Stack direction="row" spacing={4}>
-          <Box
-            as={MdHome}
-            color="gray.500"
-            size="50px"
-            onClick={handleHomeBtn}
-          />
           <Box
             as={MdEqualizer}
             color="gray.500"

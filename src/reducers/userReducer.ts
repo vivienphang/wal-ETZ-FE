@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import axios from "axios";
-import { config } from "dotenv";
+import axios, { AxiosResponse } from "axios";
+
 import {
   userActionInterface,
   userStateInterface,
@@ -54,4 +54,29 @@ export async function updateProfile(
     return { type: ACTIONS.ERROR };
   }
   return { type: ACTIONS.ERROR };
+}
+export async function uploadPicture(file: any, token: string) {
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("bucket", `${process.env.BUCKET_NAME}`);
+  formData.append("key", file.name);
+  let result: AxiosResponse | null = null;
+  try {
+    result = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/updatePicture`,
+      formData,
+      config
+    );
+    console.log("update picture", result);
+  } catch (err) {
+    console.log(err);
+    return { type: ACTIONS.ERROR };
+  }
+  const { defaultCurrency, profilePicture, email, username, _id } =
+    result!.data.data;
+  return {
+    type: ACTIONS.SET,
+    payload: { defaultCurrency, profilePicture, email, username, _id },
+  };
 }
