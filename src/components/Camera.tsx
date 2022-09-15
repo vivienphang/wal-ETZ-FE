@@ -31,13 +31,9 @@ export default function Camera() {
     const photo = photoRef.current;
     photo.width = width;
     photo.height = height;
-    console.log(photoRef);
 
     const ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
-    const dataURL = photo.toDataURL();
-    console.log(dataURL);
-    // save to png
     setHasPhoto(true);
   };
 
@@ -47,6 +43,21 @@ export default function Camera() {
     ctx.clearRect(0, 0, photo.width, photo.height);
     setHasPhoto(false);
   };
+  const usePhoto = async () => {
+    const photo = photoRef.current;
+    const ctx = photo.getContext("2d");
+    const link = document.createElement("a");
+    link.download = "download.png";
+    link.href = photo.toDataURL();
+    const blob = await (await fetch(link.href)).blob();
+    const file = new File([blob], "fileName.jpg", {
+      type: "image/jpeg",
+      lastModified: Date.now(),
+    });
+    // This is what is needed for s3 to save the image
+    console.log(file);
+  };
+
   useEffect(() => {
     getVideo();
   }, [videoRef]);
@@ -58,6 +69,7 @@ export default function Camera() {
       <div className={`result${hasPhoto ? "hasPhoto" : ""}`}>
         <canvas ref={photoRef} />
         <button onClick={closePhoto}>CLOSE</button>
+        <button onClick={usePhoto}>Use Photo</button>
       </div>
     </div>
   );
