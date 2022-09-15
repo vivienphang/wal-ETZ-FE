@@ -1,15 +1,6 @@
-// import { AddIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
-// import {
-//   IconButton,
-//   Menu,
-//   MenuButton,
-//   MenuItem,
-//   MenuList,
-// } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../provider/GlobalProvider";
-import "./ProfilePicture.css";
-import { Avatar, HStack, WrapItem } from "@chakra-ui/react";
+import { Avatar, HStack, WrapItem, Center } from "@chakra-ui/react";
 
 import { MdPhotoCamera } from "react-icons/md";
 import { Action } from "history";
@@ -17,8 +8,6 @@ import { uploadPicture } from "../reducers/userReducer";
 
 export default function UploadImage() {
   const { userState, userDispatch } = useContext(UserContext);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [defaultPicture, setDefaultPicture] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   // const token = localStorage.getItem("token");
   // const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -65,10 +54,6 @@ export default function UploadImage() {
         </WrapItem>
         <input id="photo-upload" type="file" onChange={handleFileInput} />
       </label>
-      {/* <button onClick={() => handleUploadBtn(selectedFile)}>
-        {" "}
-        Upload to S3
-      </button> */}
 
       <p>{errorMessage}</p>
     </HStack>

@@ -53,7 +53,6 @@ function HomePage() {
   useEffect(() => {
     // Setting the records state as chosenAcc records
     accountsState?.forEach((account) => {
-      console.log(chosenAcc);
       if (chosenAcc === "") {
         setRecs(initialRecs);
         return;

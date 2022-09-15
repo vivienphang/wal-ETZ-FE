@@ -34,7 +34,7 @@ export default async function getData(token: string) {
       exchangeRateAction: { type: ACTIONS.ERROR },
     };
   } else {
-    const { _id, defaultCurrency, email, username, accounts } =
+    const { _id, defaultCurrency, email, username, accounts, profilePicture } =
       userData.data.data.user;
     const accountsArray: singularAccountInterface[] = [];
     accounts.forEach((account: singularAccountInterface) => {
