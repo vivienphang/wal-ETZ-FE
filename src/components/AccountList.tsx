@@ -13,12 +13,12 @@ export default function AccountList(prop: accountListPropInterface) {
   const { accountsState } = useContext(AccountsContext);
   const accountsList = accountsState?.map((account) => (
     <option key={account._id} value={account._id}>
-      {account.accName}
+      {`${account.accName} (${account.accCurrency})`}
     </option>
   ));
   return (
     <div>
-      <Select placeholder="Pick Account" value={acc} onChange={selectAcc}>
+      <Select placeholder="Select Account" value={acc} onChange={selectAcc}>
         {accountsList}
       </Select>
     </div>

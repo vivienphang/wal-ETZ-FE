@@ -108,12 +108,7 @@ function Signup() {
                 />
               </FormControl>
               <br />
-              <Button
-                form="new-form"
-                colorScheme="teal"
-                type="submit"
-                // onSubmit={handleSubmitBtn}
-              >
+              <Button form="new-form" colorScheme="teal" type="submit">
                 Submit
               </Button>
             </form>

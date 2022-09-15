@@ -1,6 +1,7 @@
-import { DateTime } from "luxon";
 import {
+  Avatar,
   Center,
+  Icon,
   Table,
   Tbody,
   Td,
@@ -9,9 +10,17 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 import React, { useEffect } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { recordsListPropInterface } from "../types/propInterface";
+import {
+  incomeCategories,
+  expenseCategories,
+  inaccessibleCategories,
+} from "../constants/categoryList";
+import { categoryInterface } from "../types/categoryInterface";
 
 export default function RecordsList(props: recordsListPropInterface) {
   // todo: maybe a total expense and total income for the filtered data?
@@ -26,17 +35,29 @@ export default function RecordsList(props: recordsListPropInterface) {
 
   const recordsList = filteredRec.map((record: accountRecordsInterface) => {
     const recordDate = new Date(record.recordDate!).toISOString();
+
+    const categoryFilter = (category: categoryInterface) => {
+      return record.recordCategory === category.name;
+    };
+
+    const allCategories = [
+      ...expenseCategories,
+      ...incomeCategories,
+      ...inaccessibleCategories,
+    ];
+
+    const recordCat = allCategories.filter(categoryFilter);
+
+    const recordIcon = recordCat[0] ? recordCat[0].icon : GiHamburgerMenu;
+
     return (
-      <Tr
-        key={record._id}
-        bg={record.isExpense ? "red.100" : "green.100"}
-        onClick={handleRowClick}
-        id={record._id}
-      >
+      <Tr key={record._id} onClick={handleRowClick} id={record._id}>
         <Td>
-          <Text fontSize="xs" as="sub">
-            {record.recordCategory}
-          </Text>
+          <Avatar
+            size="md"
+            icon={<Icon as={recordIcon} />}
+            bg={record.isExpense ? "red.100" : "green.100"}
+          />
         </Td>
         <Td>
           <Text fontSize="xs">
@@ -44,7 +65,12 @@ export default function RecordsList(props: recordsListPropInterface) {
           </Text>
         </Td>
         <Td>
-          <Text>{Number(record.amount).toFixed(2)}</Text>
+          <Text color={record.isExpense ? "red.300" : "green.300"}>
+            {Number(record.amount).toLocaleString("en-us", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </Text>
         </Td>
       </Tr>
     );

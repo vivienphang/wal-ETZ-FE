@@ -8,24 +8,30 @@ export default function CategoryList(prop: categoryPropInterface) {
   const { setCat, isExpense } = prop;
   const [selectedValue, setSelectedValue] = useState<string | number>(-1);
   const incomeList = incomeCategories.map((category) => (
-    <option key={category.incomeName}>{category.incomeName}</option>
+    <option key={category.name}>{category.name}</option>
   ));
   const expenseList = expenseCategories.map((category) => (
-    <option key={category.expenseName}>{category.expenseName}</option>
+    <option key={category.name}>{category.name}</option>
   ));
-  // Setting the category state
-  const settingCategory = (e: { target: { value: any } }) => {
-    console.log(e.target.value);
+
+  const settingCategory: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedValue(e.target.value);
-    setCat!(e.target.value);
+    setCat(e.target.value);
   };
 
   useEffect(() => {
     setSelectedValue(-1);
+    setCat("");
   }, [isExpense]);
 
   return (
-    <Select onChange={settingCategory} value={selectedValue}>
+    <Select
+      onChange={settingCategory}
+      value={selectedValue}
+      placeholder="Select Category"
+    >
       {isExpense ? expenseList : incomeList}
     </Select>
   );

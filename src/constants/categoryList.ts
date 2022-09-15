@@ -1,84 +1,95 @@
+import { BsBank2, BsSafe2Fill } from "react-icons/bs";
+import { FaHouseUser } from "react-icons/fa";
 import {
-  FcCurrencyExchange,
-  FcBullish,
-  FcIdea,
-  FcCustomerSupport,
-  FcAbout,
-  FcInTransit,
-  FcPhoneAndroid,
-  FcReading,
-  FcHome,
-  FcLandscape,
-  FcNightPortrait,
-  FcPaid,
-  FcLinux,
-} from "react-icons/fc";
+  GiHamburgerMenu,
+  GiMoneyStack,
+  GiPiggyBank,
+  GiReceiveMoney,
+  GiRollingDices,
+  GiTakeMyMoney,
+} from "react-icons/gi";
+import { IoFitnessSharp, IoRestaurantSharp } from "react-icons/io5";
+import {
+  MdHealthAndSafety,
+  MdOutlinePhonelinkRing,
+  MdSchool,
+  MdShoppingBag,
+  MdShoppingCart,
+  MdTrain,
+} from "react-icons/md";
+import { TbBeach } from "react-icons/tb";
 
 export const incomeCategories = [
   {
-    incomeName: "Wages",
-    icon: FcCurrencyExchange,
+    name: "Wages",
+    icon: GiMoneyStack,
   },
   {
-    incomeName: "Sales",
-    icon: FcCustomerSupport,
+    name: "Sales",
+    icon: GiTakeMyMoney,
   },
   {
-    incomeName: "Passive Income",
-    icon: FcIdea,
+    name: "Passive Income",
+    icon: GiReceiveMoney,
   },
   {
-    incomeName: "Gambling",
-    icon: FcAbout,
+    name: "Gambling",
+    icon: GiRollingDices,
   },
   {
-    incomeName: "Dividends",
-    icon: FcBullish,
+    name: "Dividends",
+    icon: GiPiggyBank,
   },
+  { name: "Misc. Income", icon: GiHamburgerMenu },
 ];
 export const expenseCategories = [
   {
-    expenseName: "Housing",
-    icon: FcHome,
+    name: "Housing",
+    icon: FaHouseUser,
   },
   {
-    expenseName: "Restraunts",
-    icon: FcLinux,
+    name: "Restaurants",
+    icon: IoRestaurantSharp,
   },
   {
-    expenseName: "Groceries",
-    icon: FcPaid,
+    name: "Groceries",
+    icon: MdShoppingCart,
   },
   {
-    expenseName: "Shopping",
-    icon: FcLinux,
+    name: "Shopping",
+    icon: MdShoppingBag,
   },
   {
-    expenseName: "Insurance",
-    icon: FcLinux,
+    name: "Insurance",
+    icon: MdHealthAndSafety,
   },
   {
-    expenseName: "Transportation",
-    icon: FcInTransit,
+    name: "Transportation",
+    icon: MdTrain,
   },
   {
-    expenseName: "Education",
-    icon: FcReading,
+    name: "Education",
+    icon: MdSchool,
   },
   {
-    expenseName: "Leisure",
-    icon: FcLandscape,
+    name: "Leisure",
+    icon: TbBeach,
   },
   {
-    expenseName: "Telecommunications",
-    icon: FcPhoneAndroid,
+    name: "Telecommunications",
+    icon: MdOutlinePhonelinkRing,
   },
   {
-    expenseName: "Tax",
-    icon: FcLinux,
+    name: "Tax",
+    icon: BsBank2,
   },
   {
-    expenseName: "Health & Beauty",
-    icon: FcNightPortrait,
+    name: "Health & Beauty",
+    icon: IoFitnessSharp,
   },
+  { name: "Misc. Expense", icon: GiHamburgerMenu },
+];
+
+export const inaccessibleCategories = [
+  { name: "Init. Account", icon: BsSafe2Fill },
 ];

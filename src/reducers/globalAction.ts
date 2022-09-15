@@ -31,11 +31,11 @@ export default async function getData(token: string) {
     globalAction = {
       userAction: { type: ACTIONS.ERROR },
       accountAction: { type: ACTIONS.ERROR },
+      exchangeRateAction: { type: ACTIONS.ERROR },
     };
   } else {
-    console.log(userData?.data);
-    const { _id, defaultCurrency, email, username, accounts, profilePicture } =
-      userData.data.data;
+    const { _id, defaultCurrency, email, username, accounts } =
+      userData.data.data.user;
     const accountsArray: singularAccountInterface[] = [];
     accounts.forEach((account: singularAccountInterface) => {
       const recordsArray: accountRecordsInterface[] = [];
@@ -52,6 +52,8 @@ export default async function getData(token: string) {
         accName,
       });
     });
+    const { AUD, CNY, HKD, IDR, JPY, MYR, SGD, THB, TWD, USD, VND } =
+      userData.data.data.exchangeRate;
     globalAction = {
       userAction: {
         type: ACTIONS.RETRIEVE,
@@ -66,6 +68,22 @@ export default async function getData(token: string) {
       accountAction: {
         type: ACTIONS.RETRIEVE,
         payload: accountsArray,
+      },
+      exchangeRateAction: {
+        type: ACTIONS.RETRIEVE,
+        payload: {
+          AUD: Number(AUD),
+          CNY: Number(CNY),
+          HKD: Number(HKD),
+          IDR: Number(IDR),
+          JPY: Number(JPY),
+          MYR: Number(MYR),
+          SGD: Number(SGD),
+          THB: Number(THB),
+          TWD: Number(TWD),
+          USD: Number(USD),
+          VND: Number(VND),
+        },
       },
     };
   }

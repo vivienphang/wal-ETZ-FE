@@ -1,11 +1,16 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AccountsContext, UserContext } from "../provider/GlobalProvider";
+import {
+  AccountsContext,
+  ExchangeRateContext,
+  UserContext,
+} from "../provider/GlobalProvider";
 import getData from "../reducers/globalAction";
 
 export default function ReducerLoader() {
   const { userState, userDispatch } = useContext(UserContext);
   const { accountsState, accountsDispatch } = useContext(AccountsContext);
+  const { exchangeRateDispatch } = useContext(ExchangeRateContext);
   const navigate = useNavigate();
 
   const [firstRun, setFirstRun] = useState(false);
@@ -23,9 +28,9 @@ export default function ReducerLoader() {
         localStorage.clear();
         return navigate("/");
       }
-      console.log(data);
       accountsDispatch!(data.accountAction);
       userDispatch!(data.userAction);
+      exchangeRateDispatch!(data.exchangeRateAction);
       return null;
     })();
   }, []);
@@ -35,7 +40,6 @@ export default function ReducerLoader() {
       setFirstRun(true);
       return;
     }
-    console.log("ACC STATE", accountsState, "USER STATE", userState);
     if (!userState?._id) {
       navigate("/");
       return;

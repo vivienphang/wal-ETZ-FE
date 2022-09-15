@@ -6,7 +6,6 @@ import { Box } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 // Import records data
 import { EIPieChartPropInterface } from "../types/propInterface";
-import { categorySplitInterface } from "../types/expenseInterface.js";
 
 Chart.register(...registerables);
 // Getting accountState
@@ -53,6 +52,7 @@ function ExpensePie(props: EIPieChartPropInterface) {
         categorySplit[`${category}`] = [rec];
       }
     });
+    console.log(categorySplit);
   }, [expenseRecs]);
 
   useEffect(() => {
@@ -64,10 +64,11 @@ function ExpensePie(props: EIPieChartPropInterface) {
     // Take categorySplit and map for each category
     const valueArr = Object.values(categorySplit);
     // Adding all the expenses based on category
-    const data = valueArr.map((cat) => {
+    const data = valueArr.map((cat: any) => {
       let catAmount = 0;
-      cat.map((rec) => {
+      cat.map((rec: { amount: number }) => {
         catAmount += rec.amount;
+        return null;
       });
       return catAmount;
     });

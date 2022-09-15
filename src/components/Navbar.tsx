@@ -105,9 +105,10 @@ function Navbar() {
         <Drawer placement="bottom" onClose={onClose} isOpen={isOpen} size="xl">
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerHeader borderBottomWidth="1px">Add Records</DrawerHeader>
+            <DrawerHeader borderBottomWidth="1px">Add New Record</DrawerHeader>
+            <DrawerCloseButton />
             <DrawerBody>
-              <AddRecord />
+              <AddRecord onClose={onClose} />
             </DrawerBody>
           </DrawerContent>
         </Drawer>
@@ -120,6 +121,7 @@ function Navbar() {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">Settings</DrawerHeader>
+            <DrawerCloseButton />
             <DrawerBody>
               <Settings />
             </DrawerBody>

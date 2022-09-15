@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
 import axios, { AxiosResponse } from "axios";
-
 import {
   userActionInterface,
   userStateInterface,
