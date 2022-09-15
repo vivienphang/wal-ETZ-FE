@@ -8,7 +8,6 @@
 // } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../provider/GlobalProvider";
-import "./ProfilePicture.css";
 import { Avatar, HStack, WrapItem } from "@chakra-ui/react";
 
 import { MdPhotoCamera } from "react-icons/md";
