@@ -136,9 +136,7 @@ export default function InitAccount() {
         transition="0.8s linear"
         className={fadeIn ? "show" : "hide"}
       >
-        <Heading fontSize="3xl">
-          Get started with -working title- Wallet!
-        </Heading>
+        <Heading fontSize="3xl">Get started with Waltz!</Heading>
         <Text fontSize="xl">Your personalized money manager!</Text>
         <Text fontSize="xl">Create your first account!</Text>
         <br />

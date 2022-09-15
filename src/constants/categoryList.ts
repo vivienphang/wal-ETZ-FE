@@ -1,22 +1,23 @@
+import { BsBank2, BsSafe2Fill } from "react-icons/bs";
+import { FaHouseUser } from "react-icons/fa";
 import {
-  FcInTransit,
-  FcPhoneAndroid,
-  FcReading,
-  FcHome,
-  FcLandscape,
-  FcNightPortrait,
-  FcPaid,
-  FcLinux,
-} from "react-icons/fc";
-
-import {
-  GiCardAceSpades,
   GiHamburgerMenu,
   GiMoneyStack,
   GiPiggyBank,
   GiReceiveMoney,
+  GiRollingDices,
   GiTakeMyMoney,
 } from "react-icons/gi";
+import { IoFitnessSharp, IoRestaurantSharp } from "react-icons/io5";
+import {
+  MdHealthAndSafety,
+  MdOutlinePhonelinkRing,
+  MdSchool,
+  MdShoppingBag,
+  MdShoppingCart,
+  MdTrain,
+} from "react-icons/md";
+import { TbBeach } from "react-icons/tb";
 
 export const incomeCategories = [
   {
@@ -33,7 +34,7 @@ export const incomeCategories = [
   },
   {
     name: "Gambling",
-    icon: GiCardAceSpades,
+    icon: GiRollingDices,
   },
   {
     name: "Dividends",
@@ -44,46 +45,51 @@ export const incomeCategories = [
 export const expenseCategories = [
   {
     name: "Housing",
-    icon: FcHome,
+    icon: FaHouseUser,
   },
   {
     name: "Restaurants",
-    icon: FcLinux,
+    icon: IoRestaurantSharp,
   },
   {
     name: "Groceries",
-    icon: FcPaid,
+    icon: MdShoppingCart,
   },
   {
     name: "Shopping",
-    icon: FcLinux,
+    icon: MdShoppingBag,
   },
   {
     name: "Insurance",
-    icon: FcLinux,
+    icon: MdHealthAndSafety,
   },
   {
     name: "Transportation",
-    icon: FcInTransit,
+    icon: MdTrain,
   },
   {
     name: "Education",
-    icon: FcReading,
+    icon: MdSchool,
   },
   {
     name: "Leisure",
-    icon: FcLandscape,
+    icon: TbBeach,
   },
   {
     name: "Telecommunications",
-    icon: FcPhoneAndroid,
+    icon: MdOutlinePhonelinkRing,
   },
   {
     name: "Tax",
-    icon: FcLinux,
+    icon: BsBank2,
   },
   {
     name: "Health & Beauty",
-    icon: FcNightPortrait,
+    icon: IoFitnessSharp,
   },
+  { name: "Misc. Expense", icon: GiHamburgerMenu },
+];
+
+export const inaccessibleCategories = [
+  { name: "Init. Account", icon: BsSafe2Fill },
 ];
