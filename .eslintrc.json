@@ -23,6 +23,7 @@
     "operator-linebreak": "off",
     "quotes": "off",
     "import/extensions": "off",
+    "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-no-constructed-context-values": "off",
     "react/jsx-one-expression-per-line": "off"
