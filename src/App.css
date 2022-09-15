@@ -5,6 +5,7 @@ body {
 
 .App {
   width: 100vw;
+  min-height: 100vh;
   background: linear-gradient(to right, #00aaff, #00ff6c);
   text-align: center;
   display: flex;
