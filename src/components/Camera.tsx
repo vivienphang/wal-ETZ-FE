@@ -35,6 +35,9 @@ export default function Camera() {
 
     const ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
+    const dataURL = photo.toDataURL();
+    console.log(dataURL);
+    // save to png
     setHasPhoto(true);
   };
 

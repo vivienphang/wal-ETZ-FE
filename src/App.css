@@ -4,7 +4,7 @@ body {
 }
 
 .App {
-  max-width: 99vw;
+  width: 99vw;
   background: linear-gradient(to right, #00aaff, #00ff6c);
   text-align: center;
   display: flex;
