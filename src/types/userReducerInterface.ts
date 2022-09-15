@@ -5,6 +5,7 @@ export interface userStateInterface {
   defaultCurrency?: string;
   email?: string;
   username?: string;
+  profilePicture?: string;
 }
 
 export interface userActionInterface {

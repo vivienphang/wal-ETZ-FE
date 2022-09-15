@@ -62,6 +62,7 @@ export default async function getData(token: string) {
           defaultCurrency,
           email,
           username,
+          profilePicture,
         },
       },
       accountAction: {

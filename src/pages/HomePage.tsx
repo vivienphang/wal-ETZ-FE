@@ -8,7 +8,6 @@ import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
 import LineChart from "../components/LineChart";
-// import { userState } from "../types/userReducerInterface";
 import { UserContext, AccountsContext } from "../provider/GlobalProvider";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
@@ -88,22 +87,24 @@ function HomePage() {
   }, [recs, filters]);
   return (
     <Wrap
-      bg="#BDE4A8"
+      bg="gray.100"
       maxHeight="100%"
       maxWidth="100%"
       display="flex"
       flexDirection={["column", "row", "row"]}
+      justifyContent="space-around"
+      alignItems="center"
       fontSize={["30px"]}
       overflowY="scroll"
       overflowX="scroll"
     >
       {/* Pass in filtered data as recs */}
-      <Navbar />
       <LineChart recs={filteredRecs} />
       <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
       <BalanceChart recs={filteredRecs} />
       <EIPieChart recs={filteredRecs} />
+      <Navbar />
     </Wrap>
   );
 }
