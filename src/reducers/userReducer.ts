@@ -53,6 +53,7 @@ export async function updateProfile(
   }
   return { type: ACTIONS.ERROR };
 }
+
 export async function uploadPicture(file: any, token: string) {
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const formData = new FormData();

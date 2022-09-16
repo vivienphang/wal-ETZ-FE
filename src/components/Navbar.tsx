@@ -14,10 +14,9 @@ import {
   Container,
   DrawerCloseButton,
 } from "@chakra-ui/react";
-import { MdAdd, MdSettings, MdEqualizer, MdPhotoCamera } from "react-icons/md";
+import { MdAdd, MdSettings, MdEqualizer } from "react-icons/md";
 
 import AddRecord from "../pages/AddRecord";
-import Camera from "./Camera";
 import Settings from "../pages/Settings";
 import Records from "../pages/Records";
 
@@ -32,12 +31,7 @@ function Navbar() {
     onOpen: onSettingsOpen,
     onClose: onSettingsClose,
   } = useDisclosure();
-  // Trying camera feed
-  const {
-    isOpen: isCameraOpen,
-    onOpen: onCameraOpen,
-    onClose: onCameraClose,
-  } = useDisclosure();
+
   const {
     isOpen: isRecordsOpen,
     onOpen: onRecordsOpen,
@@ -57,12 +51,12 @@ function Navbar() {
             onClick={onRecordsOpen}
           />
           <Box as={MdAdd} color="gray.500" size="50px" onClick={onOpen} />
-          <Box
+          {/* <Box
             as={MdPhotoCamera}
             color="gray.500"
             size="50px"
             onClick={onCameraOpen}
-          />
+          /> */}
           <Box
             as={MdSettings}
             color="gray.500"
@@ -87,7 +81,7 @@ function Navbar() {
           </DrawerContent>
         </Drawer>
 
-        <Drawer
+        {/* <Drawer
           placement="top"
           onClose={onCameraClose}
           isOpen={isCameraOpen}
@@ -96,11 +90,8 @@ function Navbar() {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerHeader borderBottomWidth="1px">Camera Feed</DrawerHeader>
-            <DrawerBody>
-              <Camera />
-            </DrawerBody>
           </DrawerContent>
-        </Drawer>
+        </Drawer> */}
 
         <Drawer placement="bottom" onClose={onClose} isOpen={isOpen} size="xl">
           <DrawerOverlay />
