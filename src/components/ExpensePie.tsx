@@ -52,7 +52,6 @@ function ExpensePie(props: EIPieChartPropInterface) {
         categorySplit[`${category}`] = [rec];
       }
     });
-    console.log(categorySplit);
   }, [expenseRecs]);
 
   useEffect(() => {

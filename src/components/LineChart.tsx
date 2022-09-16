@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 
-import { expenses } from "../data";
 import { EIPieChartPropInterface } from "../types/propInterface";
-import { accountRecordsInterface } from "../types/accountReducerInterface";
-import BalanceChart from "./BalanceChart";
-import currencyList from "../constants/currencyList";
 
 Chart.register(...registerables);
 Chart.defaults.scale.grid.display = false;
@@ -23,8 +19,10 @@ export default function LineChart(props: EIPieChartPropInterface) {
   // On change of everyrec, create new point on the chart
 
   useEffect(() => {
-    recs!.forEach((rec: any) => {
-      console.log(recs);
+    setBalanceArr([]);
+    setLineData([]);
+    setLabelName([]);
+    recs!.reverse().forEach((rec: any) => {
       const { amount } = rec!;
       let income = 0;
       let expense = 0;
@@ -40,7 +38,7 @@ export default function LineChart(props: EIPieChartPropInterface) {
   }, [recs]);
 
   useEffect(() => {
-    console.log(balanceArr);
+    // console.log(balanceArr);
     // Logic to use array and create the data for the linechart
     balanceArr.forEach((rec, index) => {
       let dataPoint = 0;
@@ -48,20 +46,20 @@ export default function LineChart(props: EIPieChartPropInterface) {
       // Creating an array to store all the data point
       if (index === 0) {
         dataPoint = rec;
-        console.log(dataPoint);
+        // console.log(dataPoint);
         setLineData((current) => [...current, dataPoint]);
       } else {
         // Loop through all previous records
         dataPoint = 0;
         let previousTotal = 0;
         for (let i = 0; i < index; i += 1) {
-          console.log(`i=${i}, index=${index}`);
+          // console.log(`i=${i}, index=${index}`);
           previousTotal += balanceArr[i];
-          console.log(`PreviousTotal=${previousTotal}, rec=${rec}`);
+          // console.log(`PreviousTotal=${previousTotal}, rec=${rec}`);
         }
         dataPoint = previousTotal + rec;
-        console.log(`datapoint=${dataPoint}`);
-        console.log(dataPoint);
+        // console.log(`datapoint=${dataPoint}`);
+        // console.log(dataPoint);
         setLineData((current) => [...current, dataPoint]);
       }
     });
@@ -86,10 +84,30 @@ export default function LineChart(props: EIPieChartPropInterface) {
           datasets: [
             {
               label: "Balance Data",
-              data: [lineData],
+              data: lineData,
               backgroundColor: "#50a36c",
             },
           ],
+        }}
+        options={{
+          elements: {
+            line: {
+              // creates curves on the line
+              tension: 0.5,
+              // Changes the color of the line
+              borderColor: "#50a36c",
+            },
+          },
+          scales: {
+            xAxes: {
+              ticks: {
+                display: false,
+              },
+            },
+            yAxes: {
+              beginAtZero: true,
+            },
+          },
         }}
       />
     </div>
