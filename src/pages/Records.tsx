@@ -60,7 +60,6 @@ export default function Records() {
   useEffect(() => {
     accountsState?.forEach((account) => {
       if (account._id === acc) {
-        console.log("Current Account", account.accName);
         setRec!(account.accRecords!);
         setCurrentAcc(account);
       }
@@ -88,7 +87,6 @@ export default function Records() {
       );
     };
     const expenseFilter = (record: accountRecordsInterface) => {
-      if (record.isExpense) console.log(record);
       return record.isExpense;
     };
 
@@ -99,16 +97,13 @@ export default function Records() {
     let sum = 0;
 
     const preFilteredRecords = [...rec];
-    console.log(preFilteredRecords);
 
     let postFilteredRecords = preFilteredRecords.filter(dateFilter);
 
     if (filters.viewExpense) {
       postFilteredRecords = postFilteredRecords.filter(expenseFilter);
-      console.log(postFilteredRecords);
     } else if (filters.viewIncome) {
       postFilteredRecords = postFilteredRecords.filter(incomeFilter);
-      console.log(postFilteredRecords);
     }
     setFilteredRec(postFilteredRecords);
 
