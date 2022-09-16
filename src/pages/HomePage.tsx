@@ -8,11 +8,13 @@ import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
 import LineChart from "../components/LineChart";
-import { UserContext, AccountsContext } from "../provider/GlobalProvider";
+import {
+  UserContext,
+  AccountsContext,
+  ExchangeRateContext,
+} from "../provider/GlobalProvider";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
-
-let initialRecs: accountRecordsInterface[] = [];
 
 function HomePage() {
   const { userState } = useContext(UserContext);
@@ -20,13 +22,23 @@ function HomePage() {
   // Creating states to be shared among children
   const [chosenAcc, setChosenAcc] = useState("");
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
+  const [initialRecs, setInitialRecs] = useState<accountRecordsInterface[]>([]);
 
   useEffect(() => {
+    let iRecs: any[] = [];
     accountsState?.map((account) => {
-      initialRecs = [...initialRecs, ...account.accRecords!];
-      return initialRecs;
+      iRecs = [...iRecs, ...account.accRecords!];
+      return iRecs;
     });
-  }, []);
+    // Need to sort out the initial recs
+    iRecs.sort((a: accountRecordsInterface, b: accountRecordsInterface) => {
+      return (
+        DateTime.fromISO(a.recordDate!).toUnixInteger() -
+        DateTime.fromISO(b.recordDate!).toUnixInteger()
+      );
+    });
+    setInitialRecs(iRecs);
+  }, [accountsState]);
 
   const navigate = useNavigate();
 
@@ -50,10 +62,10 @@ function HomePage() {
       navigate("/loading");
     }
   }, [userState]);
+
   useEffect(() => {
     // Setting the records state as chosenAcc records
     accountsState?.forEach((account) => {
-      console.log(chosenAcc);
       if (chosenAcc === "") {
         setRecs(initialRecs);
         return;
@@ -67,7 +79,7 @@ function HomePage() {
         setRecs(initialRecs);
       }
     });
-  }, [chosenAcc]);
+  }, [chosenAcc, initialRecs]);
 
   useEffect(() => {
     const dateFilter = (record: accountRecordsInterface) => {
@@ -78,11 +90,8 @@ function HomePage() {
           DateTime.fromISO(filters.endDate).endOf("day")
       );
     };
-
     const preFilteredRecords = [...recs];
-
     const postFilteredRecords = preFilteredRecords.filter(dateFilter);
-
     setFilteredRecs(postFilteredRecords);
   }, [recs, filters]);
   return (

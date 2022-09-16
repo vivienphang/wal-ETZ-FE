@@ -31,12 +31,6 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
         inc += Number(amount);
       }
     });
-    console.log(
-      "Total Income",
-      Number(inc.toFixed(2)),
-      "Total Expense",
-      Number(exp.toFixed(2))
-    );
     setIncome(Number(inc.toFixed(2)));
     setExpense(Number(exp.toFixed(2)));
   }, [recs]);
@@ -50,9 +44,8 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
             {
               label: "Income & Expense",
               data: [income, expense],
-              backgroundColor: ["#50a36c"],
-              // borderWidth: 6,
-              borderRadius: 20,
+              backgroundColor: ["#50a36c", "#FF0000"],
+              borderRadius: 10,
             },
           ],
         }}

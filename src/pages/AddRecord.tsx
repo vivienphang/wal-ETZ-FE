@@ -1,20 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
 import {
+  Box,
   Button,
-  Input,
-  Textarea,
+  Center,
+  Flex,
   FormControl,
+  FormHelperText,
   FormLabel,
+  Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Center,
-  Flex,
-  Box,
   Switch,
-  FormHelperText,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -25,7 +23,9 @@ import {
   useDisclosure,
   StackDivider,
   VStack,
+  Textarea,
 } from "@chakra-ui/react";
+import React, { useState, useEffect, useContext } from "react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
 import { addRecord } from "../reducers/accountReducer";
@@ -105,9 +105,8 @@ export default function AddRecord(props: addRecordPropInterface) {
       }, 2500);
       return;
     }
-    // todo: update reducer here
-    // todo: also add currency symbol to form
     const token = localStorage.getItem("token");
+
     console.log(token);
     console.log(data);
     accountsDispatch!(await addRecord({ ...data, token }, isPhotoUploaded));
@@ -184,7 +183,13 @@ export default function AddRecord(props: addRecordPropInterface) {
           <Center mt={1}>
             <FormLabel>Select Category</FormLabel>
           </Center>
-          <CategoryList setCat={setCat} cat={cat} isExpense={data.isExpense!} />
+          <CategoryList
+            setCat={setCat}
+            cat={cat}
+            isExpense={data.isExpense!}
+            isAddRecord
+            isDisabled={false}
+          />
           <Center mt={1}>
             <FormLabel>Comments</FormLabel>
           </Center>

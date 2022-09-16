@@ -20,17 +20,19 @@ import {
   expenseCategories,
   inaccessibleCategories,
 } from "../constants/categoryList";
-import { categoryInterface } from "../types/categoryInterface";
+import { categoryInterface } from "../types/constantInterface";
 
 export default function RecordsList(props: recordsListPropInterface) {
-  // todo: maybe a total expense and total income for the filtered data?
-  // todo: bring in account data here so as to make action creator calls.
-  // todo: make said action creator
-  const { filteredRec } = props;
+  const { filteredRec, setChosenRec, accSymbol, onOpen } = props;
 
   const handleRowClick: React.MouseEventHandler = (e: React.MouseEvent) => {
-    // todo: get this particular record id and show it in a modal.
-    console.log(e.currentTarget.id);
+    const recId = e.currentTarget.id;
+    const filterSingleRec = (record: accountRecordsInterface) => {
+      return record._id === recId;
+    };
+    const chosenRec = filteredRec.filter(filterSingleRec);
+    setChosenRec(chosenRec[0]);
+    onOpen();
   };
 
   const recordsList = filteredRec.map((record: accountRecordsInterface) => {
@@ -65,11 +67,11 @@ export default function RecordsList(props: recordsListPropInterface) {
           </Text>
         </Td>
         <Td>
-          <Text color={record.isExpense ? "red.300" : "green.300"}>
-            {Number(record.amount).toLocaleString("en-us", {
+          <Text color={record.isExpense ? "red.400" : "green.400"}>
+            {`${accSymbol} ${Number(record.amount).toLocaleString("en-us", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            })}
+            })}`}
           </Text>
         </Td>
       </Tr>

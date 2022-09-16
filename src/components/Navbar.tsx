@@ -51,12 +51,6 @@ function Navbar() {
             onClick={onRecordsOpen}
           />
           <Box as={MdAdd} color="gray.500" size="50px" onClick={onOpen} />
-          {/* <Box
-            as={MdPhotoCamera}
-            color="gray.500"
-            size="50px"
-            onClick={onCameraOpen}
-          /> */}
           <Box
             as={MdSettings}
             color="gray.500"
@@ -72,7 +66,7 @@ function Navbar() {
           size="md"
         >
           <DrawerOverlay />
-          <DrawerContent>
+          <DrawerContent bg="#F7F6F3">
             <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
@@ -80,19 +74,6 @@ function Navbar() {
             </DrawerBody>
           </DrawerContent>
         </Drawer>
-
-        {/* <Drawer
-          placement="top"
-          onClose={onCameraClose}
-          isOpen={isCameraOpen}
-          size="full"
-        >
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerHeader borderBottomWidth="1px">Camera Feed</DrawerHeader>
-          </DrawerContent>
-        </Drawer> */}
-
         <Drawer placement="bottom" onClose={onClose} isOpen={isOpen} size="xl">
           <DrawerOverlay />
           <DrawerContent>
