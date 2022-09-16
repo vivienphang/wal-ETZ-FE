@@ -37,7 +37,7 @@ export default function Camera(props: addPhotoUrlPropInterface) {
       });
   };
 
-  const takePhoto = () => {
+  const takePhoto = async () => {
     const width = 414;
     const height = width / (16 / 9);
 
@@ -49,17 +49,6 @@ export default function Camera(props: addPhotoUrlPropInterface) {
     const ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
     setHasPhoto(true);
-  };
-  const closePhoto = () => {
-    const photo = photoRef.current;
-    const ctx = photo.getContext("2d");
-    ctx.clearRect(0, 0, photo.width, photo.height);
-    setHasPhoto(false);
-  };
-  const usePhoto = async () => {
-    const token = localStorage.getItem("token");
-    const photo = photoRef.current;
-    const ctx = photo.getContext("2d");
     const link = document.createElement("a");
     link.download = "download.png";
     link.href = photo.toDataURL();
@@ -75,9 +64,13 @@ export default function Camera(props: addPhotoUrlPropInterface) {
       return;
     }
     setIsPhotoUploaded(file);
-    // const action = await addReceiptS3(file, token!);
-    // accountsDispatch!(action);
   };
+  // const closePhoto = () => {
+  //   const photo = photoRef.current;
+  //   const ctx = photo.getContext("2d");
+  //   ctx.clearRect(0, 0, photo.width, photo.height);
+  //   setHasPhoto(false);
+  // };
 
   useEffect(() => {
     getVideo();
@@ -110,8 +103,8 @@ export default function Camera(props: addPhotoUrlPropInterface) {
               </Button>
             )
           }`} */}
-          <Button onClick={closePhoto}>Cancel</Button>
-          <Button onClick={usePhoto}>Save</Button>
+          {/* <Button onClick={closePhoto}>Cancel</Button>
+          <Button onClick={usePhoto}>Save</Button> */}
         </div>
       </div>
     </VStack>
