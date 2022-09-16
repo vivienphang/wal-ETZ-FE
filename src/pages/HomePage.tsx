@@ -8,7 +8,11 @@ import BalanceChart from "../components/BalanceChart";
 import EIPieChart from "../components/EIPieChart";
 import Navbar from "../components/Navbar";
 import LineChart from "../components/LineChart";
-import { UserContext, AccountsContext } from "../provider/GlobalProvider";
+import {
+  UserContext,
+  AccountsContext,
+  ExchangeRateContext,
+} from "../provider/GlobalProvider";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
 
@@ -17,11 +21,13 @@ let initialRecs: accountRecordsInterface[] = [];
 function HomePage() {
   const { userState } = useContext(UserContext);
   const { accountsState } = useContext(AccountsContext);
+  const { exchangeRateState } = useContext(ExchangeRateContext);
   // Creating states to be shared among children
   const [chosenAcc, setChosenAcc] = useState("");
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
 
   useEffect(() => {
+    console.log(exchangeRateState);
     accountsState?.map((account) => {
       initialRecs = [...initialRecs, ...account.accRecords!];
       return initialRecs;

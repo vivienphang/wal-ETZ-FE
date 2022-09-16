@@ -50,9 +50,8 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
             {
               label: "Income & Expense",
               data: [income, expense],
-              backgroundColor: ["#50a36c"],
-              // borderWidth: 6,
-              borderRadius: 20,
+              backgroundColor: ["#50a36c", "#FF0000"],
+              borderRadius: 10,
             },
           ],
         }}
