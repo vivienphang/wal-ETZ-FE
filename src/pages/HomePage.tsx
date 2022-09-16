@@ -16,23 +16,29 @@ import {
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
 
-let initialRecs: accountRecordsInterface[] = [];
-
 function HomePage() {
   const { userState } = useContext(UserContext);
   const { accountsState } = useContext(AccountsContext);
-  const { exchangeRateState } = useContext(ExchangeRateContext);
   // Creating states to be shared among children
   const [chosenAcc, setChosenAcc] = useState("");
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
+  const [initialRecs, setInitialRecs] = useState<accountRecordsInterface[]>([]);
 
   useEffect(() => {
-    console.log(exchangeRateState);
+    let iRecs: any[] = [];
     accountsState?.map((account) => {
-      initialRecs = [...initialRecs, ...account.accRecords!];
-      return initialRecs;
+      iRecs = [...iRecs, ...account.accRecords!];
+      return iRecs;
     });
-  }, []);
+    // Need to sort out the initial recs
+    iRecs.sort((a: accountRecordsInterface, b: accountRecordsInterface) => {
+      return (
+        DateTime.fromISO(a.recordDate!).toUnixInteger() -
+        DateTime.fromISO(b.recordDate!).toUnixInteger()
+      );
+    });
+    setInitialRecs(iRecs);
+  }, [accountsState]);
 
   const navigate = useNavigate();
 
@@ -56,6 +62,7 @@ function HomePage() {
       navigate("/loading");
     }
   }, [userState]);
+
   useEffect(() => {
     // Setting the records state as chosenAcc records
     accountsState?.forEach((account) => {
@@ -72,7 +79,7 @@ function HomePage() {
         setRecs(initialRecs);
       }
     });
-  }, [chosenAcc]);
+  }, [chosenAcc, initialRecs]);
 
   useEffect(() => {
     const dateFilter = (record: accountRecordsInterface) => {
@@ -83,15 +90,13 @@ function HomePage() {
           DateTime.fromISO(filters.endDate).endOf("day")
       );
     };
-
     const preFilteredRecords = [...recs];
-
     const postFilteredRecords = preFilteredRecords.filter(dateFilter);
-
     setFilteredRecs(postFilteredRecords);
   }, [recs, filters]);
   return (
     <Wrap
+      bg="gray.100"
       maxHeight="100%"
       maxWidth="100%"
       display="flex"
