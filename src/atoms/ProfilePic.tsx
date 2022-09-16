@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Avatar, Center, HStack, Input, WrapItem } from "@chakra-ui/react";
-
 import { UserContext } from "../provider/GlobalProvider";
 import { uploadPicture } from "../reducers/userReducer";
 
