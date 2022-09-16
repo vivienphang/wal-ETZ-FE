@@ -79,7 +79,7 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
           <ModalHeader>Account Creation</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <AddAccount />
+            <AddAccount onClose={onClose} />
           </ModalBody>
         </ModalContent>
       </Modal>

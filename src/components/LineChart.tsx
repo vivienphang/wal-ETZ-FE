@@ -91,6 +91,10 @@ export default function LineChart(props: EIPieChartPropInterface) {
         }}
         options={{
           elements: {
+            point: {
+              // Makes the point radius 0 so it is one smooth line
+              radius: 0,
+            },
             line: {
               // creates curves on the line
               tension: 0.5,
