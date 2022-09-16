@@ -78,7 +78,7 @@ function Navbar() {
           size="md"
         >
           <DrawerOverlay />
-          <DrawerContent>
+          <DrawerContent bg="#F7F6F3">
             <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>

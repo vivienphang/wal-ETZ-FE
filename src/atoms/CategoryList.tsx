@@ -5,13 +5,18 @@ import { expenseCategories, incomeCategories } from "../constants/categoryList";
 import { categoryPropInterface } from "../types/propInterface";
 
 export default function CategoryList(prop: categoryPropInterface) {
-  const { setCat, isExpense } = prop;
-  const [selectedValue, setSelectedValue] = useState<string | number>(-1);
+  const { setCat, cat, isExpense, isAddRecord, isDisabled } = prop;
+  const [selectedValue, setSelectedValue] = useState<string | number>(cat);
+  const [initCat] = useState(cat);
   const incomeList = incomeCategories.map((category) => (
-    <option key={category.name}>{category.name}</option>
+    <option key={category.name} value={category.name}>
+      {category.name}
+    </option>
   ));
   const expenseList = expenseCategories.map((category) => (
-    <option key={category.name}>{category.name}</option>
+    <option key={category.name} value={category.name}>
+      {category.name}
+    </option>
   ));
 
   const settingCategory: React.ChangeEventHandler<HTMLSelectElement> = (
@@ -22,15 +27,21 @@ export default function CategoryList(prop: categoryPropInterface) {
   };
 
   useEffect(() => {
-    setSelectedValue(-1);
-    setCat("");
-  }, [isExpense]);
+    if (isAddRecord) {
+      setSelectedValue(-1);
+      setCat("");
+    } else {
+      setSelectedValue(initCat);
+      setCat(initCat);
+    }
+  }, [isExpense, isDisabled]);
 
   return (
     <Select
       onChange={settingCategory}
       value={selectedValue}
-      placeholder="Select Category"
+      placeholder="Selected Value"
+      disabled={isDisabled}
     >
       {isExpense ? expenseList : incomeList}
     </Select>

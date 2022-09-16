@@ -92,7 +92,6 @@ function HomePage() {
   }, [recs, filters]);
   return (
     <Wrap
-      bg="gray.100"
       maxHeight="100%"
       maxWidth="100%"
       display="flex"

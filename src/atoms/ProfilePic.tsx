@@ -16,7 +16,6 @@ export default function UploadImage() {
     console.log("user id:", userId);
     if (!file) {
       setErrorMessage("You need to select a file.");
-
       return;
     }
     const action = await uploadPicture(file, token!);
@@ -53,7 +52,6 @@ export default function UploadImage() {
           </WrapItem>
         </Center>
       </label>
-
       <p>{errorMessage}</p>
     </HStack>
   );
