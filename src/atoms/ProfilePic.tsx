@@ -30,7 +30,7 @@ export default function UploadImage() {
             <form>
               <Avatar
                 bg="teal.500"
-                size="lg"
+                size="xl"
                 name={
                   userState?.profilePicture
                     ? userState?.profilePicture
