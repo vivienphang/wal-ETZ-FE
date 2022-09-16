@@ -1,5 +1,8 @@
 import React from "react";
-import { accountRecordsInterface } from "./accountReducerInterface";
+import {
+  accountRecordsInterface,
+  singularAccountInterface,
+} from "./accountReducerInterface";
 import { filterInterface } from "./filterInterface";
 
 export interface accountListPropInterface {
@@ -14,12 +17,17 @@ export interface filterPropInterface {
 
 export interface recordsListPropInterface {
   filteredRec: accountRecordsInterface[];
+  accSymbol: string;
+  setChosenRec: React.Dispatch<React.SetStateAction<accountRecordsInterface>>;
+  onOpen: () => void;
 }
 
 export interface categoryPropInterface {
   isExpense: boolean;
   cat: string;
   setCat: React.Dispatch<React.SetStateAction<string>>;
+  isAddRecord: boolean;
+  isDisabled: boolean;
 }
 
 export interface allAccDisplayPropInterface {
@@ -32,5 +40,11 @@ export interface EIPieChartPropInterface {
 }
 
 export interface addRecordPropInterface {
+  onClose: () => void;
+}
+
+export interface viewRecordPropInterface {
+  currentAcc: singularAccountInterface;
+  chosenRec: accountRecordsInterface;
   onClose: () => void;
 }

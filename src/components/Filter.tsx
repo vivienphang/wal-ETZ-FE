@@ -127,7 +127,7 @@ export default function Filter(props: filterPropInterface) {
   ) => {
     e.preventDefault();
 
-    if (filters.viewExpense && filters.viewIncome) {
+    if (filters.viewExpense !== undefined && filters.viewIncome !== undefined) {
       setFilters({
         ...filters,
         ...dateConfig,
@@ -159,7 +159,7 @@ export default function Filter(props: filterPropInterface) {
       >
         <form onSubmit={handleFormSubmit}>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent bg="#F7F6F3">
             <ModalHeader>Filter Settings</ModalHeader>
             <ModalCloseButton />
             <ModalBody>

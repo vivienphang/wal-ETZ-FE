@@ -21,6 +21,7 @@
     "no-underscore-dangle": "off",
     "object-curly-newline": "off",
     "operator-linebreak": "off",
+    "prefer-destructuring": "off",
     "quotes": "off",
     "import/extensions": "off",
     "jsx-a11y/label-has-associated-control": "off",

@@ -13,6 +13,7 @@
     "@types/jest": "^28.1.6",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "animate.css": "^4.1.1",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
     "dotenv": "^16.0.1",
