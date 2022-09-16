@@ -11,10 +11,12 @@ import {
 
 import currencyList from "../constants/currencyList";
 import { UserContext } from "../provider/GlobalProvider";
+import { addRecordPropInterface } from "../types/propInterface";
 
-export default function AddAccount() {
+export default function AddAccount(props: addRecordPropInterface) {
   const navigate = useNavigate();
   const { userState } = useContext(UserContext);
+  const { onClose } = props;
   // Creating const to be sent through axios call
   const [accName, setAccName] = useState("");
   const [accCurrency, setAccCurrency] = useState("");
@@ -62,6 +64,9 @@ export default function AddAccount() {
     //  Data is being properly set in the database
     // TO BE DONE
     // Dispatch OR throw to loader
+    // Close the modal
+    console.log("Create button closed");
+    onClose();
   };
 
   useEffect(() => {
