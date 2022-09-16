@@ -34,7 +34,6 @@ export default function InitAccount() {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    console.log("submit button is clicked!");
     if (!accName || !accCurrency || !balance) {
       setGlobalInputErr(true);
       setTimeout(() => {
