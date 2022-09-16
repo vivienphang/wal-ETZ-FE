@@ -43,6 +43,10 @@ export interface addRecordPropInterface {
   onClose: () => void;
 }
 
+export interface addPhotoUrlPropInterface {
+  isPhotoUploaded?: File;
+  setIsPhotoUploaded: React.Dispatch<React.SetStateAction<File>>;
+}
 export interface viewRecordPropInterface {
   currentAcc: singularAccountInterface;
   chosenRec: accountRecordsInterface;
