@@ -11,7 +11,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import React, { useEffect } from "react";
+import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { accountRecordsInterface } from "../types/accountReducerInterface";
 import { recordsListPropInterface } from "../types/propInterface";
@@ -77,9 +77,6 @@ export default function RecordsList(props: recordsListPropInterface) {
       </Tr>
     );
   });
-  useEffect(() => {
-    console.log(filteredRec);
-  }, [filteredRec]);
 
   return (
     <Center>
