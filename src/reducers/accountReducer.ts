@@ -41,13 +41,33 @@ export function resetState() {
   };
 }
 
-export async function addRecord(data: addRecordInterface) {
+export async function addRecord(data: addRecordInterface, photo: File) {
+  console.log("In add Record in accountReducer");
+  // Get bearer token for JWT authentication
   const config = { headers: { Authorization: `Bearer ${data.token}` } };
+  const formData = new FormData();
+  formData.append("file", photo);
+  formData.append("bucket", `${process.env.BUCKET_NAME}`);
+  formData.append("key", photo.name);
+  let result: AxiosResponse | null = null;
+  try {
+    result = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/records/addReceiptS3`,
+      formData,
+      config
+    );
+    console.log("update picture", result);
+  } catch (err) {
+    console.log(err);
+    return { type: ACTIONS.ERROR };
+  }
+  console.log(result?.data.data);
+  const photoLink = result?.data.data;
   let addingRecord: AxiosResponse;
   try {
     addingRecord = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/records/newRecord`,
-      data,
+      { ...data, recordPhoto: photoLink },
       config
     );
   } catch (err) {
