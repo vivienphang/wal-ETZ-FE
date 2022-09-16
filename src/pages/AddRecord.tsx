@@ -13,6 +13,16 @@ import {
   NumberInputField,
   NumberInputStepper,
   Switch,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+  StackDivider,
+  VStack,
   Textarea,
 } from "@chakra-ui/react";
 import React, { useState, useEffect, useContext } from "react";
@@ -22,9 +32,16 @@ import { addRecord } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
 import { AccountsContext } from "../provider/GlobalProvider";
 import { addRecordPropInterface } from "../types/propInterface";
+import Camera from "../components/Camera";
 
 export default function AddRecord(props: addRecordPropInterface) {
   const { onClose } = props;
+  const {
+    isOpen: isCameraOpen,
+    onOpen: onCameraOpen,
+    onClose: onCameraClose,
+  } = useDisclosure();
+
   const initData = {
     acc: "",
     amount: "",
@@ -41,6 +58,9 @@ export default function AddRecord(props: addRecordPropInterface) {
   const [cat, setCat] = useState("");
   const [data, setData] = useState<addRecordInterface>(initData);
   const [formError, setFormError] = useState(false);
+  const [isPhotoUploaded, setIsPhotoUploaded] = useState<File>(
+    new File([""], "filename")
+  );
 
   const handleToggleExpense = () => {
     setData({ ...data, isExpense: !data.isExpense });
@@ -86,7 +106,10 @@ export default function AddRecord(props: addRecordPropInterface) {
       return;
     }
     const token = localStorage.getItem("token");
-    accountsDispatch!(await addRecord({ ...data, token }));
+
+    console.log(token);
+    console.log(data);
+    accountsDispatch!(await addRecord({ ...data, token }, isPhotoUploaded));
     onClose();
   };
 
@@ -96,6 +119,10 @@ export default function AddRecord(props: addRecordPropInterface) {
   useEffect(() => {
     setData({ ...data, acc });
   }, [acc]);
+
+  useEffect(() => {
+    console.log("useEffect:", isPhotoUploaded);
+  }, [isPhotoUploaded]);
 
   return (
     <div>
@@ -184,8 +211,40 @@ export default function AddRecord(props: addRecordPropInterface) {
               Please check your input!
             </FormHelperText>
           </Center>
-          <Button type="submit">Create Record</Button>
+          <Center>
+            <FormLabel>Have a receipt?</FormLabel>
+            <Button colorScheme="cyan" onClick={onCameraOpen}>
+              Add Photo
+            </Button>
+          </Center>
+          <VStack divider={<StackDivider />} spacing={10} />
+          <Center>
+            <Button type="submit">Create Record</Button>
+          </Center>
         </FormControl>
+        <Modal isOpen={isCameraOpen} onClose={onCameraClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Snap your receipt</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <p>I am modal body</p>
+              <Camera
+                isPhotoUploaded={isPhotoUploaded}
+                setIsPhotoUploaded={setIsPhotoUploaded}
+              />
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3}>
+                Close
+              </Button>
+              <Button colorScheme="red" onClick={onCameraClose}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </form>
     </div>
   );
