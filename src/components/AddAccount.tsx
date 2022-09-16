@@ -92,7 +92,7 @@ export default function AddAccount() {
             </option>
           ))}
         </Select>
-        <FormLabel>Starting Balance</FormLabel>
+        <FormLabel>Initial Balance</FormLabel>
         <Input name="balance" type="number" onChange={handleBalance} />
         <Button type="submit" m="5" onClick={handleSubmit}>
           Create Account

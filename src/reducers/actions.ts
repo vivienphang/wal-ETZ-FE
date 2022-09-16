@@ -1,11 +1,12 @@
 const ACTIONS = {
-  GET: "GET",
-  SET: "SET",
-  RETRIEVE: "RETRIEVE",
   ADD: "ADD",
-  UPDATE: "UPDATE",
   DELETE: "DELETE",
+  EDIT: "EDIT",
   ERROR: "ERROR",
+  GET: "GET",
   RESET: "RESET",
+  RETRIEVE: "RETRIEVE",
+  SET: "SET",
+  UPDATE: "UPDATE",
 };
 export default ACTIONS;
