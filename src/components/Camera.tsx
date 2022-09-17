@@ -28,10 +28,9 @@ export default function Camera(props: addPhotoUrlPropInterface) {
       .then((stream) => {
         const video = videoRef.current || null;
         video!.srcObject = stream;
-        const tracks = stream.getTracks();
-        tracks.forEach((track) => {
-          track.stop();
-        });
+        const track = stream.getVideoTracks()[0];
+        track.enabled = false;
+        track.stop();
       })
       .catch((err) => {
         console.error(err);
