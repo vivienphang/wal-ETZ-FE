@@ -6,19 +6,38 @@ import {
   StackDivider,
   VStack,
   Center,
+  Button,
 } from "@chakra-ui/react";
 import React, { useRef, useEffect, useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
 import { addPhotoUrlPropInterface } from "../types/propInterface";
 
 export default function Camera(props: addPhotoUrlPropInterface) {
-  const { setIsPhotoUploaded } = props;
+  const { setIsPhotoUploaded, onCameraClose } = props;
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoRef = useRef<HTMLCanvasElement>(null);
 
   const [hasPhoto, setHasPhoto] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const closeStream = () => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: { width: 1920, height: 1080 },
+      })
+      .then((stream) => {
+        const video = videoRef.current || null;
+        video!.srcObject = stream;
+        const tracks = stream.getTracks();
+        tracks.forEach((track) => {
+          track.stop();
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    onCameraClose!();
+  };
 
   const getVideo = () => {
     navigator.mediaDevices
@@ -83,6 +102,7 @@ export default function Camera(props: addPhotoUrlPropInterface) {
               size="50px"
               onClick={takePhoto}
             />
+            <Button onClick={closeStream}>Close Camera</Button>
           </Center>
         </div>
       </div>

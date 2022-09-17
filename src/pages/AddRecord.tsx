@@ -17,7 +17,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   useDisclosure,
@@ -228,21 +227,13 @@ export default function AddRecord(props: addRecordPropInterface) {
             <ModalHeader>Snap your receipt</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <p>I am modal body</p>
+              <p>Procuring Camera Feed</p>
               <Camera
                 isPhotoUploaded={isPhotoUploaded}
                 setIsPhotoUploaded={setIsPhotoUploaded}
+                onCameraClose={onCameraClose}
               />
             </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3}>
-                Close
-              </Button>
-              <Button colorScheme="red" onClick={onCameraClose}>
-                Cancel
-              </Button>
-            </ModalFooter>
           </ModalContent>
         </Modal>
       </form>

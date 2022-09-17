@@ -106,21 +106,20 @@ function HomePage() {
   }, [recs, filters]);
   return (
     <Wrap
-      bg="gray.100"
+      bg="#FFFFEB"
       maxHeight="100%"
       maxWidth="100%"
       display="flex"
-      flexDirection={["column", "row", "row"]}
+      flexDirection="column"
       justifyContent="space-around"
       alignItems="center"
       fontSize={["30px"]}
       overflowY="scroll"
       overflowX="scroll"
     >
-      {/* Pass in filtered data as recs */}
-      <LineChart recs={filteredRecs} />
       <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
+      <LineChart recs={filteredRecs} />
       <BalanceChart recs={filteredRecs} />
       <EIPieChart recs={filteredRecs} />
       <Navbar />
