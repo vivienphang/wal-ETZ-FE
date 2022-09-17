@@ -66,8 +66,6 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
         spaceBetween={50}
         slidesPerView={3}
         centeredSlides
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
         {accountList}
         <SwiperSlide className="accCard">
