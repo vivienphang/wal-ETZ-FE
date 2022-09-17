@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import {
-  singularAccountInterface,
   accountActionInterface,
+  addAccountInterface,
   addRecordInterface,
+  singularAccountInterface,
 } from "../types/accountReducerInterface";
 import ACTIONS from "./actions";
 
@@ -41,9 +42,22 @@ export function resetState() {
   };
 }
 
+export async function newAccount(data: addAccountInterface) {
+  const config = { headers: { Authorization: `Bearer ${data.token}` } };
+  let createAccount: AxiosResponse;
+  try {
+    createAccount = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/accounts/newAccount`,
+      data,
+      config
+    );
+  } catch (err) {
+    return { type: ACTIONS.ERROR };
+  }
+  return { type: ACTIONS.RETRIEVE, payload: createAccount.data.data.accounts };
+}
+
 export async function addRecord(data: addRecordInterface, photo: File) {
-  console.log("In add Record in accountReducer");
-  // Get bearer token for JWT authentication
   const config = { headers: { Authorization: `Bearer ${data.token}` } };
   const formData = new FormData();
   formData.append("file", photo);
@@ -56,12 +70,9 @@ export async function addRecord(data: addRecordInterface, photo: File) {
       formData,
       config
     );
-    console.log("update picture", result);
   } catch (err) {
-    console.log(err);
     return { type: ACTIONS.ERROR };
   }
-  console.log(result?.data.data);
   const photoLink = result?.data.data;
   let addingRecord: AxiosResponse;
   try {

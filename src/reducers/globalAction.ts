@@ -13,7 +13,7 @@ const status = {
   POPULATE_SUCCESS: "populated user data",
 };
 
-export default async function getData(token: string) {
+export async function getData(token: string) {
   let userData: AxiosResponse | null = null;
   try {
     const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -89,4 +89,38 @@ export default async function getData(token: string) {
   }
 
   return globalAction;
+}
+
+export async function updateProfile(
+  username: string,
+  currency: string,
+  token: string
+) {
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const updateData = {
+    username,
+    currency,
+  };
+  let updateUsername: AxiosResponse;
+  try {
+    updateUsername = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/`,
+      updateData,
+      config
+    );
+  } catch (err) {
+    console.log(err);
+    return {
+      userAction: { type: ACTIONS.ERROR },
+      exchangeRateAction: { type: ACTIONS.ERROR },
+    };
+  }
+
+  return {
+    userAction: { type: ACTIONS.SET, payload: updateUsername.data.data.user },
+    exchangeRateAction: {
+      type: ACTIONS.SET,
+      payload: updateUsername.data.data.exchangeRate,
+    },
+  };
 }

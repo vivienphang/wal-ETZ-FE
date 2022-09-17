@@ -26,6 +26,7 @@ function HomePage() {
   const [initialRecs, setInitialRecs] = useState<accountRecordsInterface[]>([]);
 
   useEffect(() => {
+    console.log(exchangeRateState);
     let iRecs: any[] = [];
     accountsState?.map((account) => {
       const adjustedRec = account.accRecords?.map((record) => {
@@ -47,7 +48,7 @@ function HomePage() {
       );
     });
     setInitialRecs(iRecs);
-  }, [accountsState]);
+  }, [accountsState, exchangeRateState]);
 
   const navigate = useNavigate();
 

@@ -32,3 +32,7 @@ export interface addRecordInterface extends accountRecordsInterface {
   token?: string | null;
   acc?: string;
 }
+
+export interface addAccountInterface extends singularAccountInterface {
+  token?: string | null;
+}
