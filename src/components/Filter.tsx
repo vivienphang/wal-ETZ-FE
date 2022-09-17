@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import React, { useState } from "react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { FaFilter } from "react-icons/fa";
 import {
   Box,
   Button,
@@ -145,7 +145,7 @@ export default function Filter(props: filterPropInterface) {
       <IconButton
         variant="ghost"
         onClick={onOpen}
-        icon={<HamburgerIcon />}
+        icon={<FaFilter />}
         aria-label="Record Filter"
       />
 

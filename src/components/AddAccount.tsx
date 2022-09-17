@@ -20,6 +20,7 @@ import { UserContext } from "../provider/GlobalProvider";
 import { addRecordPropInterface } from "../types/propInterface";
 
 export default function AddAccount(props: addRecordPropInterface) {
+  // todo: reducer call
   const navigate = useNavigate();
   const { userState } = useContext(UserContext);
   const { onClose } = props;

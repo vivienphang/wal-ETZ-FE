@@ -17,6 +17,7 @@ import currencyList from "../constants/currencyList";
 import { AccountsContext, UserContext } from "../provider/GlobalProvider";
 
 export default function InitAccount() {
+  // todo: style this bit
   const navigate = useNavigate();
   const { userState } = useContext(UserContext);
   const { accountsState } = useContext(AccountsContext);
