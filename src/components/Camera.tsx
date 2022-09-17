@@ -1,36 +1,34 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-
 import {
   Box,
-  Button,
   FormControl,
   FormHelperText,
   StackDivider,
   VStack,
   Center,
 } from "@chakra-ui/react";
-import React, { useRef, useEffect, useState, useContext } from "react";
-import { addPhotoUrlPropInterface } from "../types/propInterface";
-import { addReceiptS3 } from "../reducers/accountReducer";
-import { AccountsContext } from "../provider/GlobalProvider";
+import React, { useRef, useEffect, useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
+import { addPhotoUrlPropInterface } from "../types/propInterface";
 
 export default function Camera(props: addPhotoUrlPropInterface) {
-  const { isPhotoUploaded, setIsPhotoUploaded } = props;
-  const { accountsDispatch } = useContext(AccountsContext);
-  const videoRef = useRef(null);
-  const photoRef = useRef(null);
+  const { setIsPhotoUploaded } = props;
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const photoRef = useRef<HTMLCanvasElement>(null);
+
   const [hasPhoto, setHasPhoto] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const getVideo = () => {
     navigator.mediaDevices
       .getUserMedia({
-        video: { width: 1920, height: 1000 },
+        video: { width: 1920, height: 1080 },
       })
       .then((stream) => {
         const video = videoRef.current || null;
-        video.srcObject = stream;
-        video.play();
+        video!.srcObject = stream;
+        video!.play();
       })
       .catch((err) => {
         console.error(err);
@@ -38,20 +36,20 @@ export default function Camera(props: addPhotoUrlPropInterface) {
   };
 
   const takePhoto = async () => {
-    const width = 414;
-    const height = width / (16 / 9);
+    const width = 426;
+    const height = 240;
 
     const video = videoRef.current;
     const photo = photoRef.current;
-    photo.width = width;
-    photo.height = height;
+    photo!.width = width;
+    photo!.height = height;
 
-    const ctx = photo.getContext("2d");
-    ctx.drawImage(video, 0, 0, width, height);
+    const ctx = photo!.getContext("2d");
+    ctx!.drawImage(video!, 0, 0, width, height);
     setHasPhoto(true);
     const link = document.createElement("a");
     link.download = "download.png";
-    link.href = photo.toDataURL();
+    link.href = photo!.toDataURL();
     const blob = await (await fetch(link.href)).blob();
     const file = new File([blob], `receipt${Date.now()}.jpg`, {
       type: "image/jpeg",
@@ -60,17 +58,10 @@ export default function Camera(props: addPhotoUrlPropInterface) {
     console.log(file);
     if (!file) {
       setErrorMessage("You need to select a file.");
-
       return;
     }
     setIsPhotoUploaded(file);
   };
-  // const closePhoto = () => {
-  //   const photo = photoRef.current;
-  //   const ctx = photo.getContext("2d");
-  //   ctx.clearRect(0, 0, photo.width, photo.height);
-  //   setHasPhoto(false);
-  // };
 
   useEffect(() => {
     getVideo();
@@ -93,18 +84,6 @@ export default function Camera(props: addPhotoUrlPropInterface) {
               onClick={takePhoto}
             />
           </Center>
-          {/* <Button onClick={takePhoto}>Snap</Button> */}
-          {/* {`result${
-            hasPhoto ? (
-              <Button onClick={usePhoto}>Save</Button>
-            ) : (
-              <Button onClick={usePhoto} disabled={true}>
-                Save
-              </Button>
-            )
-          }`} */}
-          {/* <Button onClick={closePhoto}>Cancel</Button>
-          <Button onClick={usePhoto}>Save</Button> */}
         </div>
       </div>
     </VStack>

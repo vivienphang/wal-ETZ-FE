@@ -13,6 +13,8 @@ export function exchangeRateReducer(
   switch (action.type) {
     case ACTIONS.RETRIEVE:
       return { ...action.payload };
+    case ACTIONS.SET:
+      return { ...action.payload };
     case ACTIONS.RESET:
       return initialExchangeRateState;
     default:

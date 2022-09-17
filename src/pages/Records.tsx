@@ -179,7 +179,7 @@ export default function Records() {
         motionPreset="slideInBottom"
       >
         <ModalOverlay />
-        <ModalContent bg="#F7F6F3">
+        <ModalContent bg="#FFFFEB">
           <ModalHeader>View Record</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

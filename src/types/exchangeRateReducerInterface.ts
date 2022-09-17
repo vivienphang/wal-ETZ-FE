@@ -1,17 +1,7 @@
 import React from "react";
 
 export interface exchangeRateStateInterface {
-  AUD?: number;
-  CNY?: number;
-  HKD?: number;
-  IDR?: number;
-  JPY?: number;
-  MYR?: number;
-  SGD?: number;
-  THB?: number;
-  TWD?: number;
-  USD?: number;
-  VND?: number;
+  [currencyCode: string]: number;
 }
 
 export interface exchangeRateActionInterface {

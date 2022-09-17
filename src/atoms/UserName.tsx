@@ -10,14 +10,15 @@ import {
   Switch,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../provider/GlobalProvider";
-import { updateProfile } from "../reducers/userReducer";
+import { ExchangeRateContext, UserContext } from "../provider/GlobalProvider";
+import { updateProfile } from "../reducers/globalAction";
 import ACTIONS from "../reducers/actions";
 
 axios.defaults.withCredentials = true;
 
 export default function ProfileForm() {
   const { userState, userDispatch } = useContext(UserContext);
+  const { exchangeRateDispatch } = useContext(ExchangeRateContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState(userState?.username);
   const [currency, setCurrency] = useState(userState?.defaultCurrency);
@@ -51,8 +52,10 @@ export default function ProfileForm() {
     }
     const token = localStorage.getItem("token");
     const action = await updateProfile(username, currency!, token!);
-    userDispatch!(action);
-    if (action.type === ACTIONS.ERROR) {
+    userDispatch!(action.userAction);
+    exchangeRateDispatch!(action.exchangeRateAction);
+
+    if (action.userAction.type === ACTIONS.ERROR) {
       setErrorMessage("Username no longer available.");
       return;
     }

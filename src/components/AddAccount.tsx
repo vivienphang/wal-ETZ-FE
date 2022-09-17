@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import axios, { AxiosResponse } from "axios";
 import {
   FormControl,
   FormLabel,
@@ -16,21 +14,21 @@ import {
 } from "@chakra-ui/react";
 
 import currencyList from "../constants/currencyList";
-import { UserContext } from "../provider/GlobalProvider";
+import { AccountsContext } from "../provider/GlobalProvider";
 import { addRecordPropInterface } from "../types/propInterface";
+import { newAccount } from "../reducers/accountReducer";
 
 export default function AddAccount(props: addRecordPropInterface) {
-  const navigate = useNavigate();
-  const { userState } = useContext(UserContext);
+  const { accountsDispatch } = useContext(AccountsContext);
   const { onClose } = props;
-  // Creating const to be sent through axios call
+
   const [accName, setAccName] = useState("");
   const [accCurrency, setAccCurrency] = useState("");
   const [balance, setBalance] = useState("");
 
   const [inputErr, setInputErr] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  // onChange events to set states
+
   const handleAccName: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -64,12 +62,6 @@ export default function AddAccount(props: addRecordPropInterface) {
   };
 
   const handleSubmit = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/loading");
-      return;
-    }
-
     if (!accName) {
       setInputErr(true);
       setErrorMsg("Please enter account name");
@@ -96,32 +88,16 @@ export default function AddAccount(props: addRecordPropInterface) {
       }, 2500);
     }
 
-    const config = { headers: { Authorization: `Bearer ${token}` } };
-    console.log(config);
-    const id = userState!._id;
     const data = {
-      id,
       accName,
       accCurrency,
       balance,
     };
-    console.log(data);
-    let createAccount: AxiosResponse | null = null;
-    try {
-      createAccount = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/accounts/newAccount`,
-        data,
-        config
-      );
-      console.log(createAccount);
-    } catch (err) {
-      console.log(err);
-    }
-    //  Data is being properly set in the database
-    // TO BE DONE
-    // Dispatch OR throw to loader
-    // Close the modal
-    console.log("Create button closed");
+
+    const token = localStorage.getItem("token");
+
+    accountsDispatch!(await newAccount({ ...data, token }));
+
     onClose();
   };
 
