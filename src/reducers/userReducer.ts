@@ -1,4 +1,6 @@
 import axios, { AxiosResponse } from "axios";
+import { AnyAaaaRecord } from "dns";
+import { StringDecoder } from "string_decoder";
 import {
   userActionInterface,
   userStateInterface,
@@ -28,6 +30,28 @@ export function userReducer(
 
 export function resetState() {
   return { type: ACTIONS.RESET };
+}
+
+export async function updateUsername(token: string) {
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const updateUsername = { username };
+  let newUsername: AxiosResponse;
+  try {
+    newUsername = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateUsernameOnly)`,
+      updateUsername,
+      config
+    );
+    console.log("username:", newUsername, username);
+  } catch (err) {
+    return { type: ACTIONS.ERROR };
+  }
+  const { defaultCurrency, email, username, profilePicture, _id } =
+    newUsername!.data.data;
+  return {
+    type: ACTIONS.SET,
+    payload: { defaultCurrency, email, username, profilePicture, _id },
+  };
 }
 
 export async function uploadPicture(file: any, token: string) {

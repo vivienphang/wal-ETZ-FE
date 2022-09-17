@@ -7,11 +7,14 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Select,
   Switch,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ExchangeRateContext, UserContext } from "../provider/GlobalProvider";
 import { updateProfile } from "../reducers/globalAction";
+import { updateUsername } from "../reducers/userReducer";
+import currencyList from "../constants/currencyList";
 import ACTIONS from "../reducers/actions";
 
 axios.defaults.withCredentials = true;
@@ -22,6 +25,7 @@ export default function ProfileForm() {
   const navigate = useNavigate();
   const [username, setUsername] = useState(userState?.username);
   const [currency, setCurrency] = useState(userState?.defaultCurrency);
+  const [accCurrency, setAccCurrency] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -42,15 +46,23 @@ export default function ProfileForm() {
   ) => {
     event.preventDefault();
     console.log("update button clicked");
+    const token = localStorage.getItem("token");
+    // handling error messages and conditions:
+    // i. username is empty
     if (!username) {
       setErrorMessage("Username is required.");
       return;
     }
-    if (username === userState?.username) {
-      setErrorMessage("Choose another username.");
-      return;
+    // ii. username has changed, run update username
+    if (username !== userState?.username) {
+      const action = await updateUsername(username, token!);
+      userDispatch!(action!);
+      // username unique by default, try-catch backend sends error
+      if (action.type === ACTIONS.ERROR) {
+        setErrorMessage("Choose another username.");
+      }
     }
-    const token = localStorage.getItem("token");
+
     const action = await updateProfile(username, currency!, token!);
     userDispatch!(action.userAction);
     exchangeRateDispatch!(action.exchangeRateAction);
@@ -64,6 +76,13 @@ export default function ProfileForm() {
 
   const handleSwitch = () => {
     setIsEditing(!isEditing);
+  };
+
+  const handleCurrency: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { value } = e.target;
+    setAccCurrency(value);
   };
 
   return (
@@ -97,6 +116,18 @@ export default function ProfileForm() {
             />
           </FormControl>
           <br />
+          <Select
+            name="accCurrency"
+            placeholder="Select your currency!"
+            onChange={handleCurrency}
+            value={accCurrency}
+          >
+            {currencyList.map((currency) => (
+              <option key={currency.currencyAbbv} value={currency.currencyAbbv}>
+                {currency.currencyName}
+              </option>
+            ))}
+          </Select>
           <FormControl>
             <FormHelperText>{errorMessage}</FormHelperText>
           </FormControl>
