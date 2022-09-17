@@ -38,12 +38,14 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
       setChosenAcc(e.currentTarget.value);
     }
   };
+  // Get the current accBalance
+
   const accountList = accountsState!.map((account) => (
     // Setting the account
     // Need the total balance of the individual account
-    <SwiperSlide key={account._id}>
+    <SwiperSlide key={account._id} className="accCard">
       <Button
-        className="accountButton"
+        className="accButton"
         key={account._id}
         onClick={settingAcc}
         value={account._id}
@@ -58,7 +60,7 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
     </SwiperSlide>
   ));
   return (
-    <div>
+    <div className="HPComponent">
       <Swiper
         className="carouselContainer"
         spaceBetween={50}
@@ -68,7 +70,7 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
         // onSwiper={(swiper) => console.log(swiper)}
       >
         {accountList}
-        <SwiperSlide>
+        <SwiperSlide className="accCard">
           <Button onClick={onOpen}>Create New Account</Button>
         </SwiperSlide>
       </Swiper>

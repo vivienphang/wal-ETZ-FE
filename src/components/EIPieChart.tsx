@@ -9,7 +9,7 @@ import { EIPieChartPropInterface } from "../types/propInterface";
 export default function EIPieChart(props: EIPieChartPropInterface) {
   const { recs } = props;
   return (
-    <HStack border="solid">
+    <HStack>
       <ExpensePie recs={recs} />
       <IncomePie recs={recs} />
     </HStack>
