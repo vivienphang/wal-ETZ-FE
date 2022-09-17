@@ -1,5 +1,6 @@
 const ACTIONS = {
   ADD: "ADD",
+  APPEND: "APPEND",
   DELETE: "DELETE",
   EDIT: "EDIT",
   ERROR: "ERROR",

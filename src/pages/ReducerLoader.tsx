@@ -5,7 +5,7 @@ import {
   ExchangeRateContext,
   UserContext,
 } from "../provider/GlobalProvider";
-import getData from "../reducers/globalAction";
+import { getData } from "../reducers/globalAction";
 
 export default function ReducerLoader() {
   const { userState, userDispatch } = useContext(UserContext);
