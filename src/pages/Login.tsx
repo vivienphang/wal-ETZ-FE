@@ -80,6 +80,8 @@ function Login() {
       <div className="LoginPage">
         <Flex
           flexDirection="column"
+          width="100wh"
+          height="100vh"
           backgroundColor="gray.200"
           justifyContent="center"
           alignItems="center"
@@ -141,7 +143,7 @@ function Login() {
                     width="full"
                     form="login-form"
                   >
-                    Login
+                    Sign in
                   </Button>
                   <p>or</p>
                   <Button
@@ -151,7 +153,7 @@ function Login() {
                     width="full"
                     onClick={googleLogin}
                   >
-                    Connect with Google
+                    Sign in with Google
                   </Button>
                 </Stack>
               </form>

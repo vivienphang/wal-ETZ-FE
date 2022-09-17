@@ -7,11 +7,20 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  Image,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   NumberInput,
   NumberInputField,
   Switch,
   Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import React, { useContext, useEffect, useState } from "react";
@@ -34,6 +43,11 @@ export default function ViewRecord(props: viewRecordPropInterface) {
     recordDate: "",
   };
 
+  const {
+    isOpen: photoIsOpen,
+    onOpen: photoOnOpen,
+    onClose: photoOnClose,
+  } = useDisclosure();
   const { accountsDispatch } = useContext(AccountsContext);
 
   const [cat, setCat] = useState(chosenRec.recordCategory!);
@@ -241,20 +255,46 @@ export default function ViewRecord(props: viewRecordPropInterface) {
               Please check your input!
             </FormHelperText>
           </Center>
-          <ButtonGroup spacing={1} mb={3}>
-            <Button type="submit" disabled={!enableEdit} colorScheme="green">
-              Edit
-            </Button>
-            <Button
-              disabled={!enableEdit}
-              colorScheme="red"
-              onClick={handleDelete}
-            >
-              Delete
-            </Button>
-          </ButtonGroup>
+          <Flex justifyContent="space-between" w="100%">
+            <ButtonGroup spacing={1} mb={3}>
+              <Button type="submit" disabled={!enableEdit} colorScheme="green">
+                Edit
+              </Button>
+              <Button
+                disabled={!enableEdit}
+                colorScheme="red"
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            </ButtonGroup>
+            <Button onClick={photoOnOpen}>View Receipt</Button>
+          </Flex>
         </FormControl>
       </form>
+      <Modal
+        closeOnEsc
+        closeOnOverlayClick={false}
+        isCentered
+        isOpen={photoIsOpen}
+        onClose={photoOnClose}
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay />
+        <ModalContent bg="#FFFFEB">
+          <ModalHeader>Receipt</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Image
+              src={data.recordPhoto}
+              alt={`Receipt for ${data.recordName}`}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={photoOnClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

@@ -19,6 +19,7 @@ import { filterInterface } from "../types/filterInterface";
 function HomePage() {
   const { userState } = useContext(UserContext);
   const { accountsState } = useContext(AccountsContext);
+  const { exchangeRateState } = useContext(ExchangeRateContext);
   // Creating states to be shared among children
   const [chosenAcc, setChosenAcc] = useState("");
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
@@ -27,14 +28,22 @@ function HomePage() {
   useEffect(() => {
     let iRecs: any[] = [];
     accountsState?.map((account) => {
-      iRecs = [...iRecs, ...account.accRecords!];
+      const adjustedRec = account.accRecords?.map((record) => {
+        const recCopy = { ...record };
+        recCopy.amount = (
+          Number(recCopy.amount) / exchangeRateState![account.accCurrency!]
+        ).toFixed(2);
+        return recCopy;
+      });
+      console.log(adjustedRec);
+      iRecs = [...iRecs, ...adjustedRec!];
       return iRecs;
     });
     // Need to sort out the initial recs
     iRecs.sort((a: accountRecordsInterface, b: accountRecordsInterface) => {
       return (
-        DateTime.fromISO(a.recordDate!).toUnixInteger() -
-        DateTime.fromISO(b.recordDate!).toUnixInteger()
+        DateTime.fromISO(b.recordDate!).toUnixInteger() -
+        DateTime.fromISO(a.recordDate!).toUnixInteger()
       );
     });
     setInitialRecs(iRecs);

@@ -28,11 +28,11 @@ export default function LineChart(props: EIPieChartPropInterface) {
       let expense = 0;
       if (rec.isExpense === true) {
         // Take expense here;
-        expense += amount;
+        expense = Number((expense + Number(amount)).toFixed(2));
       } else {
-        income += amount;
+        income = Number((income + Number(amount)).toFixed(2));
       }
-      const balance = income - expense;
+      const balance = Number((income - expense).toFixed(2));
       setBalanceArr((current) => [...current, balance]);
     });
   }, [recs]);
@@ -57,7 +57,7 @@ export default function LineChart(props: EIPieChartPropInterface) {
           previousTotal += balanceArr[i];
           // console.log(`PreviousTotal=${previousTotal}, rec=${rec}`);
         }
-        dataPoint = previousTotal + rec;
+        dataPoint = Number((previousTotal + rec).toFixed(2));
         // console.log(`datapoint=${dataPoint}`);
         // console.log(dataPoint);
         setLineData((current) => [...current, dataPoint]);
