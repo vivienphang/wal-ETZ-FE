@@ -146,6 +146,7 @@ export default function Filter(props: filterPropInterface) {
       <IconButton
         variant="ghost"
         onClick={onOpen}
+        color={colorList.textColor}
         icon={<FaFilter />}
         aria-label="Record Filter"
       />

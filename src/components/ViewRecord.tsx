@@ -25,6 +25,7 @@ import {
 import { DateTime } from "luxon";
 import React, { useContext, useEffect, useState } from "react";
 import CategoryList from "../atoms/CategoryList";
+import colorList from "../constants/colorList";
 import { AccountsContext } from "../provider/GlobalProvider";
 import { deleteRecord, editRecord } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
@@ -151,13 +152,15 @@ export default function ViewRecord(props: viewRecordPropInterface) {
   return (
     <>
       <FormControl display="flex" alignItems="end">
-        <FormLabel mb={0}>Edit Record?</FormLabel>
+        <FormLabel mb={0} color={colorList.textColor}>
+          Edit Record?
+        </FormLabel>
         <Switch size="md" isChecked={enableEdit} onChange={handleEnableEdit} />
       </FormControl>
       <form onSubmit={handleEditRecord}>
         <FormControl>
           <Center mt={3}>
-            <FormLabel>
+            <FormLabel color={colorList.textColor}>
               {data.isExpense ? "Expense " : "Income "}
               Amount
             </FormLabel>
@@ -203,7 +206,9 @@ export default function ViewRecord(props: viewRecordPropInterface) {
             </Box>
           </Flex>
           <Center mt={1}>
-            <FormLabel>Date of Transaction</FormLabel>
+            <FormLabel color={colorList.textColor}>
+              Date of Transaction
+            </FormLabel>
           </Center>
           <Input
             placeholder="Date And Time"
@@ -213,7 +218,7 @@ export default function ViewRecord(props: viewRecordPropInterface) {
             disabled={!enableEdit}
           />
           <Center mt={1}>
-            <FormLabel>Record Name</FormLabel>
+            <FormLabel color={colorList.textColor}>Record Name</FormLabel>
           </Center>
           <Input
             placeholder={data.recordName}
@@ -224,7 +229,7 @@ export default function ViewRecord(props: viewRecordPropInterface) {
             disabled={!enableEdit}
           />
           <Center mt={1}>
-            <FormLabel>Select Category</FormLabel>
+            <FormLabel color={colorList.textColor}>Select Category</FormLabel>
           </Center>
           <CategoryList
             setCat={setCat}
@@ -234,7 +239,7 @@ export default function ViewRecord(props: viewRecordPropInterface) {
             isDisabled={!enableEdit}
           />
           <Center mt={1}>
-            <FormLabel>Comments</FormLabel>
+            <FormLabel color={colorList.textColor}>Comments</FormLabel>
           </Center>
           <Textarea
             placeholder={data.recordComment}
@@ -257,19 +262,30 @@ export default function ViewRecord(props: viewRecordPropInterface) {
           </Center>
           <Flex justifyContent="space-between" w="100%">
             <ButtonGroup spacing={1} mb={3}>
-              <Button type="submit" disabled={!enableEdit} colorScheme="green">
+              <Button
+                type="submit"
+                disabled={!enableEdit}
+                bg={colorList.buttonPrimary}
+                color="white"
+              >
                 Edit
               </Button>
               <Button
                 disabled={!enableEdit}
-                colorScheme="red"
+                bg={colorList.buttonSecondary}
                 onClick={handleDelete}
               >
                 Delete
               </Button>
             </ButtonGroup>
             {data.recordPhoto && (
-              <Button onClick={photoOnOpen}>View Receipt</Button>
+              <Button
+                onClick={photoOnOpen}
+                bg={colorList.buttonPrimary}
+                color="white"
+              >
+                View Receipt
+              </Button>
             )}
           </Flex>
         </FormControl>
@@ -284,7 +300,7 @@ export default function ViewRecord(props: viewRecordPropInterface) {
       >
         <ModalOverlay />
         <ModalContent bg="#FFFFEB">
-          <ModalHeader>Receipt</ModalHeader>
+          <ModalHeader color={colorList.textColor}>Receipt</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Image
@@ -293,7 +309,9 @@ export default function ViewRecord(props: viewRecordPropInterface) {
             />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={photoOnClose}>Close</Button>
+            <Button onClick={photoOnClose} bg={colorList.buttonSecondary}>
+              Close
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

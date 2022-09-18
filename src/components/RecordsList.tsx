@@ -69,7 +69,7 @@ export default function RecordsList(props: recordsListPropInterface) {
             />
           </Td>
           <Td>
-            <Text fontSize="xs">
+            <Text fontSize="xs" color={colorList.textColor}>
               {DateTime.fromISO(recordDate).toFormat("MMM dd t")}
             </Text>
           </Td>

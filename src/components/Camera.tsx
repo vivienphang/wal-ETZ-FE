@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useRef, useEffect, useState } from "react";
 import { MdPhotoCamera } from "react-icons/md";
+import colorList from "../constants/colorList";
 import { addPhotoUrlPropInterface } from "../types/propInterface";
 
 export default function Camera(props: addPhotoUrlPropInterface) {
@@ -101,7 +102,9 @@ export default function Camera(props: addPhotoUrlPropInterface) {
               size="50px"
               onClick={takePhoto}
             />
-            <Button onClick={closeStream}>Close Camera</Button>
+            <Button onClick={closeStream} bg={colorList.buttonSecondary}>
+              Close Camera
+            </Button>
           </Center>
         </div>
       </div>
