@@ -88,6 +88,7 @@ function HomePage() {
       if (chosenAcc === "") {
         setCurrentAcc(initAccountState);
         setRecs(initialRecs);
+        setAccName("All Accounts");
         return;
       }
       if (account._id === chosenAcc) {
@@ -153,6 +154,7 @@ function HomePage() {
           px={4}
           borderRadius="xl"
           w="90%"
+          h="80%"
           bg={colorList.component}
         >
           <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
@@ -161,6 +163,21 @@ function HomePage() {
       <Flex w="90%" flexDirection="row-reverse">
         <Filter filters={filters} setFilters={setFilters} />
       </Flex>
+      <Center>
+        <Box
+          my={2}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          w="90%"
+          bg={colorList.component}
+        >
+          <Heading fontSize="sm">Account:</Heading>
+          <Text fontSize="4xl" as="i">
+            {accName}
+          </Text>
+        </Box>
+      </Center>
       <Center>
         <Box
           my={2}

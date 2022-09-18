@@ -5,7 +5,6 @@ import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 // eslint-disable-next-line import/first, import/extensions
 import { EIPieChartPropInterface } from "../types/propInterface";
-import randomColor from "randomcolor";
 
 Chart.register(...registerables);
 // Import data from records in homepage array
@@ -19,6 +18,7 @@ export default function IncomePie(props: EIPieChartPropInterface) {
   const categorySplit: any = {};
 
   useEffect(() => {
+    console.log(recs);
     // Set the expenseRecs from recs
     const arr: any[] = [];
     recs!.map((rec) => {
@@ -29,15 +29,6 @@ export default function IncomePie(props: EIPieChartPropInterface) {
     });
     setIncomeRecs(arr);
   }, [recs]);
-
-  // const colorList = () => {
-  //   const colorArr: any[] = [];
-  //   for (let i = 0; i < incomeRecs!.length; i += 1) {
-  //     const randomCol = randomColor();
-  //     colorArr.push(randomCol);
-  //   }
-  //   return colorArr;
-  // };
 
   useEffect(() => {
     // Based only on expenses
