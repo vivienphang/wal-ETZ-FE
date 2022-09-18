@@ -32,6 +32,7 @@ import { addRecordInterface } from "../types/accountReducerInterface";
 import { AccountsContext } from "../provider/GlobalProvider";
 import { addRecordPropInterface } from "../types/propInterface";
 import Camera from "../components/Camera";
+import colorList from "../constants/colorList";
 
 export default function AddRecord(props: addRecordPropInterface) {
   const { onClose } = props;
@@ -212,13 +213,20 @@ export default function AddRecord(props: addRecordPropInterface) {
           </Center>
           <Center>
             <FormLabel>Have a receipt?</FormLabel>
-            <Button colorScheme="cyan" onClick={onCameraOpen}>
+            <Button bg={colorList.buttonSecondary} onClick={onCameraOpen}>
               Add Photo
             </Button>
           </Center>
           <VStack divider={<StackDivider />} spacing={10} />
           <Center>
-            <Button type="submit">Create Record</Button>
+            <Button
+              type="submit"
+              bg={colorList.buttonPrimary}
+              color="white"
+              mt={2}
+            >
+              Create Record
+            </Button>
           </Center>
         </FormControl>
         <Modal isOpen={isCameraOpen} onClose={onCameraClose}>

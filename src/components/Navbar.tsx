@@ -19,6 +19,7 @@ import { MdAdd, MdSettings, MdEqualizer } from "react-icons/md";
 import AddRecord from "../pages/AddRecord";
 import Settings from "../pages/Settings";
 import Records from "../pages/Records";
+import colorList from "../constants/colorList";
 
 // eslint-disable-next-line object-curly-newline
 
@@ -39,9 +40,13 @@ function Navbar() {
   } = useDisclosure();
 
   return (
-    <Container display="flex" justifyContent="space-evenly">
+    <Container
+      display="flex"
+      justifyContent="space-evenly"
+      bg={colorList.component}
+      mt={3}
+    >
       <Flex minWidth="max-content" paddingTop={2} paddingBottom={2}>
-        {/* <Box p="2"></Box> */}
         <Spacer />
         <Stack direction="row" spacing={4}>
           <Box
@@ -66,7 +71,7 @@ function Navbar() {
           size="md"
         >
           <DrawerOverlay />
-          <DrawerContent bg="#F7F6F3">
+          <DrawerContent bg={colorList.drawerModal}>
             <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
@@ -76,7 +81,7 @@ function Navbar() {
         </Drawer>
         <Drawer placement="bottom" onClose={onClose} isOpen={isOpen} size="xl">
           <DrawerOverlay />
-          <DrawerContent bg="#F7F6F3">
+          <DrawerContent bg={colorList.drawerModal}>
             <DrawerHeader borderBottomWidth="1px">Add New Record</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
@@ -91,7 +96,7 @@ function Navbar() {
           size="xs"
         >
           <DrawerOverlay />
-          <DrawerContent bg="#F7F6F3">
+          <DrawerContent bg={colorList.drawerModal}>
             <DrawerHeader borderBottomWidth="1px">Settings</DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>

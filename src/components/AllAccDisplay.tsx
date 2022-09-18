@@ -23,6 +23,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
 import "swiper/components/pagination/pagination.min.css";
+import colorList from "../constants/colorList";
 
 // install Swiper modules
 SwiperCore.use([EffectCube, Pagination]);
@@ -104,7 +105,7 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={colorList.drawerModal}>
           <ModalHeader>Account Creation</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

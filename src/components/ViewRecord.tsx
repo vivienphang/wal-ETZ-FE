@@ -268,7 +268,9 @@ export default function ViewRecord(props: viewRecordPropInterface) {
                 Delete
               </Button>
             </ButtonGroup>
-            <Button onClick={photoOnOpen}>View Receipt</Button>
+            {data.recordPhoto && (
+              <Button onClick={photoOnOpen}>View Receipt</Button>
+            )}
           </Flex>
         </FormControl>
       </form>
