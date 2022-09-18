@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectCube, Pagination } from "swiper/core";
+
 import { AccountsContext } from "../provider/GlobalProvider";
 import { allAccDisplayPropInterface } from "../types/propInterface";
 import AddAccount from "./AddAccount";
@@ -40,29 +41,41 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
   };
   // Get the current accBalance
 
-  const accountList = accountsState!.map((account) => (
-    // Setting the account
-    // Need the total balance of the individual account
-    <SwiperSlide key={account._id} className="accCard">
-      <Button
-        className="accButton"
-        key={account._id}
-        onClick={settingAcc}
-        value={account._id}
-      >
-        {account.accName}
-      </Button>
-      {/* Need to style this  */}
-      <h3>
-        $:
-        {account.accCurrency}
-      </h3>
-    </SwiperSlide>
-  ));
+  const accountList = accountsState!.map((account) => {
+    // Getting current
+    let inc = 0;
+    let exp = 0;
+    let balance = 0;
+    account.accRecords!.forEach((rec) => {
+      const { amount } = rec!;
+      if (rec.isExpense) {
+        exp += Number(amount);
+      } else if (!rec.isExpense) {
+        inc += Number(amount);
+      }
+      balance = inc - exp;
+    });
+    return (
+      <SwiperSlide key={account._id} className="accCard">
+        <Button
+          className="accButton"
+          key={account._id}
+          onClick={settingAcc}
+          value={account._id}
+        >
+          {account.accName}
+        </Button>
+        <h3>
+          {account.accCurrency}:{balance}
+        </h3>
+      </SwiperSlide>
+    );
+  });
+
   return (
     <div className="HPComponent">
       <Swiper
-        className="carouselContainer"
+        className="hpContainer"
         spaceBetween={50}
         slidesPerView={3}
         centeredSlides

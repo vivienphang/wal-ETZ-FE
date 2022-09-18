@@ -24,9 +24,9 @@ function HomePage() {
   const [chosenAcc, setChosenAcc] = useState("");
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
   const [initialRecs, setInitialRecs] = useState<accountRecordsInterface[]>([]);
+  const [accName, setAccName] = useState("");
 
   useEffect(() => {
-    console.log(exchangeRateState);
     let iRecs: any[] = [];
     accountsState?.map((account) => {
       const adjustedRec = account.accRecords?.map((record) => {
@@ -36,7 +36,6 @@ function HomePage() {
         ).toFixed(2);
         return recCopy;
       });
-      console.log(adjustedRec);
       iRecs = [...iRecs, ...adjustedRec!];
       return iRecs;
     });
@@ -83,6 +82,7 @@ function HomePage() {
       if (account._id === chosenAcc) {
         // Take the chosenAcc's accRecords
         setRecs(account.accRecords!);
+        setAccName(account.accName!);
         return;
       }
       if (!chosenAcc) {
@@ -104,8 +104,10 @@ function HomePage() {
     const postFilteredRecords = preFilteredRecords.filter(dateFilter);
     setFilteredRecs(postFilteredRecords);
   }, [recs, filters]);
+
   return (
     <Wrap
+      className="homePage"
       bg="#FFFFEB"
       maxHeight="100%"
       maxWidth="100%"
@@ -117,7 +119,8 @@ function HomePage() {
       overflowY="scroll"
       overflowX="scroll"
     >
-      <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
+      <h1>Account: {accName}</h1>
+      <AllAccDisplay chosenAcc={accName} setChosenAcc={setChosenAcc} />
       <Filter filters={filters} setFilters={setFilters} />
       <LineChart recs={filteredRecs} />
       <BalanceChart recs={filteredRecs} />

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import randomColor from "randomcolor";
 import { Box } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 // Import records data
 import { EIPieChartPropInterface } from "../types/propInterface";
+import randomColor from "randomcolor";
 
 Chart.register(...registerables);
 // Getting accountState
@@ -17,15 +17,6 @@ function ExpensePie(props: EIPieChartPropInterface) {
   const [labelNames, setLabelNames] = useState<any[]>([]);
   // An array of only expenses
   const categorySplit: any = {};
-
-  const colorList = () => {
-    const colorArr: any[] = [];
-    for (let i = 0; i < recs!.length; i += 1) {
-      const randomCol = randomColor();
-      colorArr.push(randomCol);
-    }
-    return colorArr;
-  };
 
   useEffect(() => {
     // Set the expenseRecs from recs
@@ -53,6 +44,14 @@ function ExpensePie(props: EIPieChartPropInterface) {
       }
     });
   }, [expenseRecs]);
+  // const colorList = () => {
+  //   const colorArr: any[] = [];
+  //   for (let i = 0; i < recs!.length; i += 1) {
+  //     const randomCol = randomColor();
+  //     colorArr.push(randomCol);
+  //   }
+  //   return colorArr;
+  // };
 
   useEffect(() => {
     // Change the labelNames and datasets.data
@@ -84,7 +83,14 @@ function ExpensePie(props: EIPieChartPropInterface) {
             {
               label: "Expense",
               data: expenseCat,
-              backgroundColor: colorList(),
+              backgroundColor: [
+                "#7D1128",
+                "#B15050",
+                "#ED8282",
+                "#F7CACA",
+                "#B15468",
+                "#BA0000",
+              ],
             },
           ],
         }}
