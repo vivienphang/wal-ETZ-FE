@@ -70,11 +70,7 @@ export default function LineChart(props: EIPieChartPropInterface) {
       return `${index}`;
     });
     setLabelName(data);
-    console.log(lineData);
   }, [lineData]);
-  useEffect(() => {
-    console.log(labelName);
-  }, [labelName]);
 
   return (
     <div>

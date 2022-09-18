@@ -8,9 +8,12 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectCube, Pagination } from "swiper/core";
+
 import { AccountsContext } from "../provider/GlobalProvider";
 import { allAccDisplayPropInterface } from "../types/propInterface";
 import AddAccount from "./AddAccount";
@@ -29,48 +32,73 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
   const { accountsState } = useContext(AccountsContext);
   const { chosenAcc, setChosenAcc } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const settingAcc = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  const settingAcc = (e: React.MouseEvent<HTMLDivElement>) => {
     // Use current Target instead of target
     // Dont know why target doesnt work
     // Setting the chosneAcc
-    if (chosenAcc === e.currentTarget.value) {
+    if (chosenAcc === e.currentTarget.id) {
       setChosenAcc("");
     } else {
-      setChosenAcc(e.currentTarget.value);
+      setChosenAcc(e.currentTarget.id);
     }
+    // if (e.currentTarget.classList.contains("circle-sketch-highlight")) {
+    //   e.currentTarget.classList.remove("circle-sketch-highlight");
+    // } else {
+    //   e.currentTarget.classList.add("circle-sketch-highlight");
+    // }
   };
   // Get the current accBalance
 
-  const accountList = accountsState!.map((account) => (
-    // Setting the account
-    // Need the total balance of the individual account
-    <SwiperSlide key={account._id} className="accCard">
-      <Button
-        className="accButton"
-        key={account._id}
-        onClick={settingAcc}
-        value={account._id}
-      >
-        {account.accName}
-      </Button>
-      {/* Need to style this  */}
-      <h3>
-        $:
-        {account.accCurrency}
-      </h3>
-    </SwiperSlide>
-  ));
+  const accountList = accountsState!.map((account) => {
+    // Getting current
+    let inc = 0;
+    let exp = 0;
+    let balance = 0;
+    account.accRecords!.forEach((rec) => {
+      const { amount } = rec!;
+      if (rec.isExpense) {
+        exp += Number(amount);
+      } else if (!rec.isExpense) {
+        inc += Number(amount);
+      }
+      balance = inc - exp;
+    });
+    return (
+      <SwiperSlide key={account._id} className="accCard">
+        <Box
+          className="accButton"
+          key={account._id}
+          onClick={settingAcc}
+          id={account._id}
+        >
+          <Text fontSize="3xl">{account.accName}</Text>
+          <Text fontSize="3xl" as="i">
+            {account.accCurrency}:{Math.abs(balance).toFixed(2)}
+          </Text>
+        </Box>
+      </SwiperSlide>
+    );
+  });
+
   return (
-    <div className="HPComponent">
+    <Box className="carouselContainer" py={5} px={4}>
       <Swiper
-        className="carouselContainer"
+        className="hpContainer"
         spaceBetween={50}
         slidesPerView={3}
         centeredSlides
       >
         {accountList}
         <SwiperSlide className="accCard">
-          <Button onClick={onOpen}>Create New Account</Button>
+          <Button
+            onClick={onOpen}
+            size="xl"
+            bg="#ffffeb"
+            padding="25px 25px 25px 25px"
+          >
+            Create Account
+          </Button>
         </SwiperSlide>
       </Swiper>
 
@@ -84,6 +112,6 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </div>
+    </Box>
   );
 }
