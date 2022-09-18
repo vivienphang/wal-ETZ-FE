@@ -10,9 +10,8 @@ import {
   Select,
   Switch,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import { ExchangeRateContext, UserContext } from "../provider/GlobalProvider";
-import { updateProfile } from "../reducers/globalAction";
+import { updateCurrency, updateProfile } from "../reducers/globalAction";
 import { updateUsername } from "../reducers/userReducer";
 import currencyList from "../constants/currencyList";
 import ACTIONS from "../reducers/actions";
@@ -22,9 +21,7 @@ axios.defaults.withCredentials = true;
 export default function ProfileForm() {
   const { userState, userDispatch } = useContext(UserContext);
   const { exchangeRateDispatch } = useContext(ExchangeRateContext);
-  const navigate = useNavigate();
   const [username, setUsername] = useState(userState?.username);
-  const [currency, setCurrency] = useState(userState?.defaultCurrency);
   const [accCurrency, setAccCurrency] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -33,14 +30,13 @@ export default function ProfileForm() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => setUsername(event.target.value);
 
-  const handleCurrencyChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => setCurrency(event.target.value);
+  const handleCurrency: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { value } = e.target;
+    setAccCurrency(value);
+  };
 
-  // Error handlers if username
-  // i. is empty
-  // ii. submitted is identical to initial state
-  // iii. already exists in DB
   const handleUpdateBtn: React.FormEventHandler<HTMLFormElement> = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
@@ -53,36 +49,40 @@ export default function ProfileForm() {
       setErrorMessage("Username is required.");
       return;
     }
+    if (
+      accCurrency !== userState?.defaultCurrency &&
+      username !== userState?.username
+    ) {
+      const action = await updateProfile(username, accCurrency!, token!);
+      userDispatch!(action.userAction);
+      exchangeRateDispatch!(action.exchangeRateAction);
+
+      if (action.userAction.type === ACTIONS.ERROR) {
+        setErrorMessage("Username no longer available.");
+      }
+    }
     // ii. username has changed, run update username
-    if (username !== userState?.username) {
-      const action = await updateUsername(username, token!);
+    else if (username !== userState?.username) {
+      const action = await updateUsername(username);
       userDispatch!(action!);
       // username unique by default, try-catch backend sends error
       if (action.type === ACTIONS.ERROR) {
         setErrorMessage("Choose another username.");
       }
+    } else if (accCurrency !== userState?.defaultCurrency) {
+      const action = await updateCurrency(accCurrency!, token!);
+      exchangeRateDispatch!(action.exchangeRateAction);
+      if (action.type === ACTIONS.ERROR) {
+        setErrorMessage("Choose another username.");
+      }
     }
-
-    const action = await updateProfile(username, currency!, token!);
-    userDispatch!(action.userAction);
-    exchangeRateDispatch!(action.exchangeRateAction);
-
-    if (action.userAction.type === ACTIONS.ERROR) {
-      setErrorMessage("Username no longer available.");
-      return;
-    }
-    navigate("/home");
   };
-
+  // is switch on? edit input
+  // is switch off? defaultValue
   const handleSwitch = () => {
     setIsEditing(!isEditing);
-  };
-
-  const handleCurrency: React.ChangeEventHandler<HTMLSelectElement> = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { value } = e.target;
-    setAccCurrency(value);
+    setAccCurrency(userState?.defaultCurrency);
+    console.log(!isEditing);
   };
 
   return (
@@ -91,7 +91,12 @@ export default function ProfileForm() {
         <FormLabel htmlFor="allow-edit" mb="0">
           Update profile?
         </FormLabel>
-        <Switch size="md" id="allow-edit" onChange={handleSwitch} />
+        <Switch
+          size="md"
+          id="allow-edit"
+          isChecked={isEditing}
+          onChange={handleSwitch}
+        />
       </FormControl>
       <br />
       <Box w="100%" p={3} borderWidth="2px" borderRadius="lg" bg="gray.100">
@@ -106,21 +111,13 @@ export default function ProfileForm() {
             />
             <br />
           </FormControl>
-          <FormControl>
-            <FormLabel>Default currency:</FormLabel>
-            <Input
-              type="text"
-              value={currency}
-              onChange={handleCurrencyChange}
-              disabled={!isEditing}
-            />
-          </FormControl>
           <br />
+          <FormLabel>Default currency:</FormLabel>
           <Select
-            name="accCurrency"
-            placeholder="Select your currency!"
+            name="defaultCurrency"
             onChange={handleCurrency}
             value={accCurrency}
+            disabled={!isEditing}
           >
             {currencyList.map((currency) => (
               <option key={currency.currencyAbbv} value={currency.currencyAbbv}>

@@ -1,6 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { AnyAaaaRecord } from "dns";
-import { StringDecoder } from "string_decoder";
 import {
   userActionInterface,
   userStateInterface,
@@ -34,7 +32,7 @@ export function resetState() {
 
 export async function updateUsername(token: string) {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const updateUsername = { username };
+
   let newUsername: AxiosResponse;
   try {
     newUsername = await axios.post(
@@ -42,7 +40,7 @@ export async function updateUsername(token: string) {
       updateUsername,
       config
     );
-    console.log("username:", newUsername, username);
+    console.log("username:", newUsername, updateUsername);
   } catch (err) {
     return { type: ACTIONS.ERROR };
   }

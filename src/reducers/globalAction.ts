@@ -127,14 +127,14 @@ export async function updateProfile(
     },
   };
 }
-export async function updateCurrency(currency: string, token: string) {
+export async function updateCurrency(defaultCurrency: string, token: string) {
   console.log("running update currency");
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const updateCurrency = { currency };
+  const updateCurrency = { defaultCurrency };
   let newCurrency: AxiosResponse;
   try {
     newCurrency = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/users/updateCurrencyOnly)`,
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateCurrencyOnly`,
       updateCurrency,
       config
     );
@@ -148,7 +148,7 @@ export async function updateCurrency(currency: string, token: string) {
   return {
     userAction: {
       type: ACTIONS.SET,
-      payload: newCurrency.data.data.user,
+      payload: newCurrency.data,
     },
     exchangeRateAction: {
       type: ACTIONS.SET,
