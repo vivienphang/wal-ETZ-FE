@@ -47,6 +47,8 @@ function HomePage() {
   const [totalSum, setTotalSum] = useState(0);
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
   const [initialRecs, setInitialRecs] = useState<accountRecordsInterface[]>([]);
+  // Created this to show account names but its not being used to be deleted
+  const [accName, setAccName] = useState("");
   const [filters, setFilters] = useState<filterInterface>(initFilterState);
   const [filteredRecs, setFilteredRecs] = useState<accountRecordsInterface[]>(
     []
@@ -59,7 +61,6 @@ function HomePage() {
   }, [userState]);
 
   useEffect(() => {
-    console.log(exchangeRateState);
     let iRecs: any[] = [];
     accountsState?.map((account) => {
       const adjustedRec = account.accRecords?.map((record) => {
@@ -69,7 +70,6 @@ function HomePage() {
         ).toFixed(2);
         return recCopy;
       });
-      console.log(adjustedRec);
       iRecs = [...iRecs, ...adjustedRec!];
       return iRecs;
     });
@@ -88,11 +88,13 @@ function HomePage() {
       if (chosenAcc === "") {
         setCurrentAcc(initAccountState);
         setRecs(initialRecs);
+        setAccName("All Accounts");
         return;
       }
       if (account._id === chosenAcc) {
         setCurrentAcc(account);
         setRecs(account.accRecords!);
+        setAccName(account.accName!);
         return;
       }
       if (!chosenAcc) {
@@ -152,6 +154,7 @@ function HomePage() {
           px={4}
           borderRadius="xl"
           w="90%"
+          h="80%"
           bg={colorList.component}
         >
           <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
@@ -160,6 +163,21 @@ function HomePage() {
       <Flex w="90%" flexDirection="row-reverse">
         <Filter filters={filters} setFilters={setFilters} />
       </Flex>
+      <Center>
+        <Box
+          my={2}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          w="90%"
+          bg={colorList.component}
+        >
+          <Heading fontSize="sm">Account:</Heading>
+          <Text fontSize="4xl" as="i">
+            {accName}
+          </Text>
+        </Box>
+      </Center>
       <Center>
         <Box
           my={2}

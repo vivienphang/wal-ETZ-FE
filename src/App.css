@@ -13,19 +13,38 @@ body {
   flex-direction: column;
 }
 
-.carouselContainer {
+.hpContainer {
   max-width: 90vw;
-  border: solid;
+  min-height: 50px;
+  background-color: #ffffeb;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px #333;
 }
 
-.show {
-  opacity: 1;
+.homePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 25px;
 }
 
-.hide {
-  opacity: 0;
+.accCard {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 30px;
+  border-radius: 16px;
+  box-shadow: -1rem 0 3rem rgb(85, 82, 82);
+  transition: 0.2s;
+  overflow-y: visible;
 }
-
-.HPComponenet {
-  background-color: #ffffd6;
+.accCard:hover {
+  transform: translateY(-1rem);
+}
+.accCard:hover ~ .accCard {
+  transform: translateX(130px);
+}
+.accCard:not(:first-child) {
+  margin-left: -130px;
 }
