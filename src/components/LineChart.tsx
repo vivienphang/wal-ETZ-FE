@@ -96,6 +96,7 @@ export default function LineChart(props: EIPieChartPropInterface) {
               tension: 0.5,
               // Changes the color of the line
               borderColor: "#50a36c",
+              borderWidth: 7,
             },
           },
           scales: {

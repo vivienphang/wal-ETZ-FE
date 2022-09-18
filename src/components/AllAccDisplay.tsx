@@ -80,9 +80,9 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
       </SwiperSlide>
     );
   });
-
+  // py={5} px={4}
   return (
-    <Box className="carouselContainer" py={5} px={4}>
+    <Box className="carouselContainer">
       <Swiper
         className="hpContainer"
         spaceBetween={50}

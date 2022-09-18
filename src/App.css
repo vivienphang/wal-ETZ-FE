@@ -14,22 +14,22 @@ body {
 }
 
 .hpContainer {
-  max-width: 90vw;
-  min-height: 50px;
+  /* width: 100%; */
+  /* height: 99%;
+  box-shadow: 2px 2px 5px #333; */
   background-color: #ffffeb;
-  border-radius: 25px;
-  box-shadow: 2px 2px 5px #333;
+  border-radius: 15px;
 }
 
 .homePage {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 20px;
-  padding-left: 25px;
+  padding-top: 5%;
+  padding-left: 5%;
 }
 
-.accCard {
+/* .accCard {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -37,7 +37,6 @@ body {
   border-radius: 16px;
   box-shadow: -1rem 0 3rem rgb(85, 82, 82);
   transition: 0.2s;
-  overflow-y: visible;
 }
 .accCard:hover {
   transform: translateY(-1rem);
@@ -47,4 +46,4 @@ body {
 }
 .accCard:not(:first-child) {
   margin-left: -130px;
-}
+} */
