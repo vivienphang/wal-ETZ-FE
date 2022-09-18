@@ -10,7 +10,7 @@ import { resetState } from "../reducers/userReducer";
 export default function Settings() {
   const { userState, userDispatch } = useContext(UserContext);
   const { accountsDispatch } = useContext(AccountsContext);
-  // const navigate = useNavigate();
+
   const handleLogout = async () => {
     const backEndUrl = process.env.REACT_APP_BACKEND_URL;
     console.log("LOGGING OUT");
