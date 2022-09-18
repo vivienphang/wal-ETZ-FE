@@ -169,9 +169,11 @@ function HomePage() {
           w="90%"
           bg={colorList.component}
         >
-          <Heading fontSize="sm">Total Current Balance:</Heading>
-          <Text fontSize="4xl" as="i">
-            {`${accSymbol} ${Math.abs(totalSum).toFixed(2)}`}
+          <Heading fontSize="sm" color={colorList.textColor}>
+            Total Current Balance:
+          </Heading>
+          <Text fontSize="4xl" as="i" color={colorList.textColor}>
+            {`${accSymbol} ${Number(totalSum.toFixed(2)).toLocaleString()}`}
           </Text>
         </Box>
       </Center>

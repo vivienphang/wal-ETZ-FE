@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   FormControl,
   FormLabel,
@@ -17,6 +17,7 @@ import currencyList from "../constants/currencyList";
 import { AccountsContext } from "../provider/GlobalProvider";
 import { addRecordPropInterface } from "../types/propInterface";
 import { newAccount } from "../reducers/accountReducer";
+import colorList from "../constants/colorList";
 
 export default function AddAccount(props: addRecordPropInterface) {
   const { accountsDispatch } = useContext(AccountsContext);
@@ -101,15 +102,6 @@ export default function AddAccount(props: addRecordPropInterface) {
     onClose();
   };
 
-  useEffect(() => {
-    const data = {
-      accName,
-      accCurrency,
-      balance,
-    };
-    console.log(data);
-  }, [accName, accCurrency, balance]);
-
   return (
     <FormControl>
       <FormLabel>Account Name</FormLabel>
@@ -146,7 +138,13 @@ export default function AddAccount(props: addRecordPropInterface) {
       >
         {errorMsg}
       </FormHelperText>
-      <Button type="submit" m="5" onClick={handleSubmit}>
+      <Button
+        bg={colorList.buttonPrimary}
+        color="white"
+        my={2}
+        type="submit"
+        onClick={handleSubmit}
+      >
         Create Account
       </Button>
     </FormControl>
