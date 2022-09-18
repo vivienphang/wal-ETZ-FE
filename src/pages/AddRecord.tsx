@@ -129,11 +129,11 @@ export default function AddRecord(props: addRecordPropInterface) {
       <form onSubmit={createRecord}>
         <FormControl>
           <Center>
-            <FormLabel>Select Account</FormLabel>
+            <FormLabel color={colorList.textColor}>Select Account</FormLabel>
           </Center>
           <AccountList acc={acc} setAcc={setAcc} />
           <Center mt={1}>
-            <FormLabel>
+            <FormLabel color={colorList.textColor}>
               {data.isExpense ? "Expense " : "Income "}
               Amount
             </FormLabel>
@@ -164,7 +164,9 @@ export default function AddRecord(props: addRecordPropInterface) {
             </Box>
           </Flex>
           <Center mt={1}>
-            <FormLabel>Date of Transaction</FormLabel>
+            <FormLabel color={colorList.textColor}>
+              Date of Transaction
+            </FormLabel>
           </Center>
           <Input
             placeholder="Date And Time"
@@ -173,7 +175,7 @@ export default function AddRecord(props: addRecordPropInterface) {
             value={data.recordDate}
           />
           <Center mt={1}>
-            <FormLabel>Record Name</FormLabel>
+            <FormLabel color={colorList.textColor}>Record Name</FormLabel>
           </Center>
           <Input
             placeholder="Record Name"
@@ -181,7 +183,7 @@ export default function AddRecord(props: addRecordPropInterface) {
             onChange={updateName}
           />
           <Center mt={1}>
-            <FormLabel>Select Category</FormLabel>
+            <FormLabel color={colorList.textColor}>Select Category</FormLabel>
           </Center>
           <CategoryList
             setCat={setCat}
@@ -191,7 +193,7 @@ export default function AddRecord(props: addRecordPropInterface) {
             isDisabled={false}
           />
           <Center mt={1}>
-            <FormLabel>Comments</FormLabel>
+            <FormLabel color={colorList.textColor}>Comments</FormLabel>
           </Center>
           <Textarea
             placeholder="Enter your comments here"
@@ -231,11 +233,12 @@ export default function AddRecord(props: addRecordPropInterface) {
         </FormControl>
         <Modal isOpen={isCameraOpen} onClose={onCameraClose}>
           <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Snap your receipt</ModalHeader>
+          <ModalContent bg={colorList.drawerModal}>
+            <ModalHeader color={colorList.textColor}>
+              Snap your receipt
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <p>Procuring Camera Feed</p>
               <Camera
                 isPhotoUploaded={isPhotoUploaded}
                 setIsPhotoUploaded={setIsPhotoUploaded}

@@ -11,6 +11,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Center,
 } from "@chakra-ui/react";
 
 import currencyList from "../constants/currencyList";
@@ -104,9 +105,17 @@ export default function AddAccount(props: addRecordPropInterface) {
 
   return (
     <FormControl>
-      <FormLabel>Account Name</FormLabel>
+      <Center>
+        <FormLabel my={2} color={colorList.textColor}>
+          Account Name
+        </FormLabel>
+      </Center>
       <Input name="accName" onChange={handleAccName} value={accName} />
-      <FormLabel>Account Currency</FormLabel>
+      <Center>
+        <FormLabel my={2} color={colorList.textColor}>
+          Account Currency
+        </FormLabel>
+      </Center>
       <Select
         name="accCurrency"
         placeholder="Select your currency!"
@@ -119,7 +128,11 @@ export default function AddAccount(props: addRecordPropInterface) {
           </option>
         ))}
       </Select>
-      <FormLabel>Initial Balance</FormLabel>
+      <Center>
+        <FormLabel my={2} color={colorList.textColor}>
+          Initial Balance
+        </FormLabel>
+      </Center>
       <NumberInput defaultValue={0} precision={2} step={0.1} min={0}>
         <NumberInputField
           type="number"
@@ -141,7 +154,8 @@ export default function AddAccount(props: addRecordPropInterface) {
       <Button
         bg={colorList.buttonPrimary}
         color="white"
-        my={2}
+        mt={4}
+        mb={2}
         type="submit"
         onClick={handleSubmit}
       >

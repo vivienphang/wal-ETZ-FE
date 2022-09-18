@@ -44,6 +44,7 @@ function Navbar() {
       display="flex"
       justifyContent="space-evenly"
       bg={colorList.component}
+      minW="100vw"
       mt={3}
     >
       <Flex minWidth="max-content" paddingTop={2} paddingBottom={2}>
@@ -51,14 +52,19 @@ function Navbar() {
         <Stack direction="row" spacing={4}>
           <Box
             as={MdEqualizer}
-            color="gray.500"
+            color={colorList.textColor}
             size="50px"
             onClick={onRecordsOpen}
           />
-          <Box as={MdAdd} color="gray.500" size="50px" onClick={onOpen} />
+          <Box
+            as={MdAdd}
+            color={colorList.textColor}
+            size="50px"
+            onClick={onOpen}
+          />
           <Box
             as={MdSettings}
-            color="gray.500"
+            color={colorList.textColor}
             size="50px"
             onClick={onSettingsOpen}
           />
@@ -72,7 +78,9 @@ function Navbar() {
         >
           <DrawerOverlay />
           <DrawerContent bg={colorList.drawerModal}>
-            <DrawerHeader borderBottomWidth="1px">Records</DrawerHeader>
+            <DrawerHeader borderBottomWidth="1px" color={colorList.textColor}>
+              Records
+            </DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
               <Records />
@@ -82,7 +90,9 @@ function Navbar() {
         <Drawer placement="bottom" onClose={onClose} isOpen={isOpen} size="xl">
           <DrawerOverlay />
           <DrawerContent bg={colorList.drawerModal}>
-            <DrawerHeader borderBottomWidth="1px">Add New Record</DrawerHeader>
+            <DrawerHeader borderBottomWidth="1px" color={colorList.textColor}>
+              Add New Record
+            </DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
               <AddRecord onClose={onClose} />
@@ -97,7 +107,9 @@ function Navbar() {
         >
           <DrawerOverlay />
           <DrawerContent bg={colorList.drawerModal}>
-            <DrawerHeader borderBottomWidth="1px">Settings</DrawerHeader>
+            <DrawerHeader borderBottomWidth="1px" color={colorList.textColor}>
+              Settings
+            </DrawerHeader>
             <DrawerCloseButton />
             <DrawerBody>
               <Settings />

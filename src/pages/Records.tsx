@@ -123,7 +123,7 @@ export default function Records() {
     <>
       <Flex h="100vh" flexDirection="column">
         <Center>
-          <Heading size="sm" pb={5} pt={2}>
+          <Heading size="sm" pb={5} pt={2} color={colorList.textColor}>
             Period:
             {` ${DateTime.fromISO(filters.startDate).toFormat(
               "LLL d, y"
@@ -166,7 +166,9 @@ export default function Records() {
         ) : (
           <Flex flex="1 1 auto" alignItems="center" justify="center">
             <Box>
-              <Text fontSize="xl">Please select an account</Text>
+              <Text fontSize="xl" color={colorList.textColor}>
+                Please select an account
+              </Text>
             </Box>
           </Flex>
         )}
@@ -181,7 +183,7 @@ export default function Records() {
       >
         <ModalOverlay />
         <ModalContent bg={colorList.drawerModal}>
-          <ModalHeader>View Record</ModalHeader>
+          <ModalHeader color={colorList.textColor}>View Record</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <ViewRecord
