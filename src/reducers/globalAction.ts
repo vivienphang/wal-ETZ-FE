@@ -119,7 +119,7 @@ export async function updateProfile(
   return {
     userAction: {
       type: ACTIONS.SET,
-      payload: updateUserProfile.data.data.user,
+      payload: updateUserProfile.data,
     },
     exchangeRateAction: {
       type: ACTIONS.SET,
@@ -145,10 +145,11 @@ export async function updateCurrency(defaultCurrency: string, token: string) {
       exchangeRateAction: { type: ACTIONS.ERROR },
     };
   }
+  console.log(newCurrency.data);
   return {
     userAction: {
       type: ACTIONS.SET,
-      payload: newCurrency.data,
+      payload: newCurrency.data.data.updateCurrencyOnly,
     },
     exchangeRateAction: {
       type: ACTIONS.SET,

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, Button, Heading, HStack, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, HStack, VStack } from "@chakra-ui/react";
 // import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import { AccountsContext, UserContext } from "../provider/GlobalProvider";
@@ -23,18 +23,19 @@ export default function Settings() {
   return (
     <Box>
       <VStack display="flex" alignItems="center">
-        <Heading p="2px" as="h3" size="md">
-          Hello,
-          {"\u00a0\u00a0"}
-          {userState?.username}!
-        </Heading>
-        <br />
-        <HStack>
+        <Center>
+          <Heading p="2px" as="h3" size="md">
+            Hello,
+            {"\u00a0\u00a0"}
+            {userState?.username}!
+          </Heading>
+        </Center>
+        <HStack mt={3}>
           <br />
           <ProfilePic />
         </HStack>
         <br />
-        <HStack justify="space-around">
+        <HStack>
           <ProfileForm />
         </HStack>
         <Button colorScheme="teal" onClick={handleLogout}>

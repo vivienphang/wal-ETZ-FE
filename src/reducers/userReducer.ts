@@ -30,13 +30,13 @@ export function resetState() {
   return { type: ACTIONS.RESET };
 }
 
-export async function updateUsername(token: string) {
+export async function updateUsername(usernameChanged: string, token: string) {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-
+  const updateUsername = { username: usernameChanged };
   let newUsername: AxiosResponse;
   try {
     newUsername = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/users/updateUsernameOnly)`,
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateUsernameOnly`,
       updateUsername,
       config
     );
