@@ -21,6 +21,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { filterPropInterface } from "../types/propInterface";
+import colorList from "../constants/colorList";
 
 export default function Filter(props: filterPropInterface) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -159,7 +160,7 @@ export default function Filter(props: filterPropInterface) {
       >
         <form onSubmit={handleFormSubmit}>
           <ModalOverlay />
-          <ModalContent bg="#F7F6F3">
+          <ModalContent bg={colorList.drawerModal}>
             <ModalHeader>Filter Settings</ModalHeader>
             <ModalCloseButton />
             <ModalBody>

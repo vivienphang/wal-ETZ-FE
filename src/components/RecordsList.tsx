@@ -21,6 +21,7 @@ import {
   inaccessibleCategories,
 } from "../constants/categoryList";
 import { categoryInterface } from "../types/constantInterface";
+import colorList from "../constants/colorList";
 
 export default function RecordsList(props: recordsListPropInterface) {
   const { filteredRec, setChosenRec, accSymbol, onOpen } = props;
@@ -35,48 +36,55 @@ export default function RecordsList(props: recordsListPropInterface) {
     onOpen();
   };
 
-  const recordsList = filteredRec.map((record: accountRecordsInterface) => {
-    const recordDate = new Date(record.recordDate!).toISOString();
+  const recordsList = filteredRec.map(
+    (record: accountRecordsInterface, index) => {
+      const recordDate = new Date(record.recordDate!).toISOString();
 
-    const categoryFilter = (category: categoryInterface) => {
-      return record.recordCategory === category.name;
-    };
+      const categoryFilter = (category: categoryInterface) => {
+        return record.recordCategory === category.name;
+      };
 
-    const allCategories = [
-      ...expenseCategories,
-      ...incomeCategories,
-      ...inaccessibleCategories,
-    ];
+      const allCategories = [
+        ...expenseCategories,
+        ...incomeCategories,
+        ...inaccessibleCategories,
+      ];
 
-    const recordCat = allCategories.filter(categoryFilter);
+      const recordCat = allCategories.filter(categoryFilter);
 
-    const recordIcon = recordCat[0] ? recordCat[0].icon : GiHamburgerMenu;
+      const recordIcon = recordCat[0] ? recordCat[0].icon : GiHamburgerMenu;
 
-    return (
-      <Tr key={record._id} onClick={handleRowClick} id={record._id}>
-        <Td>
-          <Avatar
-            size="md"
-            icon={<Icon as={recordIcon} />}
-            bg={record.isExpense ? "red.100" : "green.100"}
-          />
-        </Td>
-        <Td>
-          <Text fontSize="xs">
-            {DateTime.fromISO(recordDate).toFormat("MMM dd t")}
-          </Text>
-        </Td>
-        <Td>
-          <Text color={record.isExpense ? "red.400" : "green.400"}>
-            {`${accSymbol} ${Number(record.amount).toLocaleString("en-us", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}`}
-          </Text>
-        </Td>
-      </Tr>
-    );
-  });
+      return (
+        <Tr
+          key={record._id}
+          onClick={handleRowClick}
+          id={record._id}
+          bg={index % 2 ? colorList.drawerModal : colorList.alternateRowColor}
+        >
+          <Td>
+            <Avatar
+              size="md"
+              icon={<Icon as={recordIcon} />}
+              bg={record.isExpense ? "red.100" : "green.100"}
+            />
+          </Td>
+          <Td>
+            <Text fontSize="xs">
+              {DateTime.fromISO(recordDate).toFormat("MMM dd t")}
+            </Text>
+          </Td>
+          <Td>
+            <Text color={record.isExpense ? "red.400" : "green.400"}>
+              {`${accSymbol} ${Number(record.amount).toLocaleString("en-us", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}`}
+            </Text>
+          </Td>
+        </Tr>
+      );
+    }
+  );
 
   return (
     <Center>

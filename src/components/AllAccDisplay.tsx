@@ -19,6 +19,7 @@ import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
 import "swiper/components/pagination/pagination.min.css";
+import colorList from "../constants/colorList";
 
 // install Swiper modules
 SwiperCore.use([EffectCube, Pagination]);
@@ -38,12 +39,14 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
       setChosenAcc(e.currentTarget.value);
     }
   };
+  // Get the current accBalance
+
   const accountList = accountsState!.map((account) => (
     // Setting the account
     // Need the total balance of the individual account
-    <SwiperSlide key={account._id}>
+    <SwiperSlide key={account._id} className="accCard">
       <Button
-        className="accountButton"
+        className="accButton"
         key={account._id}
         onClick={settingAcc}
         value={account._id}
@@ -58,24 +61,22 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
     </SwiperSlide>
   ));
   return (
-    <div>
+    <div className="HPComponent">
       <Swiper
         className="carouselContainer"
         spaceBetween={50}
         slidesPerView={3}
         centeredSlides
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
         {accountList}
-        <SwiperSlide>
+        <SwiperSlide className="accCard">
           <Button onClick={onOpen}>Create New Account</Button>
         </SwiperSlide>
       </Swiper>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={colorList.drawerModal}>
           <ModalHeader>Account Creation</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

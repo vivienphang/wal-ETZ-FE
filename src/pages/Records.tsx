@@ -18,6 +18,7 @@ import AccountList from "../components/AccountList";
 import Filter from "../components/Filter";
 import RecordsList from "../components/RecordsList";
 import ViewRecord from "../components/ViewRecord";
+import colorList from "../constants/colorList";
 import currencyList from "../constants/currencyList";
 import { AccountsContext } from "../provider/GlobalProvider";
 import {
@@ -179,7 +180,7 @@ export default function Records() {
         motionPreset="slideInBottom"
       >
         <ModalOverlay />
-        <ModalContent bg="#FFFFEB">
+        <ModalContent bg={colorList.drawerModal}>
           <ModalHeader>View Record</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

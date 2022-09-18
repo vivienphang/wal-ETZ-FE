@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Wrap } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import AllAccDisplay from "../components/AllAccDisplay";
 import Filter from "../components/Filter";
@@ -13,17 +13,50 @@ import {
   AccountsContext,
   ExchangeRateContext,
 } from "../provider/GlobalProvider";
-import { accountRecordsInterface } from "../types/accountReducerInterface";
+import {
+  accountRecordsInterface,
+  singularAccountInterface,
+} from "../types/accountReducerInterface";
 import { filterInterface } from "../types/filterInterface";
+import colorList from "../constants/colorList";
+import currencyList from "../constants/currencyList";
+import { currencyInterface } from "../types/constantInterface";
 
 function HomePage() {
   const { userState } = useContext(UserContext);
   const { accountsState } = useContext(AccountsContext);
   const { exchangeRateState } = useContext(ExchangeRateContext);
-  // Creating states to be shared among children
+
+  const navigate = useNavigate();
+
+  const currentDate = DateTime.now();
+  const initFilterState = {
+    startDate: DateTime.utc(currentDate.year, currentDate.month, 1).toISODate(),
+    endDate: DateTime.utc(
+      currentDate.year,
+      currentDate.month,
+      currentDate.day
+    ).toISODate(),
+  };
+  const initAccountState = {};
+
+  const [accSymbol, setAccSymbol] = useState("");
   const [chosenAcc, setChosenAcc] = useState("");
+  const [currentAcc, setCurrentAcc] =
+    useState<singularAccountInterface>(initAccountState);
+  const [totalSum, setTotalSum] = useState(0);
   const [recs, setRecs] = useState<accountRecordsInterface[]>([]);
   const [initialRecs, setInitialRecs] = useState<accountRecordsInterface[]>([]);
+  const [filters, setFilters] = useState<filterInterface>(initFilterState);
+  const [filteredRecs, setFilteredRecs] = useState<accountRecordsInterface[]>(
+    []
+  );
+
+  useEffect(() => {
+    if (!userState?._id) {
+      navigate("/loading");
+    }
+  }, [userState]);
 
   useEffect(() => {
     console.log(exchangeRateState);
@@ -50,48 +83,35 @@ function HomePage() {
     setInitialRecs(iRecs);
   }, [accountsState, exchangeRateState]);
 
-  const navigate = useNavigate();
-
-  // Filter
-  const currentDate = DateTime.now();
-  const initFilterState = {
-    startDate: DateTime.utc(currentDate.year, currentDate.month, 1).toISODate(),
-    endDate: DateTime.utc(
-      currentDate.year,
-      currentDate.month,
-      currentDate.day
-    ).toISODate(),
-  };
-  const [filters, setFilters] = useState<filterInterface>(initFilterState);
-  const [filteredRecs, setFilteredRecs] = useState<accountRecordsInterface[]>(
-    []
-  );
-
   useEffect(() => {
-    if (!userState?._id) {
-      navigate("/loading");
-    }
-  }, [userState]);
-
-  useEffect(() => {
-    // Setting the records state as chosenAcc records
     accountsState?.forEach((account) => {
       if (chosenAcc === "") {
+        setCurrentAcc(initAccountState);
         setRecs(initialRecs);
         return;
       }
       if (account._id === chosenAcc) {
-        // Take the chosenAcc's accRecords
+        setCurrentAcc(account);
         setRecs(account.accRecords!);
         return;
       }
       if (!chosenAcc) {
+        setCurrentAcc(initAccountState);
         setRecs(initialRecs);
       }
     });
   }, [chosenAcc, initialRecs]);
 
   useEffect(() => {
+    let sum = 0;
+    recs.forEach((record) => {
+      if (record.isExpense) {
+        sum -= Number(record.amount);
+      } else {
+        sum += Number(record.amount);
+      }
+    });
+    sum = Number(sum.toFixed(2));
     const dateFilter = (record: accountRecordsInterface) => {
       return (
         DateTime.fromISO(record.recordDate!) >
@@ -103,28 +123,98 @@ function HomePage() {
     const preFilteredRecords = [...recs];
     const postFilteredRecords = preFilteredRecords.filter(dateFilter);
     setFilteredRecs(postFilteredRecords);
+    setTotalSum(sum);
   }, [recs, filters]);
+
+  useEffect(() => {
+    const filterAcc = (currency: currencyInterface) => {
+      if (!currentAcc.accCurrency) {
+        return accountsState![0].accCurrency === currency.currencyAbbv;
+      }
+      return currentAcc.accCurrency === currency.currencyAbbv;
+    };
+    if (!accountsState) {
+      return;
+    }
+    if (!accountsState.length) {
+      return;
+    }
+    const chosenAcc = currencyList.filter(filterAcc);
+    setAccSymbol(chosenAcc[0].currencySymbol);
+  }, [currentAcc]);
+
   return (
-    <Wrap
-      bg="gray.100"
-      maxHeight="100%"
-      maxWidth="100%"
-      display="flex"
-      flexDirection={["column", "row", "row"]}
-      justifyContent="space-around"
-      alignItems="center"
-      fontSize={["30px"]}
-      overflowY="scroll"
-      overflowX="scroll"
-    >
-      {/* Pass in filtered data as recs */}
-      <LineChart recs={filteredRecs} />
-      <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
-      <Filter filters={filters} setFilters={setFilters} />
-      <BalanceChart recs={filteredRecs} />
-      <EIPieChart recs={filteredRecs} />
+    <Flex minH="100vh" width="100vw" flexDirection="column">
+      <Center>
+        <Box
+          my={5}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          w="90%"
+          bg={colorList.component}
+        >
+          <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
+        </Box>
+      </Center>
+      <Flex w="90%" flexDirection="row-reverse">
+        <Filter filters={filters} setFilters={setFilters} />
+      </Flex>
+      <Center>
+        <Box
+          my={2}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          w="90%"
+          bg={colorList.component}
+        >
+          <Heading fontSize="sm" color={colorList.textColor}>
+            Total Current Balance:
+          </Heading>
+          <Text fontSize="4xl" as="i" color={colorList.textColor}>
+            {`${accSymbol} ${Number(totalSum.toFixed(2)).toLocaleString()}`}
+          </Text>
+        </Box>
+      </Center>
+      <Center>
+        <Box
+          w="90%"
+          my={2}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          bg={colorList.component}
+        >
+          <LineChart recs={filteredRecs} />
+        </Box>
+      </Center>
+      <Center>
+        <Box
+          w="90%"
+          my={2}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          bg={colorList.component}
+        >
+          <BalanceChart recs={filteredRecs} />
+        </Box>
+      </Center>
+      <Center>
+        <Box
+          w="90%"
+          my={2}
+          py={5}
+          px={4}
+          borderRadius="xl"
+          bg={colorList.component}
+        >
+          <EIPieChart recs={filteredRecs} />
+        </Box>
+      </Center>
       <Navbar />
-    </Wrap>
+    </Flex>
   );
 }
 

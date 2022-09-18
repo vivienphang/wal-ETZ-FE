@@ -6,7 +6,7 @@ body {
 .App {
   width: 100vw;
   min-height: 100vh;
-  background: #ffffeb;
+  background: #a78d7c;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -16,7 +16,6 @@ body {
 .carouselContainer {
   max-width: 90vw;
   border: solid;
-  padding-left: 15%;
 }
 
 .show {
@@ -25,4 +24,8 @@ body {
 
 .hide {
   opacity: 0;
+}
+
+.HPComponenet {
+  background-color: #ffffd6;
 }
