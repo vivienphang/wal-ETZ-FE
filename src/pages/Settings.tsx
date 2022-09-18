@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, Flex, Button, Heading, HStack, VStack } from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, VStack } from "@chakra-ui/react";
 // import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import { AccountsContext, UserContext } from "../provider/GlobalProvider";

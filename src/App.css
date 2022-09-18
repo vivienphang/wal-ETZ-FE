@@ -4,9 +4,9 @@ body {
 }
 
 .App {
-  width: 98vw;
-  min-height: 98vh;
-  background: #ffffeb;
+  width: 100vw;
+  min-height: 100vh;
+  background: #a78d7c;
   text-align: center;
   display: flex;
   justify-content: center;
