@@ -10,7 +10,6 @@ import {
   useDisclosure,
   Box,
   Text,
-  Heading,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectCube, Pagination } from "swiper/core";
