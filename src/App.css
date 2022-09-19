@@ -13,14 +13,6 @@ body {
   flex-direction: column;
 }
 
-.hpContainer {
-  /* width: 100%; */
-  /* height: 99%;
-  box-shadow: 2px 2px 5px #333; */
-  background-color: #ffffeb;
-  border-radius: 15px;
-}
-
 .homePage {
   display: flex;
   flex-direction: column;
@@ -28,22 +20,37 @@ body {
   padding-top: 5%;
   padding-left: 5%;
 }
-
-/* .accCard {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  height: 30px;
-  border-radius: 16px;
-  box-shadow: -1rem 0 3rem rgb(85, 82, 82);
-  transition: 0.2s;
+.carouselContainer {
+  height: 99%;
+  border-radius: 15px;
+  background-color: #e4ccb0;
 }
+
+.hpContainer {
+  height: 99%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  /* border-radius: 16px; */
+  box-shadow: -1rem 0 2rem rgb(122, 122, 122);
+  /* border: 1px solid #a78d7c; */
+  transition: 0.2s;
+  background-color: #ffffeb;
+}
+
 .accCard:hover {
-  transform: translateY(-1rem);
+  /* transform: translateY(-1rem); */
 }
 .accCard:hover ~ .accCard {
   transform: translateX(130px);
 }
 .accCard:not(:first-child) {
   margin-left: -130px;
-} */
+}
