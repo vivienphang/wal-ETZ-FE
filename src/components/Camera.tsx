@@ -42,7 +42,17 @@ export default function Camera(props: addPhotoUrlPropInterface) {
   const getVideo = () => {
     navigator.mediaDevices
       .getUserMedia({
-        video: { width: 1920, height: 1080 },
+        video: {
+          width: {
+            min: 1280,
+            ideal: 1920,
+          },
+          height: {
+            min: 720,
+            ideal: 1080,
+          },
+          facingMode: "environment",
+        },
       })
       .then((stream) => {
         const video = videoRef.current || null;
