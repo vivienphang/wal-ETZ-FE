@@ -22,7 +22,6 @@ export async function getData(token: string) {
       config
     );
   } catch (err) {
-    console.log("can't get user data by axios");
     return "error";
   }
 
@@ -109,7 +108,7 @@ export async function updateProfile(
       config
     );
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return {
       userAction: { type: ACTIONS.ERROR },
       exchangeRateAction: { type: ACTIONS.ERROR },
@@ -128,7 +127,6 @@ export async function updateProfile(
   };
 }
 export async function updateCurrency(defaultCurrency: string, token: string) {
-  console.log("running update currency");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const updateCurrency = { defaultCurrency };
   let newCurrency: AxiosResponse;
@@ -138,14 +136,12 @@ export async function updateCurrency(defaultCurrency: string, token: string) {
       updateCurrency,
       config
     );
-    console.log("newCurrency:", newCurrency);
   } catch (err) {
     return {
       userAction: { type: ACTIONS.ERROR },
       exchangeRateAction: { type: ACTIONS.ERROR },
     };
   }
-  console.log(newCurrency.data);
   return {
     userAction: {
       type: ACTIONS.SET,

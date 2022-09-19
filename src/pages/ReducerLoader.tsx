@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Image, Center } from "@chakra-ui/react";
 import {
   AccountsContext,
   ExchangeRateContext,
@@ -53,7 +54,14 @@ export default function ReducerLoader() {
 
   return (
     <div>
-      <p>Loading page</p>
+      <Center>
+        <Image
+          boxSize="130px"
+          borderRadius="20px"
+          src="./images/aureus.png"
+          alt="Aureus Logo"
+        />
+      </Center>
     </div>
   );
 }

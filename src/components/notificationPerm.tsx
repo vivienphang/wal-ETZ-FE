@@ -35,6 +35,7 @@ function notification() {
       icon: "./images/aureus.png",
     };
     // give logic for notifications
+    // eslint-disable-next-line no-new
     new Notification("New Notification", notificationOpts);
   };
   // Getting notification permission

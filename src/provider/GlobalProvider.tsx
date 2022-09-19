@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import { userContextInterface } from "../types/userReducerInterface";
 import { accountContextInterface } from "../types/accountReducerInterface";
 import { childrenInterface } from "../types/providerInterface";
@@ -31,9 +31,6 @@ export default function GlobalProvider({ children }: childrenInterface) {
     exchangeRateReducer,
     initialExchangeRateState
   );
-  useEffect(() => {
-    console.log(exchangeRateState);
-  }, [exchangeRateState]);
 
   return (
     <UserContext.Provider value={{ userState, userDispatch }}>

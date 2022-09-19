@@ -65,10 +65,6 @@ export default function IncomePie(props: EIPieChartPropInterface) {
     setIncomeCat(data);
   }, [incomeRecs]);
 
-  useEffect(() => {
-    console.log(incomeCat);
-  }, [incomeCat]);
-
   return (
     <div>
       <Heading fontSize="lg" size="2xl" color={colorList.textColor}>

@@ -40,13 +40,11 @@ export async function updateUsername(usernameChanged: string, token: string) {
       updateUsername,
       config
     );
-    console.log("username:", newUsername, updateUsername);
   } catch (err) {
     return { type: ACTIONS.ERROR };
   }
   const { defaultCurrency, email, username, profilePicture, _id } =
     newUsername!.data.data;
-  console.log(newUsername.data.data);
   return {
     type: ACTIONS.SET,
     payload: { defaultCurrency, email, username, profilePicture, _id },
@@ -66,9 +64,8 @@ export async function uploadPicture(file: any, token: string) {
       formData,
       config
     );
-    console.log("update picture", result);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return { type: ACTIONS.ERROR };
   }
   const { defaultCurrency, profilePicture, email, username, _id } =

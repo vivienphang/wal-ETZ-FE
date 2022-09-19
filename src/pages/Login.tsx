@@ -47,17 +47,15 @@ function Login() {
       loginCredentials,
       password,
     };
-    console.log("data:", data);
     try {
       userData = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/users/logIn`,
         data
       );
     } catch (err: any) {
-      console.log("login error:", err);
+      // console.log("login error:", err);
       return alert(err.response.data.status);
     }
-    console.log("this is data", userData);
     // save id into local storage
     const { token } = userData.data;
     localStorage.setItem("token", token);
@@ -66,7 +64,6 @@ function Login() {
   };
 
   const googleLogin = () => {
-    console.log("button clicked");
     window.location.href = `${backEndUrl}/auth/google`;
   };
 
@@ -97,6 +94,7 @@ function Login() {
           >
             <Heading>
               <Image
+                boxSize="130px"
                 borderRadius="20px"
                 src="./images/aureus.png"
                 alt="Aureus Logo"
