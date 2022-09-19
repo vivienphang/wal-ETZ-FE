@@ -16,6 +16,7 @@ import { updateCurrency, updateProfile } from "../reducers/globalAction";
 import { updateUsername } from "../reducers/userReducer";
 import currencyList from "../constants/currencyList";
 import ACTIONS from "../reducers/actions";
+import colorList from "../constants/colorList";
 
 axios.defaults.withCredentials = true;
 
@@ -140,7 +141,7 @@ export default function ProfileForm() {
             <Button
               display="flex"
               alignItems="center"
-              colorScheme="teal"
+              bg={colorList.buttonPrimary}
               type="submit"
               disabled={!isEditing}
             >

@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import Signup from "./Signup";
+import colorList from "../constants/colorList";
 
 axios.defaults.withCredentials = true;
 
@@ -82,7 +83,7 @@ function Login() {
           flexDirection="column"
           width="100wh"
           height="100vh"
-          backgroundColor="gray.200"
+          bg={colorList.primary}
           justifyContent="center"
           alignItems="center"
         >
@@ -92,7 +93,7 @@ function Login() {
             justifyContent="center"
             alignItems="center"
           >
-            <Heading color="teal.400">WALTZ</Heading>
+            <Heading color={colorList.secondary}>WALTZ</Heading>
             <p>Daily Budget and Expense Manager</p>
             <br />
             <Box minW={{ base: "90%", md: "468px" }}>
@@ -100,7 +101,7 @@ function Login() {
                 <Stack
                   spacing={4}
                   p="1rem"
-                  backgroundColor="whiteAlpha.900"
+                  bg={colorList.component}
                   boxShadow="md"
                 >
                   <FormControl>
@@ -111,7 +112,7 @@ function Login() {
                       />
                       <Input
                         type="text"
-                        placeholder="Email address or Username"
+                        placeholder="Email or Username"
                         value={loginCredentials}
                         onChange={handleLoginCredChange}
                       />
@@ -136,10 +137,11 @@ function Login() {
                     {/* </FormHelperText> */}
                   </FormControl>
                   <Button
-                    borderRadius={0}
+                    borderRadius={10}
                     type="submit"
                     variant="solid"
-                    colorScheme="teal"
+                    bg={colorList.primary}
+                    color={colorList.secondary}
                     width="full"
                     form="login-form"
                   >
@@ -147,9 +149,10 @@ function Login() {
                   </Button>
                   <p>or</p>
                   <Button
-                    borderRadius={0}
+                    borderRadius={10}
                     variant="solid"
-                    colorScheme="teal"
+                    bg={colorList.primary}
+                    color={colorList.secondary}
                     width="full"
                     onClick={googleLogin}
                   >
