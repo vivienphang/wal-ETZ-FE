@@ -101,9 +101,9 @@ export async function updateProfile(
     username,
     currency,
   };
-  let updateUsername: AxiosResponse;
+  let updateUserProfile: AxiosResponse;
   try {
-    updateUsername = await axios.post(
+    updateUserProfile = await axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/users/updateProfile/`,
       updateData,
       config
@@ -117,10 +117,43 @@ export async function updateProfile(
   }
 
   return {
-    userAction: { type: ACTIONS.SET, payload: updateUsername.data.data.user },
+    userAction: {
+      type: ACTIONS.SET,
+      payload: updateUserProfile.data,
+    },
     exchangeRateAction: {
       type: ACTIONS.SET,
-      payload: updateUsername.data.data.exchangeRate,
+      payload: updateUserProfile.data.data.exchangeRate,
+    },
+  };
+}
+export async function updateCurrency(defaultCurrency: string, token: string) {
+  console.log("running update currency");
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const updateCurrency = { defaultCurrency };
+  let newCurrency: AxiosResponse;
+  try {
+    newCurrency = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateCurrencyOnly`,
+      updateCurrency,
+      config
+    );
+    console.log("newCurrency:", newCurrency);
+  } catch (err) {
+    return {
+      userAction: { type: ACTIONS.ERROR },
+      exchangeRateAction: { type: ACTIONS.ERROR },
+    };
+  }
+  console.log(newCurrency.data);
+  return {
+    userAction: {
+      type: ACTIONS.SET,
+      payload: newCurrency.data.data.updateCurrencyOnly,
+    },
+    exchangeRateAction: {
+      type: ACTIONS.SET,
+      payload: newCurrency.data.data.exchangeRate,
     },
   };
 }

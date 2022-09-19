@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
-import { Box, Button, Heading, HStack, VStack } from "@chakra-ui/react";
-// import { useNavigate } from "react-router-dom";
+import { Box, Button, Center, Heading, HStack, Flex } from "@chakra-ui/react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { AccountsContext, UserContext } from "../provider/GlobalProvider";
 import ProfilePic from "../atoms/ProfilePic";
 import ProfileForm from "../atoms/UserName";
 import { resetState } from "../reducers/userReducer";
+import NoficationPermission from "../components/notificationPerm";
+import colorList from "../constants/colorList";
 
 export default function Settings() {
   const { userState, userDispatch } = useContext(UserContext);
   const { accountsDispatch } = useContext(AccountsContext);
-  // const navigate = useNavigate();
+
   const handleLogout = async () => {
     const backEndUrl = process.env.REACT_APP_BACKEND_URL;
     console.log("LOGGING OUT");
@@ -21,28 +22,53 @@ export default function Settings() {
   };
 
   return (
-    <Box>
-      <VStack display="flex" alignItems="center">
-        <Heading p="2px" as="h3" size="md">
-          Hello,
-          {"\u00a0\u00a0"}
-          {userState?.username}!
-        </Heading>
-        <br />
-        <HStack>
+    <Flex
+      display="flex"
+      h="95%"
+      alignItems="center"
+      justifyContent="space-between"
+      flexDirection="column"
+    >
+      <Box display="flex" alignItems="center" flexDirection="column">
+        <Center>
+          <Heading p="2px" as="h3" size="md">
+            Hello,
+            {"\u00a0\u00a0"}
+            {userState?.username}!
+          </Heading>
+        </Center>
+        <HStack mt={5}>
           <br />
           <ProfilePic />
         </HStack>
         <br />
-        <HStack justify="space-around">
+        <HStack>
           <ProfileForm />
         </HStack>
-        <Button colorScheme="teal" onClick={handleLogout}>
-          Logout
-          {"\u00a0\u00a0"}
-          <Box as={FaSignOutAlt} />
-        </Button>
-      </VStack>
-    </Box>
+        <HStack>
+          <NoficationPermission />
+        </HStack>
+      </Box>
+      <Button
+        bg={colorList.buttonPrimary}
+        onClick={handleLogout}
+        borderRadius="md"
+        color={colorList.drawerModal}
+        _hover={{
+          bg: colorList.component,
+          color: colorList.textColor,
+        }}
+        _active={{
+          bg: colorList.buttonSecondary,
+          color: colorList.textColor,
+        }}
+        width="full"
+        form="login-form"
+      >
+        Logout
+        {"\u00a0\u00a0"}
+        <Box as={FaSignOutAlt} />
+      </Button>
+    </Flex>
   );
 }
