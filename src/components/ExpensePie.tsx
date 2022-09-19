@@ -5,6 +5,7 @@ import { Box } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 // Import records data
 import { EIPieChartPropInterface } from "../types/propInterface";
+import colorList from "../constants/colorList";
 
 Chart.register(...registerables);
 // Getting accountState
@@ -75,14 +76,7 @@ function ExpensePie(props: EIPieChartPropInterface) {
             {
               label: "Expense",
               data: expenseCat,
-              backgroundColor: [
-                "#7D1128",
-                "#B15050",
-                "#ED8282",
-                "#F7CACA",
-                "#B15468",
-                "#BA0000",
-              ],
+              backgroundColor: colorList.pieChartColorArr,
             },
           ],
         }}

@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 
 import { EIPieChartPropInterface } from "../types/propInterface";
+import colorList from "../constants/colorList";
 
 Chart.register(...registerables);
 Chart.defaults.scale.grid.display = false;
@@ -81,7 +82,7 @@ export default function LineChart(props: EIPieChartPropInterface) {
             {
               label: "Balance Data",
               data: lineData,
-              backgroundColor: "#50a36c",
+              backgroundColor: colorList.moneyGreen,
             },
           ],
         }}
@@ -95,8 +96,8 @@ export default function LineChart(props: EIPieChartPropInterface) {
               // creates curves on the line
               tension: 0.5,
               // Changes the color of the line
-              borderColor: "#50a36c",
               borderWidth: 7,
+              borderColor: colorList.moneyGreen,
             },
           },
           scales: {

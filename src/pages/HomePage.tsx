@@ -194,8 +194,14 @@ function HomePage() {
           <Heading fontSize="sm" color={colorList.textColor}>
             Total Current Balance:
           </Heading>
-          <Text fontSize="4xl" as="i" color={colorList.textColor}>
-            {`${accSymbol} ${Number(totalSum.toFixed(2)).toLocaleString()}`}
+          <Text
+            fontSize="4xl"
+            as="i"
+            color={totalSum > 0 ? colorList.moneyGreen : colorList.moneyRed}
+          >
+            {`${accSymbol} ${Math.abs(
+              Number(totalSum.toFixed(2))
+            ).toLocaleString()}`}
           </Text>
         </Box>
       </Center>

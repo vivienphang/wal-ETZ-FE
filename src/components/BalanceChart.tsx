@@ -5,6 +5,7 @@ import { Chart, registerables } from "chart.js";
 // eslint-disable-next-line import/extensions
 // Take data from homePage records array
 import { EIPieChartPropInterface } from "../types/propInterface";
+import colorList from "../constants/colorList";
 
 Chart.register(...registerables);
 // Removing grid lines for bar chart
@@ -39,12 +40,18 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
     <div>
       <Bar
         data={{
-          labels: ["income", "expense"],
+          labels: [""],
           datasets: [
             {
-              label: "Income & Expense",
-              data: [income, expense],
-              backgroundColor: ["#50a36c", "#FF0000"],
+              label: "Income",
+              data: [income],
+              backgroundColor: [colorList.moneyGreen],
+              borderRadius: 10,
+            },
+            {
+              label: "Expense",
+              data: [expense],
+              backgroundColor: [colorList.moneyRed],
               borderRadius: 10,
             },
           ],

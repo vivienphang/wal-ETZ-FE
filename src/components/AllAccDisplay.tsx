@@ -72,8 +72,13 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
           id={account._id}
         >
           <Text fontSize="xl">{account.accName}</Text>
-          <Text fontSize="xl" as="i">
-            {account.accCurrency}:{Math.abs(balance).toFixed(2)}
+          <Text
+            fontSize="xl"
+            as="i"
+            color={balance < 0 ? "#F56565" : "#48BB78"}
+          >
+            {account.accCurrency}:
+            {Math.abs(Number(balance.toFixed(2))).toLocaleString()}
           </Text>
         </Box>
       </SwiperSlide>
