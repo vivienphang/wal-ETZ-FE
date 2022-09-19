@@ -266,13 +266,30 @@ export default function ViewRecord(props: viewRecordPropInterface) {
                 type="submit"
                 disabled={!enableEdit}
                 bg={colorList.buttonPrimary}
-                color="white"
+                color={colorList.drawerModal}
+                _hover={{
+                  bg: colorList.component,
+                  color: colorList.textColor,
+                }}
+                _active={{
+                  bg: colorList.buttonSecondary,
+                  color: colorList.textColor,
+                }}
               >
                 Edit
               </Button>
               <Button
                 disabled={!enableEdit}
                 bg={colorList.buttonSecondary}
+                color={colorList.drawerModal}
+                _hover={{
+                  bg: colorList.component,
+                  color: colorList.textColor,
+                }}
+                _active={{
+                  bg: colorList.buttonPrimary,
+                  color: colorList.drawerModal,
+                }}
                 onClick={handleDelete}
               >
                 Delete
@@ -282,7 +299,15 @@ export default function ViewRecord(props: viewRecordPropInterface) {
               <Button
                 onClick={photoOnOpen}
                 bg={colorList.buttonPrimary}
-                color="white"
+                color={colorList.drawerModal}
+                _hover={{
+                  bg: colorList.component,
+                  color: colorList.textColor,
+                }}
+                _active={{
+                  bg: colorList.buttonSecondary,
+                  color: colorList.textColor,
+                }}
               >
                 View Receipt
               </Button>
@@ -309,7 +334,19 @@ export default function ViewRecord(props: viewRecordPropInterface) {
             />
           </ModalBody>
           <ModalFooter>
-            <Button onClick={photoOnClose} bg={colorList.buttonSecondary}>
+            <Button
+              onClick={photoOnClose}
+              bg={colorList.buttonSecondary}
+              color={colorList.textColor}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonPrimary,
+                color: colorList.drawerModal,
+              }}
+            >
               Close
             </Button>
           </ModalFooter>

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import {
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -72,33 +71,35 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
           onClick={settingAcc}
           id={account._id}
         >
-          <Text fontSize="3xl">{account.accName}</Text>
-          <Text fontSize="3xl" as="i">
-            {account.accCurrency}:{Math.abs(balance).toFixed(2)}
+          <Text fontSize="xl">{account.accName}</Text>
+          <Text
+            fontSize="xl"
+            as="i"
+            color={balance < 0 ? "#F56565" : "#48BB78"}
+          >
+            {account.accCurrency}:
+            {Math.abs(Number(balance.toFixed(2))).toLocaleString()}
           </Text>
         </Box>
       </SwiperSlide>
     );
   });
-
+  // py={5} px={4}
   return (
-    <Box className="carouselContainer" py={5} px={4}>
+    <Box className="carouselContainer">
       <Swiper
         className="hpContainer"
         spaceBetween={50}
-        slidesPerView={3}
+        slidesPerView={2}
         centeredSlides
+        centeredSlidesBounds
+        height={15}
       >
         {accountList}
         <SwiperSlide className="accCard">
-          <Button
-            onClick={onOpen}
-            size="xl"
-            bg="#ffffeb"
-            padding="25px 25px 25px 25px"
-          >
-            Create Account
-          </Button>
+          <Box onClick={onOpen} bg="#ffffeb">
+            <Text fontSize="xl">Create Account</Text>
+          </Box>
         </SwiperSlide>
       </Swiper>
 

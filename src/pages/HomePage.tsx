@@ -88,7 +88,7 @@ function HomePage() {
       if (chosenAcc === "") {
         setCurrentAcc(initAccountState);
         setRecs(initialRecs);
-        setAccName("All Accounts");
+        setAccName("");
         return;
       }
       if (account._id === chosenAcc) {
@@ -154,7 +154,7 @@ function HomePage() {
           px={4}
           borderRadius="xl"
           w="90%"
-          h="80%"
+          h="20vh"
           bg={colorList.component}
         >
           <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
@@ -173,10 +173,12 @@ function HomePage() {
           bg={colorList.component}
         >
           <Heading fontSize="sm" color={colorList.textColor}>
-            Account:
+            Currently Selected Account:
           </Heading>
           <Text fontSize="4xl" as="i" color={colorList.textColor}>
-            {accName}
+            {accName
+              ? `${accName} (${currentAcc.accCurrency})`
+              : `All accounts (${userState?.defaultCurrency})`}
           </Text>
         </Box>
       </Center>
@@ -192,8 +194,14 @@ function HomePage() {
           <Heading fontSize="sm" color={colorList.textColor}>
             Total Current Balance:
           </Heading>
-          <Text fontSize="4xl" as="i" color={colorList.textColor}>
-            {`${accSymbol} ${Number(totalSum.toFixed(2)).toLocaleString()}`}
+          <Text
+            fontSize="4xl"
+            as="i"
+            color={totalSum > 0 ? colorList.moneyGreen : colorList.moneyRed}
+          >
+            {`${accSymbol} ${Math.abs(
+              Number(totalSum.toFixed(2))
+            ).toLocaleString()}`}
           </Text>
         </Box>
       </Center>
