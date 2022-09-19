@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 // Import records data
 import { EIPieChartPropInterface } from "../types/propInterface";
@@ -68,19 +68,29 @@ function ExpensePie(props: EIPieChartPropInterface) {
 
   return (
     <Box>
-      <h1>Expense Pie</h1>
-      <Pie
-        data={{
-          labels: labelNames,
-          datasets: [
-            {
-              label: "Expense",
-              data: expenseCat,
-              backgroundColor: colorList.pieChartColorArr,
-            },
-          ],
-        }}
-      />
+      <Heading fontSize="lg" color={colorList.textColor}>
+        Expense
+      </Heading>
+      {expenseCat.length === 0 ? (
+        <div>
+          <Heading>No data to display</Heading>
+        </div>
+      ) : (
+        <div>
+          <Pie
+            data={{
+              labels: labelNames,
+              datasets: [
+                {
+                  label: "Expense",
+                  data: expenseCat,
+                  backgroundColor: colorList.pieChartColorArr,
+                },
+              ],
+            }}
+          />
+        </div>
+      )}
     </Box>
   );
 }

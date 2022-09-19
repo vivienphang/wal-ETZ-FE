@@ -53,9 +53,9 @@ body {
   background-color: #ffffeb;
 }
 
-.accCard:hover {
-  /* transform: translateY(-1rem); */
-}
+/* .accCard:hover {
+  transform: translateY(-1rem);
+} */
 .accCard:hover ~ .accCard {
   transform: translateX(130px);
 }

@@ -57,6 +57,12 @@ export default function BalanceChart(props: EIPieChartPropInterface) {
           ],
         }}
         options={{
+          plugins: {
+            title: {
+              display: true,
+              text: "Income and Expense",
+            },
+          },
           indexAxis: "y",
           responsive: true,
         }}
