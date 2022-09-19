@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import randomColor from "randomcolor";
 // eslint-disable-next-line import/first, import/extensions
 import { EIPieChartPropInterface } from "../types/propInterface";
 
@@ -18,17 +17,8 @@ export default function IncomePie(props: EIPieChartPropInterface) {
   // An array of only expenses
   const categorySplit: any = {};
 
-  const colorList = () => {
-    const colorArr: any[] = [];
-    for (let i = 0; i < recs!.length; i += 1) {
-      const randomCol = randomColor();
-      colorArr.push(randomCol);
-    }
-    return colorArr;
-  };
-
   useEffect(() => {
-    // Set the expenseRecs from recs
+    // Set the incomeRecs from recs
     const arr: any[] = [];
     recs!.map((rec) => {
       if (!rec.isExpense) {
@@ -58,20 +48,21 @@ export default function IncomePie(props: EIPieChartPropInterface) {
     // Change the labelNames and datasets.data
     const labelData = Object.keys(categorySplit);
     setLabelNames(labelData);
-    // Logic to render the graphs based on expenseRecs
+    // Logic to render the graphs based on incomeRecs
     // Take categorySplit and map for each category
     const valueArr = Object.values(categorySplit);
     // Adding all the expenses based on category
-    const data = valueArr.map((cat) => {
+    const data = valueArr.map((cat: any) => {
       let catAmount = 0;
       cat.map((rec: { amount: number }) => {
-        catAmount += rec.amount;
+        catAmount += Number(rec.amount);
         return null;
       });
       return catAmount;
     });
     setIncomeCat(data);
   }, [incomeRecs]);
+
   return (
     <div>
       <h1>Income Pie</h1>
@@ -82,7 +73,14 @@ export default function IncomePie(props: EIPieChartPropInterface) {
             {
               label: "Income",
               data: incomeCat,
-              backgroundColor: colorList(),
+              backgroundColor: [
+                "#48BB78",
+                "#254D32",
+                "#79CBB1",
+                "#5AC409",
+                "#38C77B",
+                "#A7E678",
+              ],
             },
           ],
         }}

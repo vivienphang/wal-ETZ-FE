@@ -15,17 +15,16 @@ import {
 } from "@chakra-ui/react";
 import currencyList from "../constants/currencyList";
 import { AccountsContext, UserContext } from "../provider/GlobalProvider";
+import colorList from "../constants/colorList";
 
 export default function InitAccount() {
-  // todo: style this bit
   const navigate = useNavigate();
   const { userState } = useContext(UserContext);
   const { accountsState } = useContext(AccountsContext);
 
   const [fadeIn, setFadeIn] = useState(false);
-  const [balanceInputErr, setBalanceInputErr] = useState(false);
-  const [accNameInputErr, setAccNameInputErr] = useState(false);
-  const [globalInputErr, setGlobalInputErr] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("spacer");
+  const [inputErr, setInputErr] = useState(false);
 
   const [accName, setAccName] = useState("");
   const [accCurrency, setAccCurrency] = useState("");
@@ -36,9 +35,10 @@ export default function InitAccount() {
   ) => {
     e.preventDefault();
     if (!accName || !accCurrency || !balance) {
-      setGlobalInputErr(true);
+      setInputErr(true);
+      setErrorMsg("Please enter initial balance and currency!");
       setTimeout(() => {
-        setGlobalInputErr(false);
+        setInputErr(false);
       }, 2500);
     } else {
       setFadeIn(false);
@@ -78,21 +78,22 @@ export default function InitAccount() {
     setAccCurrency(value);
   };
 
-  // Account Name
   const handleAccNameChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { value } = e.target;
-    // Checks for a-z A-Z 0-9 _-
     const sanitization = value.trim().match(/[A-Za-z0-9\-_]*/);
     const sanitizedValue = sanitization ? sanitization[0] : "";
     if (value !== sanitizedValue) {
-      setAccNameInputErr(true);
+      setInputErr(true);
+      setErrorMsg(
+        "only alphanumeric characters, underscores(_) and dashes(-) are allowed!"
+      );
       setTimeout(() => {
-        setAccNameInputErr(false);
+        setInputErr(false);
       }, 2500);
     } else {
-      setAccNameInputErr(false);
+      setInputErr(false);
       setAccName(value);
     }
   };
@@ -100,18 +101,18 @@ export default function InitAccount() {
   const handleBalanceChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // check via regex
     const { value } = e.target;
     const sanitization = value.trim().match(/\d*(\.\d{0,2})?/);
     const sanitizedValue = sanitization ? sanitization[0] : "";
 
     if (value !== sanitizedValue) {
-      setBalanceInputErr(true);
+      setInputErr(true);
+      setErrorMsg("Please enter your input in the format of -111.23-");
       setTimeout(() => {
-        setBalanceInputErr(false);
+        setInputErr(false);
       }, 2500);
     } else {
-      setBalanceInputErr(false);
+      setInputErr(false);
       setBalance(sanitizedValue);
     }
   };
@@ -132,33 +133,39 @@ export default function InitAccount() {
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"
+        bg={colorList.drawerModal}
         p="5"
         transition="0.8s linear"
         className={fadeIn ? "show" : "hide"}
       >
-        <Heading fontSize="3xl">Get started with Waltz!</Heading>
-        <Text fontSize="xl">Your personalized money manager!</Text>
-        <Text fontSize="xl">Create your first account!</Text>
+        <Heading fontSize="3xl" color={colorList.textColor}>
+          Get started with Aureus!
+        </Heading>
+        <Text fontSize="xl" color={colorList.textColor}>
+          Your personalized money manager!
+        </Text>
+        <Text fontSize="xl" color={colorList.textColor}>
+          Create your first account!
+        </Text>
         <br />
         <form onSubmit={submitHandler}>
           <FormControl>
-            <FormLabel>Account Name</FormLabel>
+            <Center>
+              <FormLabel my={2} color={colorList.textColor}>
+                Account Name
+              </FormLabel>
+            </Center>
             <Input
               name="accName"
               onChange={handleAccNameChange}
               value={accName}
-              isInvalid={accNameInputErr}
               disabled={!fadeIn}
             />
-            <FormHelperText
-              className={accNameInputErr ? "show" : "hide"}
-              transition="0.8s linear"
-              color="red"
-            >
-              only alphanumeric characters, underscores(_) and dashes(-) are
-              allowed!
-            </FormHelperText>
-            <FormLabel>Currency</FormLabel>
+            <Center>
+              <FormLabel my={2} color={colorList.textColor}>
+                Currency
+              </FormLabel>
+            </Center>
             <Select
               name="accCurrency"
               onChange={handleCurrencyChange}
@@ -175,31 +182,33 @@ export default function InitAccount() {
                 </option>
               ))}
             </Select>
-            <FormLabel>Initial Balance</FormLabel>
+            <Center>
+              <FormLabel my={2} color={colorList.textColor}>
+                Initial Balance
+              </FormLabel>
+            </Center>
             <Input
               name="balance"
               onChange={handleBalanceChange}
               value={balance}
-              isInvalid={balanceInputErr}
               disabled={!fadeIn}
             />
             <FormHelperText
-              className={balanceInputErr ? "show" : "hide"}
+              className={inputErr ? "show" : "hide"}
               transition="0.8s linear"
               color="red"
             >
-              Please enter your input in the format of &lsquo;111.23&rsquo;
+              {errorMsg}
             </FormHelperText>
-            <Button type="submit" m="5">
+            <Button
+              bg={colorList.buttonPrimary}
+              color="white"
+              type="submit"
+              mb={2}
+              mt={4}
+            >
               Start managing your 💲!
             </Button>
-            <FormHelperText
-              className={globalInputErr ? "show" : "hide"}
-              transition="0.8s linear"
-              color="red"
-            >
-              Please enter initial balance and currency!
-            </FormHelperText>
           </FormControl>
         </form>
       </Box>
