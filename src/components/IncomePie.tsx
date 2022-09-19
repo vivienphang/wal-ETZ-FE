@@ -5,6 +5,7 @@ import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 // eslint-disable-next-line import/first, import/extensions
 import { EIPieChartPropInterface } from "../types/propInterface";
+import colorList from "../constants/colorList";
 
 Chart.register(...registerables);
 // Import data from records in homepage array
@@ -73,14 +74,7 @@ export default function IncomePie(props: EIPieChartPropInterface) {
             {
               label: "Income",
               data: incomeCat,
-              backgroundColor: [
-                "#48BB78",
-                "#254D32",
-                "#79CBB1",
-                "#5AC409",
-                "#38C77B",
-                "#A7E678",
-              ],
+              backgroundColor: colorList.pieChartColorArr,
             },
           ],
         }}
