@@ -154,7 +154,7 @@ function HomePage() {
           px={4}
           borderRadius="xl"
           w="90%"
-          h="80%"
+          h="20vh"
           bg={colorList.component}
         >
           <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />

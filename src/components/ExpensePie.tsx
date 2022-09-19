@@ -47,10 +47,8 @@ function ExpensePie(props: EIPieChartPropInterface) {
 
   useEffect(() => {
     // Change the labelNames and datasets.data
-    console.log("categorySplit", categorySplit);
     const labelData = Object.keys(categorySplit);
     setLabelNames(labelData);
-    console.log("labelData", labelData);
     // A summary of the three category amounts
     // Logic to render the graphs based on expenseRecs
     // Take categorySplit and map for each category
@@ -60,9 +58,7 @@ function ExpensePie(props: EIPieChartPropInterface) {
       console.log(cat);
       let catAmount = 0;
       cat.map((rec: { amount: number }) => {
-        console.log(rec);
         catAmount += Number(rec.amount);
-        console.log(catAmount);
         return null;
       });
       return catAmount;

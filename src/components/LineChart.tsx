@@ -96,6 +96,7 @@ export default function LineChart(props: EIPieChartPropInterface) {
               // creates curves on the line
               tension: 0.5,
               // Changes the color of the line
+              borderWidth: 7,
               borderColor: colorList.moneyGreen,
             },
           },

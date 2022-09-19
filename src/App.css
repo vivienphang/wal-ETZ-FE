@@ -21,34 +21,40 @@ body {
   flex-direction: column;
 }
 
-.hpContainer {
-  max-width: 90vw;
-  min-height: 50px;
-  background-color: #ffffeb;
-  border-radius: 25px;
-  box-shadow: 2px 2px 5px #333;
-}
-
 .homePage {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 20px;
-  padding-left: 25px;
+  padding-top: 5%;
+  padding-left: 5%;
+}
+.carouselContainer {
+  height: 99%;
+  border-radius: 15px;
+  background-color: #e4ccb0;
+}
+
+.hpContainer {
+  height: 99%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .accCard {
   display: flex;
-  position: relative;
-  flex-direction: column;
-  height: 30px;
-  border-radius: 16px;
-  box-shadow: -1rem 0 3rem rgb(85, 82, 82);
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  /* border-radius: 16px; */
+  box-shadow: -1rem 0 2rem rgb(122, 122, 122);
+  /* border: 1px solid #a78d7c; */
   transition: 0.2s;
-  overflow-y: visible;
+  background-color: #ffffeb;
 }
+
 .accCard:hover {
-  transform: translateY(-1rem);
+  /* transform: translateY(-1rem); */
 }
 .accCard:hover ~ .accCard {
   transform: translateX(130px);

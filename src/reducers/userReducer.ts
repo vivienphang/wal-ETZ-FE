@@ -30,6 +30,28 @@ export function resetState() {
   return { type: ACTIONS.RESET };
 }
 
+export async function updateUsername(usernameChanged: string, token: string) {
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const updateUsername = { username: usernameChanged };
+  let newUsername: AxiosResponse;
+  try {
+    newUsername = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/users/updateUsernameOnly`,
+      updateUsername,
+      config
+    );
+    console.log("username:", newUsername, updateUsername);
+  } catch (err) {
+    return { type: ACTIONS.ERROR };
+  }
+  const { defaultCurrency, email, username, profilePicture, _id } =
+    newUsername!.data.data;
+  return {
+    type: ACTIONS.SET,
+    payload: { defaultCurrency, email, username, profilePicture, _id },
+  };
+}
+
 export async function uploadPicture(file: any, token: string) {
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const formData = new FormData();

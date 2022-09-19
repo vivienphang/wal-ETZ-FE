@@ -7,21 +7,24 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Select,
   Switch,
+  Center,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import { ExchangeRateContext, UserContext } from "../provider/GlobalProvider";
-import { updateProfile } from "../reducers/globalAction";
+import { updateCurrency, updateProfile } from "../reducers/globalAction";
+import { updateUsername } from "../reducers/userReducer";
+import currencyList from "../constants/currencyList";
 import ACTIONS from "../reducers/actions";
+import colorList from "../constants/colorList";
 
 axios.defaults.withCredentials = true;
 
 export default function ProfileForm() {
   const { userState, userDispatch } = useContext(UserContext);
   const { exchangeRateDispatch } = useContext(ExchangeRateContext);
-  const navigate = useNavigate();
   const [username, setUsername] = useState(userState?.username);
-  const [currency, setCurrency] = useState(userState?.defaultCurrency);
+  const [accCurrency, setAccCurrency] = useState(userState?.defaultCurrency);
   const [errorMessage, setErrorMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -29,56 +32,91 @@ export default function ProfileForm() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => setUsername(event.target.value);
 
-  const handleCurrencyChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => setCurrency(event.target.value);
+  const handleCurrency: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { value } = e.target;
+    setAccCurrency(value);
+  };
 
-  // Error handlers if username
-  // i. is empty
-  // ii. submitted is identical to initial state
-  // iii. already exists in DB
+  const handleSwitch = () => {
+    setIsEditing(!isEditing);
+    setAccCurrency(userState?.defaultCurrency!);
+    console.log(!isEditing);
+  };
+
   const handleUpdateBtn: React.FormEventHandler<HTMLFormElement> = async (
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     console.log("update button clicked");
+    const token = localStorage.getItem("token");
+    // handling error messages and conditions:
+    // i. username is empty
     if (!username) {
       setErrorMessage("Username is required.");
       return;
     }
-    if (username === userState?.username) {
-      setErrorMessage("Choose another username.");
-      return;
-    }
-    const token = localStorage.getItem("token");
-    const action = await updateProfile(username, currency!, token!);
-    userDispatch!(action.userAction);
-    exchangeRateDispatch!(action.exchangeRateAction);
+    if (
+      accCurrency !== userState?.defaultCurrency &&
+      username !== userState?.username
+    ) {
+      const action = await updateProfile(username, accCurrency!, token!);
+      userDispatch!(action.userAction);
+      exchangeRateDispatch!(action.exchangeRateAction);
+      // set timeout to notify success
 
-    if (action.userAction.type === ACTIONS.ERROR) {
-      setErrorMessage("Username no longer available.");
-      return;
+      if (action.userAction.type === ACTIONS.ERROR) {
+        setErrorMessage("Username no longer available.");
+      }
+      // eslint-disable-next-line brace-style
     }
-    navigate("/home");
-  };
-
-  const handleSwitch = () => {
-    setIsEditing(!isEditing);
+    // ii. username has changed, run update username
+    else if (username !== userState?.username) {
+      const action = await updateUsername(username, token!);
+      userDispatch!(action!);
+      // username unique by default, try-catch backend sends error
+      if (action.type === ACTIONS.ERROR) {
+        setErrorMessage("Choose another username.");
+      }
+    } else if (accCurrency !== userState?.defaultCurrency) {
+      const action = await updateCurrency(accCurrency!, token!);
+      exchangeRateDispatch!(action.exchangeRateAction);
+    }
+    handleSwitch();
   };
 
   return (
     <div>
-      <FormControl display="flex" alignItems="end">
-        <FormLabel htmlFor="allow-edit" mb="0">
-          Update profile?
-        </FormLabel>
-        <Switch size="md" id="allow-edit" onChange={handleSwitch} />
+      <FormControl>
+        <Box display="flex" justifyContent="center">
+          <FormLabel htmlFor="allow-edit" mb="0">
+            Update profile?
+          </FormLabel>
+
+          <Switch
+            size="md"
+            id="allow-edit"
+            isChecked={isEditing}
+            onChange={handleSwitch}
+          />
+        </Box>
       </FormControl>
       <br />
-      <Box w="100%" p={3} borderWidth="2px" borderRadius="lg" bg="gray.100">
+
+      <Box
+        w="100%"
+        p={3}
+        borderWidth="2px"
+        borderRadius="lg"
+        borderColor={colorList.component}
+        bg={colorList.alternateRowColor}
+      >
         <form onSubmit={handleUpdateBtn}>
           <FormControl>
-            <FormLabel>Username:</FormLabel>
+            <Center>
+              <FormLabel>Username:</FormLabel>
+            </Center>
             <Input
               type="text"
               value={username}
@@ -87,28 +125,46 @@ export default function ProfileForm() {
             />
             <br />
           </FormControl>
-          <FormControl>
-            <FormLabel>Default currency:</FormLabel>
-            <Input
-              type="text"
-              value={currency}
-              onChange={handleCurrencyChange}
-              disabled={!isEditing}
-            />
-          </FormControl>
           <br />
+          <Center>
+            <FormLabel>Default currency:</FormLabel>
+          </Center>
+          <Select
+            name="defaultCurrency"
+            onChange={handleCurrency}
+            value={accCurrency}
+            disabled={!isEditing}
+          >
+            {currencyList.map((currency) => (
+              <option key={currency.currencyAbbv} value={currency.currencyAbbv}>
+                {currency.currencyName}
+              </option>
+            ))}
+          </Select>
           <FormControl>
             <FormHelperText>{errorMessage}</FormHelperText>
           </FormControl>
-          <Button
-            display="flex"
-            alignItems="center"
-            colorScheme="teal"
-            type="submit"
-            disabled={!isEditing}
-          >
-            Update
-          </Button>
+          <br />
+          <Center>
+            <Button
+              bg={colorList.buttonPrimary}
+              borderRadius="md"
+              color={colorList.drawerModal}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonSecondary,
+                color: colorList.textColor,
+              }}
+              width="full"
+              type="submit"
+              disabled={!isEditing}
+            >
+              Update
+            </Button>
+          </Center>
         </form>
       </Box>
     </div>
