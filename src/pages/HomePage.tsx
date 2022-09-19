@@ -131,14 +131,14 @@ function HomePage() {
   useEffect(() => {
     const filterAcc = (currency: currencyInterface) => {
       if (!currentAcc.accCurrency) {
-        return accountsState![0].accCurrency === currency.currencyAbbv;
+        return userState!.defaultCurrency === currency.currencyAbbv;
       }
       return currentAcc.accCurrency === currency.currencyAbbv;
     };
-    if (!accountsState) {
+    if (!userState) {
       return;
     }
-    if (!accountsState.length) {
+    if (!userState.defaultCurrency) {
       return;
     }
     const chosenAcc = currencyList.filter(filterAcc);
@@ -172,8 +172,10 @@ function HomePage() {
           w="90%"
           bg={colorList.component}
         >
-          <Heading fontSize="sm">Account:</Heading>
-          <Text fontSize="4xl" as="i">
+          <Heading fontSize="sm" color={colorList.textColor}>
+            Account:
+          </Heading>
+          <Text fontSize="4xl" as="i" color={colorList.textColor}>
             {accName}
           </Text>
         </Box>
