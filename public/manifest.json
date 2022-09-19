@@ -1,15 +1,15 @@
 {
-  "short_name": "Wal-ETZ",
-  "name": "Wall-ETZ Money Manager",
+  "short_name": "Aureus",
+  "name": "Aureus Money Manager",
   "icons": [
     {
-      "src": "/images/logo.png",
+      "src": "/images/aureus.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/images/d.png",
+      "src": "/images/aureus.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"

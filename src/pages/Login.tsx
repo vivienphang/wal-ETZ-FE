@@ -14,6 +14,7 @@ import {
   InputLeftElement,
   Stack,
   Text,
+  Image,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import Signup from "./Signup";
@@ -94,6 +95,13 @@ function Login() {
             justifyContent="center"
             alignItems="center"
           >
+            <Heading>
+              <Image
+                borderRadius="20px"
+                src="./images/aureus.png"
+                alt="Aureus Logo"
+              />
+            </Heading>
             <Heading color={colorList.alternateRowColor}>AUREUS</Heading>
             <Text color={colorList.textColor}>
               Daily Budget and Expense Manager
