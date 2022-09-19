@@ -99,7 +99,12 @@ function Login() {
               Daily Budget and Expense Manager
             </Text>
             <br />
-            <Box minW={{ base: "90%", md: "468px" }}>
+            <Box
+              borderRadius="md"
+              borderWidth="2px"
+              borderColor={colorList.drawerModal}
+              minW={{ base: "90%", md: "468px" }}
+            >
               <form id="login-form" onSubmit={submitLoginBtn}>
                 <Stack
                   spacing={4}
@@ -137,7 +142,7 @@ function Login() {
                     </InputGroup>
                   </FormControl>
                   <Button
-                    borderRadius={10}
+                    borderRadius="md"
                     type="submit"
                     variant="solid"
                     bg={colorList.buttonPrimary}
@@ -157,7 +162,7 @@ function Login() {
                   </Button>
                   <p>or</p>
                   <Button
-                    borderRadius={10}
+                    borderRadius="md"
                     variant="solid"
                     bg={colorList.buttonPrimary}
                     color={colorList.drawerModal}

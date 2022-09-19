@@ -88,68 +88,85 @@ export default function ProfileForm() {
 
   return (
     <div>
-      <Center>
-        <FormControl display="flex" alignItems="end">
+      <FormControl>
+        <Box display="flex" justifyContent="center">
           <FormLabel htmlFor="allow-edit" mb="0">
             Update profile?
           </FormLabel>
+
           <Switch
             size="md"
             id="allow-edit"
             isChecked={isEditing}
             onChange={handleSwitch}
           />
-        </FormControl>
-      </Center>
+        </Box>
+      </FormControl>
       <br />
 
-      <Center>
-        <Box w="100%" p={3} borderWidth="2px" borderRadius="lg" bg="gray.100">
-          <form onSubmit={handleUpdateBtn}>
-            <FormControl>
-              <FormLabel>Username:</FormLabel>
-              <Input
-                type="text"
-                value={username}
-                onChange={handleUsernameChange}
-                disabled={!isEditing}
-              />
-              <br />
-            </FormControl>
-            <br />
+      <Box
+        w="100%"
+        p={3}
+        borderWidth="2px"
+        borderRadius="lg"
+        borderColor={colorList.component}
+        bg={colorList.alternateRowColor}
+      >
+        <form onSubmit={handleUpdateBtn}>
+          <FormControl>
             <Center>
-              <FormLabel>Default currency:</FormLabel>
+              <FormLabel>Username:</FormLabel>
             </Center>
-            <Select
-              name="defaultCurrency"
-              onChange={handleCurrency}
-              value={accCurrency}
+            <Input
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
               disabled={!isEditing}
-            >
-              {currencyList.map((currency) => (
-                <option
-                  key={currency.currencyAbbv}
-                  value={currency.currencyAbbv}
-                >
-                  {currency.currencyName}
-                </option>
-              ))}
-            </Select>
-            <FormControl>
-              <FormHelperText>{errorMessage}</FormHelperText>
-            </FormControl>
+            />
+            <br />
+          </FormControl>
+          <br />
+          <Center>
+            <FormLabel>Default currency:</FormLabel>
+          </Center>
+          <Select
+            name="defaultCurrency"
+            onChange={handleCurrency}
+            value={accCurrency}
+            disabled={!isEditing}
+          >
+            {currencyList.map((currency) => (
+              <option key={currency.currencyAbbv} value={currency.currencyAbbv}>
+                {currency.currencyName}
+              </option>
+            ))}
+          </Select>
+          <FormControl>
+            <FormHelperText>{errorMessage}</FormHelperText>
+          </FormControl>
+          <br />
+          <Center>
             <Button
-              display="flex"
-              alignItems="center"
               bg={colorList.buttonPrimary}
+              borderRadius="md"
+              color={colorList.drawerModal}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonSecondary,
+                color: colorList.textColor,
+              }}
+              width="full"
               type="submit"
               disabled={!isEditing}
             >
               Update
             </Button>
-          </form>
-        </Box>
-      </Center>
+          </Center>
+        </form>
+      </Box>
     </div>
   );
 }
