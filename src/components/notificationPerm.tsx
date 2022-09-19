@@ -32,7 +32,7 @@ function notification() {
     // use let as this will change
     const notificationOpts = {
       body: `Hello, ${userState?.username}! You've enabled notifications.`,
-      icon: "./images/logo.png",
+      icon: "./images/aureus.png",
     };
     // give logic for notifications
     new Notification("New Notification", notificationOpts);
