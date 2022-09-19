@@ -87,7 +87,7 @@ export default function ProfileForm() {
     <div>
       <FormControl>
         <Box display="flex" justifyContent="center">
-          <FormLabel htmlFor="allow-edit" mb="0">
+          <FormLabel htmlFor="allow-edit" mb="0" color={colorList.textColor}>
             Update profile?
           </FormLabel>
 
@@ -105,14 +105,14 @@ export default function ProfileForm() {
         w="100%"
         p={3}
         borderWidth="2px"
-        borderRadius="lg"
+        borderRadius="md"
         borderColor={colorList.component}
         bg={colorList.alternateRowColor}
       >
         <form onSubmit={handleUpdateBtn}>
           <FormControl>
             <Center>
-              <FormLabel>Username:</FormLabel>
+              <FormLabel color={colorList.textColor}>Username:</FormLabel>
             </Center>
             <Input
               type="text"
@@ -124,7 +124,7 @@ export default function ProfileForm() {
           </FormControl>
           <br />
           <Center>
-            <FormLabel>Default currency:</FormLabel>
+            <FormLabel color={colorList.textColor}>Default currency:</FormLabel>
           </Center>
           <Select
             name="defaultCurrency"

@@ -67,29 +67,27 @@ function ExpensePie(props: EIPieChartPropInterface) {
   }, [expenseRecs]);
 
   return (
-    <Box>
+    <Box my={3}>
       <Heading fontSize="lg" color={colorList.textColor}>
         Expense
       </Heading>
       {expenseCat.length === 0 ? (
-        <div>
-          <Heading>No data to display</Heading>
-        </div>
+        <Heading my={5} fontSize="lg">
+          No data to display
+        </Heading>
       ) : (
-        <div>
-          <Pie
-            data={{
-              labels: labelNames,
-              datasets: [
-                {
-                  label: "Expense",
-                  data: expenseCat,
-                  backgroundColor: colorList.pieChartColorArr,
-                },
-              ],
-            }}
-          />
-        </div>
+        <Pie
+          data={{
+            labels: labelNames,
+            datasets: [
+              {
+                label: "Expense",
+                data: expenseCat,
+                backgroundColor: colorList.pieChartColorArr,
+              },
+            ],
+          }}
+        />
       )}
     </Box>
   );

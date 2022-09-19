@@ -27,7 +27,7 @@ import {
 import React, { useState, useEffect, useContext } from "react";
 import CategoryList from "../atoms/CategoryList";
 import AccountList from "../components/AccountList";
-import { addRecord } from "../reducers/accountReducer";
+import { addRecord, addRecordNoPhoto } from "../reducers/accountReducer";
 import { addRecordInterface } from "../types/accountReducerInterface";
 import { AccountsContext } from "../provider/GlobalProvider";
 import { addRecordPropInterface } from "../types/propInterface";
@@ -59,7 +59,7 @@ export default function AddRecord(props: addRecordPropInterface) {
   const [data, setData] = useState<addRecordInterface>(initData);
   const [formError, setFormError] = useState(false);
   const [isPhotoUploaded, setIsPhotoUploaded] = useState<File>(
-    new File([""], "filename")
+    new File([""], "nophoto")
   );
 
   const handleToggleExpense = () => {
@@ -109,7 +109,11 @@ export default function AddRecord(props: addRecordPropInterface) {
 
     console.log(token);
     console.log(data);
-    accountsDispatch!(await addRecord({ ...data, token }, isPhotoUploaded));
+    if (isPhotoUploaded.name !== "nophoto") {
+      accountsDispatch!(await addRecord({ ...data, token }, isPhotoUploaded));
+    } else {
+      accountsDispatch!(await addRecordNoPhoto({ ...data, token }));
+    }
     onClose();
   };
 

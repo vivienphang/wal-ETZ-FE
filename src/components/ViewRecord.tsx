@@ -324,7 +324,7 @@ export default function ViewRecord(props: viewRecordPropInterface) {
         motionPreset="slideInBottom"
       >
         <ModalOverlay />
-        <ModalContent bg="#FFFFEB">
+        <ModalContent bg={colorList.drawerModal}>
           <ModalHeader color={colorList.textColor}>Receipt</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
