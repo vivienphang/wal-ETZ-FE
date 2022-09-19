@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Checkbox } from "@chakra-ui/react";
 import { UserContext } from "../provider/GlobalProvider";
-// import colorList from "../constants/colorList";
+import colorList from "../constants/colorList";
 
 function notification() {
   const { userState } = useContext(UserContext);
@@ -64,7 +64,12 @@ function notification() {
   }, [check]);
 
   return (
-    <Checkbox isChecked={check} onChange={handlePermissionCheck} p={6}>
+    <Checkbox
+      isChecked={check}
+      onChange={handlePermissionCheck}
+      p={6}
+      color={colorList.textColor}
+    >
       Allow notifications
     </Checkbox>
   );

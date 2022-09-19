@@ -85,7 +85,9 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
             justifyContent="center"
             alignItems="center"
           >
-            <Heading fontSize="md">{account.accName}</Heading>
+            <Heading fontSize="md" color={colorList.textColor}>
+              {account.accName}
+            </Heading>
           </Box>
           <Box
             w="100%"
@@ -96,7 +98,9 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
             justifyContent="center"
             alignItems="center"
           >
-            <Text fontSize="sm">{selectedCurrency.currencyAbbv}</Text>
+            <Text fontSize="sm" color={colorList.textColor}>
+              {selectedCurrency.currencyAbbv}
+            </Text>
           </Box>
           <Box
             w="100%"
@@ -113,7 +117,6 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
       </SwiperSlide>
     );
   });
-  // py={5} px={4}
   return (
     <Box className="carouselContainer">
       <Swiper
@@ -134,7 +137,9 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
             alignItems="center"
             alignContent="center"
           >
-            <Text fontSize="xl">New Account</Text>
+            <Text fontSize="xl" color={colorList.textColor}>
+              New Account
+            </Text>
           </Box>
         </SwiperSlide>
       </Swiper>

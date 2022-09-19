@@ -47,7 +47,7 @@ body {
   align-items: center;
   align-content: center;
   /* border-radius: 16px; */
-  box-shadow: -1rem 0 2rem rgb(122, 122, 122);
+  box-shadow: -1rem 0 2rem #a78d7c;
   /* border: 1px solid #a78d7c; */
   transition: 0.2s;
   background-color: #faf5f0;

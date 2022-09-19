@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 // eslint-disable-next-line import/first, import/extensions
@@ -66,29 +66,27 @@ export default function IncomePie(props: EIPieChartPropInterface) {
   }, [incomeRecs]);
 
   return (
-    <div>
-      <Heading fontSize="lg" size="2xl" color={colorList.textColor}>
+    <Box my={3}>
+      <Heading fontSize="lg" color={colorList.textColor}>
         Income
       </Heading>
       {incomeCat.length === 0 ? (
-        <div>
-          <Heading>No data to display</Heading>
-        </div>
+        <Heading my={5} fontSize="lg">
+          No data to display
+        </Heading>
       ) : (
-        <div>
-          <Pie
-            data={{
-              labels: labelNames,
-              datasets: [
-                {
-                  label: "Income",
-                  data: incomeCat,
-                  backgroundColor: colorList.pieChartColorArr,
-                },
-              ],
-            }}
-          />
-        </div>
+        <Pie
+          data={{
+            labels: labelNames,
+            datasets: [
+              {
+                label: "Income",
+                data: incomeCat,
+                backgroundColor: colorList.pieChartColorArr,
+              },
+            ],
+          }}
+        />
       )}
       {/* <Pie
         data={{
@@ -102,6 +100,6 @@ export default function IncomePie(props: EIPieChartPropInterface) {
           ],
         }}
       /> */}
-    </div>
+    </Box>
   );
 }
