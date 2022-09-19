@@ -9,6 +9,7 @@ import {
   useDisclosure,
   Box,
   Text,
+  Heading,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { EffectCube, Pagination } from "swiper/core";
@@ -22,6 +23,8 @@ import "swiper/swiper.min.css";
 import "swiper/components/effect-cube/effect-cube.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import colorList from "../constants/colorList";
+import currencyList from "../constants/currencyList";
+import { currencyInterface } from "../types/constantInterface";
 
 // install Swiper modules
 SwiperCore.use([EffectCube, Pagination]);
@@ -41,11 +44,6 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
     } else {
       setChosenAcc(e.currentTarget.id);
     }
-    // if (e.currentTarget.classList.contains("circle-sketch-highlight")) {
-    //   e.currentTarget.classList.remove("circle-sketch-highlight");
-    // } else {
-    //   e.currentTarget.classList.add("circle-sketch-highlight");
-    // }
   };
   // Get the current accBalance
 
@@ -63,6 +61,12 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
       }
       balance = inc - exp;
     });
+
+    const filterCurrency = (currency: currencyInterface) => {
+      return account.accCurrency === currency.currencyAbbv;
+    };
+
+    const selectedCurrency = currencyList.filter(filterCurrency)[0];
     return (
       <SwiperSlide key={account._id} className="accCard">
         <Box
@@ -70,16 +74,41 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
           key={account._id}
           onClick={settingAcc}
           id={account._id}
+          w="100%"
+          h="100%"
         >
-          <Text fontSize="xl">{account.accName}</Text>
-          <Text
-            fontSize="xl"
-            as="i"
-            color={balance < 0 ? "#F56565" : "#48BB78"}
+          <Box
+            w="100%"
+            h="50%"
+            display="flex"
+            alignContent="center"
+            justifyContent="center"
+            alignItems="center"
           >
-            {account.accCurrency}:
-            {Math.abs(Number(balance.toFixed(2))).toLocaleString()}
-          </Text>
+            <Heading fontSize="md">{account.accName}</Heading>
+          </Box>
+          <Box
+            w="100%"
+            bg={colorList.alternateRowColor}
+            h="30%"
+            display="flex"
+            alignContent="center"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text fontSize="sm">{selectedCurrency.currencyAbbv}</Text>
+          </Box>
+          <Box
+            w="100%"
+            h="20%"
+            color={balance < 0 ? colorList.moneyRed : colorList.moneyGreen}
+          >
+            <Text>
+              {`${selectedCurrency.currencySymbol} ${Math.abs(
+                Number(balance.toFixed(2))
+              ).toLocaleString()}`}
+            </Text>
+          </Box>
         </Box>
       </SwiperSlide>
     );
@@ -97,8 +126,15 @@ export default function AllAccDisplay(props: allAccDisplayPropInterface) {
       >
         {accountList}
         <SwiperSlide className="accCard">
-          <Box onClick={onOpen} bg="#ffffeb">
-            <Text fontSize="xl">Create Account</Text>
+          <Box
+            onClick={onOpen}
+            bg={colorList.drawerModal}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            alignContent="center"
+          >
+            <Text fontSize="xl">New Account</Text>
           </Box>
         </SwiperSlide>
       </Swiper>
