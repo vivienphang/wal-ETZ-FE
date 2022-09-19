@@ -87,6 +87,15 @@ export default function LineChart(props: EIPieChartPropInterface) {
           ],
         }}
         options={{
+          plugins: {
+            legend: {
+              display: false,
+            },
+            title: {
+              display: true,
+              text: "Total Balance",
+            },
+          },
           elements: {
             point: {
               // Makes the point radius 0 so it is one smooth line
