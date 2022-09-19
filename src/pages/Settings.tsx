@@ -62,7 +62,6 @@ export default function Settings() {
           bg: colorList.buttonSecondary,
           color: colorList.textColor,
         }}
-        width="full"
         form="login-form"
       >
         Logout

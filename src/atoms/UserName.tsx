@@ -155,7 +155,6 @@ export default function ProfileForm() {
                 bg: colorList.buttonSecondary,
                 color: colorList.textColor,
               }}
-              width="full"
               type="submit"
               disabled={!isEditing}
             >
