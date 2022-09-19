@@ -31,10 +31,9 @@ export default function Settings() {
     >
       <Box display="flex" alignItems="center" flexDirection="column">
         <Center>
-          <Heading p="2px" as="h3" size="md">
+          <Heading p="2px" as="h3" size="md" color={colorList.textColor}>
             Hello,
-            {"\u00a0\u00a0"}
-            {userState?.username}!
+            {` ${userState?.username}`}!
           </Heading>
         </Center>
         <HStack mt={5}>

@@ -152,7 +152,7 @@ function HomePage() {
           my={5}
           py={5}
           px={4}
-          borderRadius="xl"
+          borderRadius="md"
           w="90%"
           h="20vh"
           bg={colorList.component}
@@ -160,15 +160,28 @@ function HomePage() {
           <AllAccDisplay chosenAcc={chosenAcc} setChosenAcc={setChosenAcc} />
         </Box>
       </Center>
-      <Flex w="90%" flexDirection="row-reverse">
+      <Flex
+        w="100%"
+        flexDirection="row-reverse"
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
         <Filter filters={filters} setFilters={setFilters} />
+        <Box>
+          <Heading size="sm" color={colorList.component}>
+            Period:
+            {` ${DateTime.fromISO(filters.startDate).toFormat(
+              "LLL d, y"
+            )} - ${DateTime.fromISO(filters.endDate).toFormat("LLL d, y")}`}
+          </Heading>
+        </Box>
       </Flex>
       <Center>
         <Box
           my={2}
           py={5}
           px={4}
-          borderRadius="xl"
+          borderRadius="md"
           w="90%"
           bg={colorList.component}
         >
@@ -187,7 +200,7 @@ function HomePage() {
           my={2}
           py={5}
           px={4}
-          borderRadius="xl"
+          borderRadius="md"
           w="90%"
           bg={colorList.component}
         >
@@ -211,7 +224,7 @@ function HomePage() {
           my={2}
           py={5}
           px={4}
-          borderRadius="xl"
+          borderRadius="md"
           bg={colorList.component}
         >
           <LineChart recs={filteredRecs} />
@@ -223,7 +236,7 @@ function HomePage() {
           my={2}
           py={5}
           px={4}
-          borderRadius="xl"
+          borderRadius="md"
           bg={colorList.component}
         >
           <BalanceChart recs={filteredRecs} />
@@ -235,7 +248,7 @@ function HomePage() {
           my={2}
           py={5}
           px={4}
-          borderRadius="xl"
+          borderRadius="md"
           bg={colorList.component}
         >
           <EIPieChart recs={filteredRecs} />

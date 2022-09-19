@@ -90,6 +90,24 @@ export async function addRecord(data: addRecordInterface, photo: File) {
   };
 }
 
+export async function addRecordNoPhoto(data: addRecordInterface) {
+  const config = { headers: { Authorization: `Bearer ${data.token}` } };
+  let addingRecord: AxiosResponse;
+  try {
+    addingRecord = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/records/newRecord`,
+      { ...data },
+      config
+    );
+  } catch (err) {
+    return { type: ACTIONS.ERROR };
+  }
+  return {
+    type: ACTIONS.UPDATE,
+    payload: [addingRecord.data.data],
+  };
+}
+
 export async function editRecord(data: addRecordInterface, recId: string) {
   const config = { headers: { Authorization: `Bearer ${data.token}` } };
   let editRecord: AxiosResponse;
