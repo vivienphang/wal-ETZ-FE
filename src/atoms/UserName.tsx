@@ -48,7 +48,6 @@ export default function ProfileForm() {
     event: React.FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-    console.log("update button clicked");
     const token = localStorage.getItem("token");
     if (!username) {
       setErrorMessage("Username is required.");

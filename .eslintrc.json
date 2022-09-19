@@ -16,7 +16,7 @@
   "rules": {
     "arrow-body-style": "off",
     "comma-dangle": "off",
-    "no-console": "off",
+    "no-console": 2,
     "no-shadow": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off",

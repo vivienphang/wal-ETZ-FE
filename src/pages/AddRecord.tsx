@@ -106,9 +106,7 @@ export default function AddRecord(props: addRecordPropInterface) {
       return;
     }
     const token = localStorage.getItem("token");
-
-    console.log(token);
-    console.log(data);
+    accountsDispatch!(await addRecord({ ...data, token }, isPhotoUploaded));
     if (isPhotoUploaded.name !== "nophoto") {
       accountsDispatch!(await addRecord({ ...data, token }, isPhotoUploaded));
     } else {
@@ -123,10 +121,6 @@ export default function AddRecord(props: addRecordPropInterface) {
   useEffect(() => {
     setData({ ...data, acc });
   }, [acc]);
-
-  useEffect(() => {
-    console.log("useEffect:", isPhotoUploaded);
-  }, [isPhotoUploaded]);
 
   return (
     <div>

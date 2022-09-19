@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import { Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export default function OauthLoader() {
@@ -16,5 +17,14 @@ export default function OauthLoader() {
     })();
   });
 
-  return <div> loading for oauth</div>;
+  return (
+    <div>
+      <Image
+        boxSize="130px"
+        borderRadius="20px"
+        src="./images/aureus.png"
+        alt="Aureus Logo"
+      />
+    </div>
+  );
 }

@@ -55,7 +55,6 @@ function ExpensePie(props: EIPieChartPropInterface) {
     const valueArr = Object.values(categorySplit);
     // Adding all the expenses based on category
     const data = valueArr.map((cat: any) => {
-      console.log(cat);
       let catAmount = 0;
       cat.map((rec: { amount: number }) => {
         catAmount += Number(rec.amount);

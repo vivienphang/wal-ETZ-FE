@@ -21,6 +21,7 @@ export default function Camera(props: addPhotoUrlPropInterface) {
 
   const [hasPhoto, setHasPhoto] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const closeStream = () => {
     navigator.mediaDevices
       .getUserMedia({
@@ -35,6 +36,7 @@ export default function Camera(props: addPhotoUrlPropInterface) {
       })
       .catch((err) => {
         console.error(err);
+        return err;
       });
     onCameraClose!();
   };
@@ -60,7 +62,8 @@ export default function Camera(props: addPhotoUrlPropInterface) {
         video!.play();
       })
       .catch((err) => {
-        console.error(err);
+        // console.error(err);
+        return err;
       });
   };
 
@@ -84,7 +87,6 @@ export default function Camera(props: addPhotoUrlPropInterface) {
       type: "image/jpeg",
       lastModified: Date.now(),
     });
-    console.log(file);
     if (!file) {
       setErrorMessage("You need to select a file.");
       return;

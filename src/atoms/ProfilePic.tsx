@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Avatar, Center, HStack, Input, WrapItem } from "@chakra-ui/react";
 import { UserContext } from "../provider/GlobalProvider";
 import { uploadPicture } from "../reducers/userReducer";
+import colorList from "../constants/colorList";
 
 export default function UploadImage() {
   const { userState, userDispatch } = useContext(UserContext);
@@ -10,10 +11,7 @@ export default function UploadImage() {
   const handleFileInput = async (e: any) => {
     e.preventDefault();
     const file = e.target.files[0];
-    console.log(file);
     const token = localStorage.getItem("token");
-    const userId = userState?._id;
-    console.log("user id:", userId);
     if (!file) {
       setErrorMessage("You need to select a file.");
       return;
@@ -29,7 +27,7 @@ export default function UploadImage() {
           <WrapItem>
             <form>
               <Avatar
-                bg="teal.500"
+                bg={colorList.buttonPrimary}
                 size="xl"
                 name={
                   userState?.profilePicture
