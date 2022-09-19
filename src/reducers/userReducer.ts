@@ -46,6 +46,7 @@ export async function updateUsername(usernameChanged: string, token: string) {
   }
   const { defaultCurrency, email, username, profilePicture, _id } =
     newUsername!.data.data;
+  console.log(newUsername.data.data);
   return {
     type: ACTIONS.SET,
     payload: { defaultCurrency, email, username, profilePicture, _id },

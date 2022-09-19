@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
@@ -42,7 +42,6 @@ export default function ProfileForm() {
   const handleSwitch = () => {
     setIsEditing(!isEditing);
     setAccCurrency(userState?.defaultCurrency!);
-    console.log(!isEditing);
   };
 
   const handleUpdateBtn: React.FormEventHandler<HTMLFormElement> = async (
@@ -51,8 +50,6 @@ export default function ProfileForm() {
     event.preventDefault();
     console.log("update button clicked");
     const token = localStorage.getItem("token");
-    // handling error messages and conditions:
-    // i. username is empty
     if (!username) {
       setErrorMessage("Username is required.");
       return;
@@ -64,27 +61,27 @@ export default function ProfileForm() {
       const action = await updateProfile(username, accCurrency!, token!);
       userDispatch!(action.userAction);
       exchangeRateDispatch!(action.exchangeRateAction);
-      // set timeout to notify success
-
       if (action.userAction.type === ACTIONS.ERROR) {
         setErrorMessage("Username no longer available.");
       }
-      // eslint-disable-next-line brace-style
-    }
-    // ii. username has changed, run update username
-    else if (username !== userState?.username) {
+    } else if (username !== userState?.username) {
       const action = await updateUsername(username, token!);
       userDispatch!(action!);
-      // username unique by default, try-catch backend sends error
       if (action.type === ACTIONS.ERROR) {
         setErrorMessage("Choose another username.");
       }
     } else if (accCurrency !== userState?.defaultCurrency) {
       const action = await updateCurrency(accCurrency!, token!);
+      userDispatch!(action.userAction);
       exchangeRateDispatch!(action.exchangeRateAction);
     }
     handleSwitch();
   };
+
+  useEffect(() => {
+    setUsername(userState!.username);
+    setAccCurrency(userState!.defaultCurrency);
+  }, [userState]);
 
   return (
     <div>
