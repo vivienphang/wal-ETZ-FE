@@ -162,11 +162,15 @@ export default function Filter(props: filterPropInterface) {
         <form onSubmit={handleFormSubmit}>
           <ModalOverlay />
           <ModalContent bg={colorList.drawerModal}>
-            <ModalHeader>Filter Settings</ModalHeader>
+            <ModalHeader color={colorList.textColor}>
+              Filter Settings
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Center>
-                <FormLabel>Quick Date Select</FormLabel>
+                <FormLabel color={colorList.textColor}>
+                  Quick Date Select
+                </FormLabel>
               </Center>
               <Select
                 onChange={handleQuickSelect}
@@ -183,7 +187,9 @@ export default function Filter(props: filterPropInterface) {
               <Flex>
                 <Box w="49%" my={5} mr={1}>
                   <Center>
-                    <FormLabel>Start Date</FormLabel>
+                    <FormLabel color={colorList.textColor}>
+                      Start Date
+                    </FormLabel>
                   </Center>
                   <Input
                     placeholder="Select Start Date"
@@ -195,7 +201,7 @@ export default function Filter(props: filterPropInterface) {
                 </Box>
                 <Box w="49%" my={5} ml={1}>
                   <Center>
-                    <FormLabel>End Date</FormLabel>
+                    <FormLabel color={colorList.textColor}>End Date</FormLabel>
                   </Center>
                   <Input
                     placeholder="Select End Date"
@@ -210,7 +216,9 @@ export default function Filter(props: filterPropInterface) {
                 {filters.viewExpense !== undefined && (
                   <Box w="50%" my={2}>
                     <Center>
-                      <FormLabel>View Expense</FormLabel>
+                      <FormLabel color={colorList.textColor}>
+                        View Expense
+                      </FormLabel>
                       <br />
                       <Switch
                         isChecked={viewExpenseConfig}
@@ -223,7 +231,9 @@ export default function Filter(props: filterPropInterface) {
                 {filters.viewIncome !== undefined && (
                   <Box w="50%" my={2}>
                     <Center>
-                      <FormLabel>View Income</FormLabel>
+                      <FormLabel color={colorList.textColor}>
+                        View Income
+                      </FormLabel>
                       <br />
                       <Switch
                         isChecked={viewIncomeConfig}
@@ -237,7 +247,20 @@ export default function Filter(props: filterPropInterface) {
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} type="submit">
+              <Button
+                bg={colorList.buttonPrimary}
+                color={colorList.drawerModal}
+                _hover={{
+                  bg: colorList.component,
+                  color: colorList.textColor,
+                }}
+                _active={{
+                  bg: colorList.buttonSecondary,
+                  color: colorList.textColor,
+                }}
+                mr={3}
+                type="submit"
+              >
                 Filter Records
               </Button>
             </ModalFooter>

@@ -88,7 +88,7 @@ function HomePage() {
       if (chosenAcc === "") {
         setCurrentAcc(initAccountState);
         setRecs(initialRecs);
-        setAccName("All Accounts");
+        setAccName("");
         return;
       }
       if (account._id === chosenAcc) {
@@ -131,14 +131,14 @@ function HomePage() {
   useEffect(() => {
     const filterAcc = (currency: currencyInterface) => {
       if (!currentAcc.accCurrency) {
-        return accountsState![0].accCurrency === currency.currencyAbbv;
+        return userState!.defaultCurrency === currency.currencyAbbv;
       }
       return currentAcc.accCurrency === currency.currencyAbbv;
     };
-    if (!accountsState) {
+    if (!userState) {
       return;
     }
-    if (!accountsState.length) {
+    if (!userState.defaultCurrency) {
       return;
     }
     const chosenAcc = currencyList.filter(filterAcc);
@@ -172,9 +172,13 @@ function HomePage() {
           w="90%"
           bg={colorList.component}
         >
-          <Heading fontSize="sm">Account:</Heading>
-          <Text fontSize="4xl" as="i">
-            {accName}
+          <Heading fontSize="sm" color={colorList.textColor}>
+            Currently Selected Account:
+          </Heading>
+          <Text fontSize="4xl" as="i" color={colorList.textColor}>
+            {accName
+              ? `${accName} (${currentAcc.accCurrency})`
+              : `All accounts (${userState?.defaultCurrency})`}
           </Text>
         </Box>
       </Center>

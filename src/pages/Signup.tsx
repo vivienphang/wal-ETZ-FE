@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import colorList from "../constants/colorList";
 
 function Signup() {
   const navigate = useNavigate();
@@ -67,8 +68,15 @@ function Signup() {
 
   return (
     <>
-      <Button variant="ghost" onClick={onOpen}>
-        <Text>
+      <Button
+        variant="ghost"
+        bg={colorList.buttonPrimary}
+        color={colorList.drawerModal}
+        _hover={{ bg: colorList.component, color: colorList.textColor }}
+        _active={{ bg: colorList.buttonSecondary, color: colorList.textColor }}
+        onClick={onOpen}
+      >
+        <Text color={colorList.textColor}>
           <Highlight
             query="Sign up here!"
             styles={{ textDecoration: "underline" }}
@@ -80,26 +88,28 @@ function Signup() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader color={colorList.textColor}>
+            Create your account
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form id="new-form" onSubmit={handleSubmitBtn}>
               <FormControl isRequired isInvalid={isError}>
-                <FormLabel>Username</FormLabel>
+                <FormLabel color={colorList.textColor}>Username</FormLabel>
                 <Input
                   type="text"
                   value={username}
                   onChange={handleUsernameChange}
                   placeholder="Enter username"
                 />
-                <FormLabel>Email</FormLabel>
+                <FormLabel color={colorList.textColor}>Email</FormLabel>
                 <Input
                   type="email"
                   value={email}
                   onChange={handleEmailChange}
                   placeholder="Enter email address"
                 />
-                <FormLabel>Password</FormLabel>
+                <FormLabel color={colorList.textColor}>Password</FormLabel>
                 <Input
                   type="password"
                   value={password}
@@ -108,7 +118,17 @@ function Signup() {
                 />
               </FormControl>
               <br />
-              <Button form="new-form" colorScheme="teal" type="submit">
+              <Button
+                form="new-form"
+                bg={colorList.buttonPrimary}
+                color={colorList.drawerModal}
+                _hover={{ bg: colorList.component, color: colorList.textColor }}
+                _active={{
+                  bg: colorList.buttonSecondary,
+                  color: colorList.textColor,
+                }}
+                type="submit"
+              >
                 Submit
               </Button>
             </form>

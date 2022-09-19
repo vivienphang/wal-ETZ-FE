@@ -13,9 +13,11 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import Signup from "./Signup";
+import colorList from "../constants/colorList";
 
 axios.defaults.withCredentials = true;
 
@@ -82,7 +84,7 @@ function Login() {
           flexDirection="column"
           width="100wh"
           height="100vh"
-          backgroundColor="gray.200"
+          backgroundColor={colorList.primary}
           justifyContent="center"
           alignItems="center"
         >
@@ -92,22 +94,24 @@ function Login() {
             justifyContent="center"
             alignItems="center"
           >
-            <Heading color="teal.400">WALTZ</Heading>
-            <p>Daily Budget and Expense Manager</p>
+            <Heading color={colorList.alternateRowColor}>AUREUS</Heading>
+            <Text color={colorList.textColor}>
+              Daily Budget and Expense Manager
+            </Text>
             <br />
             <Box minW={{ base: "90%", md: "468px" }}>
               <form id="login-form" onSubmit={submitLoginBtn}>
                 <Stack
                   spacing={4}
                   p="1rem"
-                  backgroundColor="whiteAlpha.900"
+                  backgroundColor={colorList.drawerModal}
                   boxShadow="md"
                 >
                   <FormControl>
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<CFaUserAlt color="gray.300" />}
+                        children={<CFaUserAlt color={colorList.textColor} />}
                       />
                       <Input
                         type="text"
@@ -121,8 +125,8 @@ function Login() {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        color="gray.300"
-                        children={<CFaLock color="gray.300" />}
+                        color={colorList.textColor}
+                        children={<CFaLock color={colorList.textColor} />}
                       />
                       <Input
                         placeholder="Password"
@@ -131,15 +135,21 @@ function Login() {
                         onChange={handlePasswordChange}
                       />
                     </InputGroup>
-                    {/* <FormHelperText textAlign="right">
-                      {/* <Link>forgot password?</Link> */}
-                    {/* </FormHelperText> */}
                   </FormControl>
                   <Button
                     borderRadius={0}
                     type="submit"
                     variant="solid"
-                    colorScheme="teal"
+                    bg={colorList.buttonPrimary}
+                    color={colorList.drawerModal}
+                    _hover={{
+                      bg: colorList.component,
+                      color: colorList.textColor,
+                    }}
+                    _active={{
+                      bg: colorList.buttonSecondary,
+                      color: colorList.textColor,
+                    }}
                     width="full"
                     form="login-form"
                   >
@@ -149,7 +159,16 @@ function Login() {
                   <Button
                     borderRadius={0}
                     variant="solid"
-                    colorScheme="teal"
+                    bg={colorList.buttonPrimary}
+                    color={colorList.drawerModal}
+                    _hover={{
+                      bg: colorList.component,
+                      color: colorList.textColor,
+                    }}
+                    _active={{
+                      bg: colorList.buttonSecondary,
+                      color: colorList.textColor,
+                    }}
                     width="full"
                     onClick={googleLogin}
                   >

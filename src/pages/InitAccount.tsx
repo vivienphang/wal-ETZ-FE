@@ -23,7 +23,7 @@ export default function InitAccount() {
   const { accountsState } = useContext(AccountsContext);
 
   const [fadeIn, setFadeIn] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("spacer");
   const [inputErr, setInputErr] = useState(false);
 
   const [accName, setAccName] = useState("");
@@ -138,20 +138,34 @@ export default function InitAccount() {
         transition="0.8s linear"
         className={fadeIn ? "show" : "hide"}
       >
-        <Heading fontSize="3xl">Get started with Waltz!</Heading>
-        <Text fontSize="xl">Your personalized money manager!</Text>
-        <Text fontSize="xl">Create your first account!</Text>
+        <Heading fontSize="3xl" color={colorList.textColor}>
+          Get started with Aureus!
+        </Heading>
+        <Text fontSize="xl" color={colorList.textColor}>
+          Your personalized money manager!
+        </Text>
+        <Text fontSize="xl" color={colorList.textColor}>
+          Create your first account!
+        </Text>
         <br />
         <form onSubmit={submitHandler}>
           <FormControl>
-            <FormLabel>Account Name</FormLabel>
+            <Center>
+              <FormLabel my={2} color={colorList.textColor}>
+                Account Name
+              </FormLabel>
+            </Center>
             <Input
               name="accName"
               onChange={handleAccNameChange}
               value={accName}
               disabled={!fadeIn}
             />
-            <FormLabel>Currency</FormLabel>
+            <Center>
+              <FormLabel my={2} color={colorList.textColor}>
+                Currency
+              </FormLabel>
+            </Center>
             <Select
               name="accCurrency"
               onChange={handleCurrencyChange}
@@ -168,16 +182,17 @@ export default function InitAccount() {
                 </option>
               ))}
             </Select>
-            <FormLabel>Initial Balance</FormLabel>
+            <Center>
+              <FormLabel my={2} color={colorList.textColor}>
+                Initial Balance
+              </FormLabel>
+            </Center>
             <Input
               name="balance"
               onChange={handleBalanceChange}
               value={balance}
               disabled={!fadeIn}
             />
-            <Button type="submit" m="5">
-              Start managing your 💲!
-            </Button>
             <FormHelperText
               className={inputErr ? "show" : "hide"}
               transition="0.8s linear"
@@ -185,6 +200,23 @@ export default function InitAccount() {
             >
               {errorMsg}
             </FormHelperText>
+            <Button
+              bg={colorList.buttonPrimary}
+              color={colorList.drawerModal}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonSecondary,
+                color: colorList.textColor,
+              }}
+              type="submit"
+              mb={2}
+              mt={4}
+            >
+              Start managing your 💲!
+            </Button>
           </FormControl>
         </form>
       </Box>

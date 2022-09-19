@@ -102,7 +102,19 @@ export default function Camera(props: addPhotoUrlPropInterface) {
               size="50px"
               onClick={takePhoto}
             />
-            <Button onClick={closeStream} bg={colorList.buttonSecondary}>
+            <Button
+              onClick={closeStream}
+              bg={colorList.buttonSecondary}
+              color={colorList.textColor}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonPrimary,
+                color: colorList.drawerModal,
+              }}
+            >
               Close Camera
             </Button>
           </Center>
