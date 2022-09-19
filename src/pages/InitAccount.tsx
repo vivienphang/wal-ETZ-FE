@@ -202,7 +202,15 @@ export default function InitAccount() {
             </FormHelperText>
             <Button
               bg={colorList.buttonPrimary}
-              color="white"
+              color={colorList.drawerModal}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonSecondary,
+                color: colorList.textColor,
+              }}
               type="submit"
               mb={2}
               mt={4}

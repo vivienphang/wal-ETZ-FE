@@ -153,7 +153,15 @@ export default function AddAccount(props: addRecordPropInterface) {
       </FormHelperText>
       <Button
         bg={colorList.buttonPrimary}
-        color="white"
+        color={colorList.drawerModal}
+        _hover={{
+          bg: colorList.component,
+          color: colorList.textColor,
+        }}
+        _active={{
+          bg: colorList.buttonSecondary,
+          color: colorList.textColor,
+        }}
         mt={4}
         mb={2}
         type="submit"

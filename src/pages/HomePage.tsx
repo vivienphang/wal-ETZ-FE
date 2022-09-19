@@ -88,7 +88,7 @@ function HomePage() {
       if (chosenAcc === "") {
         setCurrentAcc(initAccountState);
         setRecs(initialRecs);
-        setAccName("All Accounts");
+        setAccName("");
         return;
       }
       if (account._id === chosenAcc) {
@@ -173,10 +173,12 @@ function HomePage() {
           bg={colorList.component}
         >
           <Heading fontSize="sm" color={colorList.textColor}>
-            Account:
+            Currently Selected Account:
           </Heading>
           <Text fontSize="4xl" as="i" color={colorList.textColor}>
-            {accName}
+            {accName
+              ? `${accName} (${currentAcc.accCurrency})`
+              : `All accounts (${userState?.defaultCurrency})`}
           </Text>
         </Box>
       </Center>
