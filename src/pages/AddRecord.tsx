@@ -214,8 +214,20 @@ export default function AddRecord(props: addRecordPropInterface) {
             </FormHelperText>
           </Center>
           <Center>
-            <FormLabel>Have a receipt?</FormLabel>
-            <Button bg={colorList.buttonSecondary} onClick={onCameraOpen}>
+            <FormLabel color={colorList.textColor}>Have a receipt?</FormLabel>
+            <Button
+              bg={colorList.buttonSecondary}
+              color={colorList.textColor}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonPrimary,
+                color: colorList.drawerModal,
+              }}
+              onClick={onCameraOpen}
+            >
               Add Photo
             </Button>
           </Center>
@@ -224,7 +236,15 @@ export default function AddRecord(props: addRecordPropInterface) {
             <Button
               type="submit"
               bg={colorList.buttonPrimary}
-              color="white"
+              color={colorList.drawerModal}
+              _hover={{
+                bg: colorList.component,
+                color: colorList.textColor,
+              }}
+              _active={{
+                bg: colorList.buttonSecondary,
+                color: colorList.textColor,
+              }}
               mt={2}
             >
               Create Record
