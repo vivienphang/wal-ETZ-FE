@@ -6,6 +6,9 @@ Aureus is a full stack app that helps users with their daily budgeting by tracki
 This app is best viewed in mobile version.
 
 > Note: This is the frontend repo. The backend repo can be found [here.](https://github.com/vivienphang/wal-ETZ-BE)
+## App Demo
+
+Link to Youtube demo [here](https://youtu.be/YyAHUT4NbMI).
 
 ## Tech Stack
 
